@@ -20,21 +20,33 @@ public class ShipMovementBasic : MonoBehaviour
     void Update()
     {
         float speedDelta = speed * Time.deltaTime;
-        if(Input.GetKey(up))
+
+
+        if (Input.GetKey(up) || Input.GetKey(down) || Input.GetKey(left) || Input.GetKey(right))
         {
-            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z+ speedDelta);
+            Vector3 direction = Vector3.zero;
+            if(Input.GetKey(up))
+            {
+                direction += new Vector3(0, 0, 1);
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + speedDelta);
+            }
+            if(Input.GetKey(down))
+            {
+                direction += new Vector3(0, 0, -1);
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - speedDelta);
+            }
+            if (Input.GetKey(left))
+            {
+                direction += new Vector3(-1, 0, 0);
+                this.transform.position = new Vector3(this.transform.position.x - speedDelta, this.transform.position.y, this.transform.position.z);
+            }
+            if (Input.GetKey(right))
+            {
+                direction += new Vector3(1, 0, 0);
+                this.transform.position = new Vector3(this.transform.position.x + speedDelta, this.transform.position.y, this.transform.position.z);
+            }
+            this.transform.forward = direction;
         }
-        if(Input.GetKey(down))
-        {
-            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - speedDelta);
-        }
-        if (Input.GetKey(left))
-        {
-            this.transform.position = new Vector3(this.transform.position.x - speedDelta, this.transform.position.y, this.transform.position.z);
-        }
-        if (Input.GetKey(right))
-        {
-            this.transform.position = new Vector3(this.transform.position.x + speedDelta, this.transform.position.y, this.transform.position.z);
-        }
+
     }
 }
