@@ -13,10 +13,10 @@ public class CastleShip : MonoBehaviour
     public float hoverHeight = 3.0f;
     public GameObject[] hoverPoints;
 
-    public UnityEvent OnActionA;
-    public UnityEvent OnActionB;
-    public UnityEvent OnActionC;
-    public UnityEvent OnActionD;
+    public OnCastleShipUseAction OnActionA;
+    public OnCastleShipUseAction OnActionB;
+    public OnCastleShipUseAction OnActionC;
+    public OnCastleShipUseAction OnActionD;
 
     private float currentThrust = 0.0f;
     private float currentTurn = 0.0f;
@@ -84,24 +84,30 @@ public class CastleShip : MonoBehaviour
     public void FireActionA()
     {
         Debug.Log("ActionA");
-        OnActionA?.Invoke();
+        OnActionA?.Invoke(this);
     }
 
     public void FireActionB()
     {
         Debug.Log("ActionB");
-        OnActionB?.Invoke();
+        OnActionB?.Invoke(this);
     }
 
     public void FireActionC()
     {
         Debug.Log("ActionC");
-        OnActionC?.Invoke();
+        OnActionC?.Invoke(this);
     }
 
     public void FireActionD()
     {
         Debug.Log("ActionD");
-        OnActionD?.Invoke();
+        OnActionD?.Invoke(this);
     }
+}
+
+[System.Serializable]
+public class OnCastleShipUseAction : UnityEvent<CastleShip>
+{
+
 }

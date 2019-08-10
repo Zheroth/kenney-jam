@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,7 +14,18 @@ public class Damageable : MonoBehaviour
     public UnityEvent OnHeal;
     public UnityEvent OnDeath;
 
+    public delegate void OnHPChanged(int currentHP, int maxHP, float hpPercentage);
+    public OnHPChanged onHpChanged;
+
     private int currentHP;
+
+    public float HealthPercentage
+    { get { return (float)currentHP / (float)maxHP; } }
+
+    public void Start()
+    {
+        ResetHP();
+    }
 
     public void TakeDamage(int damage)
     {
@@ -30,6 +42,10 @@ public class Damageable : MonoBehaviour
             }
 
             OnHit.Invoke();
+            if(onHpChanged != null)
+            {
+                onHpChanged(currentHP, maxHP, HealthPercentage);
+            }
 
             if (currentHP == 0)
             {
@@ -47,10 +63,18 @@ public class Damageable : MonoBehaviour
             currentHP = maxHP;
             OnHeal?.Invoke();
         }
+        if (onHpChanged != null)
+        {
+            onHpChanged(currentHP, maxHP, HealthPercentage);
+        }
     }
 
     public void ResetHP()
     {
         currentHP = maxHP;
+        if (onHpChanged != null)
+        {
+            onHpChanged(currentHP, maxHP, HealthPercentage);
+        }
     }
 }
