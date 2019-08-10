@@ -7,22 +7,20 @@ using UnityEngine.Experimental.PlayerLoop;
 
 public class Controllable : MonoBehaviour
 {
-    [SerializeField] private float acceleration = 10.0f;
-    [SerializeField] private float maxSpeed = 20.0f;
-    [SerializeField] private float breakSpeed = 20.0f;
-    [SerializeField] private float turnSpeed = 50.0f;
-
-    [SerializeField] private float hoverHeight = 1.5f;
-    [SerializeField] private float heightSmooth = 2.0f;
-    [SerializeField] private float pitchSmooth = 5.0f;
-
-    private Vector3 prevUp;
-    public float yaw;
-    private float smoothY;
-    private float currentSpeed;
-
     private Player playerRef;
-    private Vector3 moveVector;
+
+    private float deadZone = 0.1f;
+    public float forwardAcceleration = 1200.0f;
+    public float backwardAcceleration = 1200.0f;
+    private float currentThrust = 0.0f;
+
+    public float turnStrength = 10.0f;
+    private float currentTurn = 0.0f;
+
+    private int layerMask;
+    public float hoverForce = 5.0f;
+    public float hoverHeight = 3.0f;
+    public GameObject[] hoverPoints;
 
     private Rigidbody rigidbodyRef;
     public Rigidbody RigidbodyRef
@@ -47,7 +45,6 @@ public class Controllable : MonoBehaviour
     void Update()
     {
         GetInput();
-        //ProcessInput();
     }
 
     void FixedUpdate()
@@ -62,76 +59,61 @@ public class Controllable : MonoBehaviour
 
     private void GetInput()
     {
-        moveVector.x = playerRef.GetAxis("MoveHorizontal");
-        moveVector.z = playerRef.GetAxis("MoveVertical");
+        
+        Vector3 moveVector = new Vector3(playerRef.GetAxis("MoveHorizontal"),0,playerRef.GetAxis("MoveVertical"));
+        Debug.Log(moveVector);
+
+        //Main Thrust
+        currentThrust = 0.0f;
+        if (moveVector.z > deadZone)
+        {
+            currentThrust = moveVector.z * forwardAcceleration;
+        }else if (moveVector.z < deadZone)
+        {
+            currentThrust = moveVector.z * backwardAcceleration;
+        }
+
+        //Turning
+        currentTurn = 0.0f;
+        if (Mathf.Abs(moveVector.x) > deadZone)
+        {
+            currentTurn = moveVector.x;
+        }
     }
 
     private void ProcessInput()
     {
-        //Update speed
-        if(moveVector.z > Mathf.Epsilon)
-        {
-            if (currentSpeed < maxSpeed)
-            {
-                currentSpeed += acceleration * Time.deltaTime;
-            }
-        }else if (moveVector.z < -Mathf.Epsilon)
-        {
-            if (currentSpeed > -maxSpeed)
-            {
-                currentSpeed -= acceleration * Time.deltaTime;
-            }
-        }
-        else
-        {
-            if (currentSpeed > Mathf.Epsilon)
-            {
-                currentSpeed -= breakSpeed * Time.deltaTime;
-                if (currentSpeed < 0)
-                {
-                    currentSpeed = 0;
-                }
-            }else if (currentSpeed < Mathf.Epsilon)
-            {
-                currentSpeed += breakSpeed * Time.deltaTime;
-                if (currentSpeed > 0)
-                {
-                    currentSpeed = 0;
-                }
-            }else
-            {
-                currentSpeed = 0;
-            }
-        }
-
-        //Update yaw
-        yaw += turnSpeed * moveVector.x * Time.deltaTime;
-
-        prevUp = transform.up;
-        transform.rotation = Quaternion.Euler(0, yaw, 0);
-
-        Debug.DrawRay(transform.position+Vector3.up, -Vector3.up, Color.blue);
-
+        //Hover force
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, -Vector3.up, out hit))
+        for (int i = 0; i < hoverPoints.Length; i++)
         {
-            Debug.DrawLine(transform.position, hit.point);
-
-            //Calculate new up vector
-            //Vector3 newUp = Vector3.Lerp(prevUp, hit.normal, pitchSmooth * Time.deltaTime);
-
-            //Tilt angle
-            //Quaternion tilt = Quaternion.FromToRotation(transform.up, newUp);
-
-            //Apply to the ship
-            //transform.rotation = tilt * transform.rotation;
-
-            //Adjust height
-            smoothY = Mathf.Lerp(smoothY, hoverHeight - hit.distance, heightSmooth * Time.deltaTime);
-            transform.localPosition += prevUp * smoothY;
+            GameObject hoverPoint = hoverPoints[i];
+            if (Physics.Raycast(hoverPoint.transform.position, -Vector3.up, out hit, hoverHeight))
+            {
+                float hoverDistance = hit.distance / hoverHeight;
+                RigidbodyRef.AddForceAtPosition(Vector3.up * hoverForce * (1.0f - hoverDistance), hoverPoint.transform.position);
+            }
+            else
+            {
+                if (transform.position.y > hoverPoint.transform.position.y)
+                {
+                    RigidbodyRef.AddForceAtPosition(hoverPoint.transform.up * hoverForce, hoverPoint.transform.position);
+                }
+                else
+                {
+                    RigidbodyRef.AddForceAtPosition(hoverPoint.transform.up * -hoverForce, hoverPoint.transform.position);
+                }
+            }
         }
 
-        //Move ship forward
-        transform.position += transform.forward * (currentSpeed * Time.deltaTime);
+        if (Mathf.Abs(currentThrust) > 0)
+        {
+            RigidbodyRef.AddForce(transform.forward * currentThrust * Time.deltaTime);
+        }
+
+        if (currentTurn != 0)
+        {
+            RigidbodyRef.AddRelativeTorque(Vector3.up * currentTurn * turnStrength * Time.deltaTime);
+        }
     }
 }
