@@ -9,6 +9,12 @@ public class BallistaArrow : MonoBehaviour
     [SerializeField]
     private int damage;
 
+    void FixedUpdate()
+    {
+        if (rigidBody.velocity != Vector3.zero)
+            rigidBody.rotation = Quaternion.LookRotation(rigidBody.velocity);
+    }
+
     public void Shoot(float strength)
     {
         this.rigidBody.AddRelativeForce(this.transform.forward*strength, ForceMode.Impulse);
