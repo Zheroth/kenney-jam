@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Rewired;
 
+[RequireComponent(typeof(Damageable))]
 public class CastleShip : MonoBehaviour
 {
     public float forwardAcceleration = 1200.0f;
@@ -32,6 +33,20 @@ public class CastleShip : MonoBehaviour
             }
 
             return rigidbodyRef;
+        }
+    }
+
+    private Damageable damageableRef;
+    public Damageable DamageableRef
+    {
+        get
+        {
+            if (damageableRef == null)
+            {
+                damageableRef = GetComponent<Damageable>();
+            }
+
+            return damageableRef;
         }
     }
 
