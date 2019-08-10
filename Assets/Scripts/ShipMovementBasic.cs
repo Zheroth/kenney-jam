@@ -5,6 +5,9 @@ using UnityEngine;
 public class ShipMovementBasic : MonoBehaviour
 {
     [SerializeField]
+    private Damageable damageable;
+
+    [SerializeField]
     private KeyCode up = KeyCode.UpArrow;
     [SerializeField]
     private KeyCode down = KeyCode.DownArrow;
@@ -21,6 +24,10 @@ public class ShipMovementBasic : MonoBehaviour
     {
         float speedDelta = speed * Time.deltaTime;
 
+        if(Input.GetKey(KeyCode.Space))
+        {
+            damageable.TakeDamage(1);
+        }
 
         if (Input.GetKey(up) || Input.GetKey(down) || Input.GetKey(left) || Input.GetKey(right))
         {
