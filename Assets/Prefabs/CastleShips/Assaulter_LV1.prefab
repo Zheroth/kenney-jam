@@ -2833,6 +2833,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Catapult
       objectReference: {fileID: 0}
+    - target: {fileID: 2634390459597563355, guid: 49dd800ed7009164696eb56218e3d821,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2634390459597339131, guid: 49dd800ed7009164696eb56218e3d821,
         type: 3}
       propertyPath: m_LocalPosition.x

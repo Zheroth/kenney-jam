@@ -47,7 +47,8 @@ public class Catapult : MonoBehaviour
         CatapultBall catapultBall = GameObject.Instantiate(this.catapultBall);
         catapultBall.transform.position = this.shootPoint.position;
         catapultBall.transform.rotation = this.shootPoint.rotation;
+        //catapultBall.transform.position += this.controllable.RigidbodyRef.velocity * 0.2f;
         //catapultBall.transform.Rotate(0, Random.Range(-angleSpread, angleSpread), 0, Space.Self);
-        catapultBall.Shoot(shotStrength, this.controllable.RigidbodyRef.velocity);
+        catapultBall.Shoot(shotStrength, this.controllable.RigidbodyRef);
     }
 }

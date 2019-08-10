@@ -16,9 +16,12 @@ public class CatapultBall : MonoBehaviour
             rigidBody.rotation = Quaternion.LookRotation(rigidBody.velocity);
     }
 
-    public void Shoot(float strength, Vector3 inheritedVelocity)
+    public void Shoot(float strength, Rigidbody shipRigidbody)
     {
-        this.rigidBody.AddRelativeForce(this.transform.forward * (strength), ForceMode.Impulse);
+        Vector2 forcePos = this.transform.position;
+        forcePos.y = shipRigidbody.centerOfMass.y;
+        shipRigidbody.AddForce(-shipRigidbody.transform.forward * strength/2, ForceMode.Impulse);
+        this.rigidBody.AddForce(this.transform.forward * strength, ForceMode.Impulse);
     }
 
     private void OnTriggerEnter(Collider other)
