@@ -15,7 +15,7 @@ public class Catapult : MonoBehaviour
     [SerializeField]
     float angleSpread = 20;
     [SerializeField]
-    Controllable controllable;
+    CastleShip castleShip;
 
     private float cooldownTimer = 0;
 
@@ -48,6 +48,6 @@ public class Catapult : MonoBehaviour
         catapultBall.transform.position = this.shootPoint.position;
         catapultBall.transform.rotation = this.shootPoint.rotation;
         //catapultBall.transform.Rotate(0, Random.Range(-angleSpread, angleSpread), 0, Space.Self);
-        catapultBall.Shoot(shotStrength, this.controllable.RigidbodyRef.velocity);
+        catapultBall.Shoot(shotStrength, this.castleShip.RigidbodyRef.velocity);
     }
 }
