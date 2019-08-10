@@ -1982,10 +1982,11 @@ GameObject:
   m_Component:
   - component: {fileID: 944408922564401726}
   - component: {fileID: 944408922564401697}
-  - component: {fileID: 944408922564401699}
-  - component: {fileID: 944408922564401700}
-  - component: {fileID: 944408922564401696}
   - component: {fileID: 944408922564401698}
+  - component: {fileID: 9124634857832278237}
+  - component: {fileID: 944408922564401700}
+  - component: {fileID: 944408922564401699}
+  - component: {fileID: 944408922564401696}
   m_Layer: 8
   m_Name: Assaulter_LV1
   m_TagString: Untagged
@@ -2022,7 +2023,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.16, y: 1, z: 3}
   m_Center: {x: 0, y: 0.19, z: 0.5}
---- !u!114 &944408922564401699
+--- !u!54 &944408922564401698
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944408922564401701}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 2
+  m_AngularDrag: 2
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &9124634857832278237
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2031,11 +2048,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 944408922564401701}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeb3025d04595b248bdbeb3e0576240a, type: 3}
+  m_Script: {fileID: 11500000, guid: aa330f42cfaa0f24ca7c71e31fde78f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashColor: {r: 1, g: 0, b: 0, a: 1}
-  flashDuration: 0.5
+  forwardAcceleration: 1200
+  backwardAcceleration: 1200
+  turnStrength: 500
+  hoverForce: 5
+  hoverHeight: 3
+  hoverPoints:
+  - {fileID: 944408921518088814}
+  - {fileID: 944408921719872303}
+  - {fileID: 944408922637691205}
+  - {fileID: 944408922484007333}
+  OnActionA:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnActionB:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnActionC:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnActionD:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &944408922564401700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2081,6 +2126,20 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &944408922564401699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944408922564401701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb3025d04595b248bdbeb3e0576240a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.5
 --- !u!114 &944408922564401696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2093,32 +2152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7eaae60355b6814ebcbb8254e44ca17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardAcceleration: 1200
-  backwardAcceleration: 1200
-  turnStrength: 500
-  hoverForce: 5
-  hoverHeight: 3
-  hoverPoints:
-  - {fileID: 944408921518088814}
-  - {fileID: 944408921719872303}
-  - {fileID: 944408922637691205}
-  - {fileID: 944408922484007333}
---- !u!54 &944408922564401698
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944408922564401701}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 2
-  m_AngularDrag: 2
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &944408922637691205
 GameObject:
   m_ObjectHideFlags: 0
@@ -2833,11 +2866,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Catapult
       objectReference: {fileID: 0}
-    - target: {fileID: 2634390459597563355, guid: 49dd800ed7009164696eb56218e3d821,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2634390459597339131, guid: 49dd800ed7009164696eb56218e3d821,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2913,6 +2941,11 @@ PrefabInstance:
       propertyPath: controllable
       value: 
       objectReference: {fileID: 944408922564401696}
+    - target: {fileID: 7379784950063990412, guid: 49dd800ed7009164696eb56218e3d821,
+        type: 3}
+      propertyPath: castleShip
+      value: 
+      objectReference: {fileID: 9124634857832278237}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49dd800ed7009164696eb56218e3d821, type: 3}
 --- !u!4 &2098598437596105575 stripped
@@ -3008,6 +3041,11 @@ PrefabInstance:
       propertyPath: controllable
       value: 
       objectReference: {fileID: 944408922564401696}
+    - target: {fileID: 7379784950063990412, guid: 49dd800ed7009164696eb56218e3d821,
+        type: 3}
+      propertyPath: castleShip
+      value: 
+      objectReference: {fileID: 9124634857832278237}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49dd800ed7009164696eb56218e3d821, type: 3}
 --- !u!4 &8514993512274268257 stripped
