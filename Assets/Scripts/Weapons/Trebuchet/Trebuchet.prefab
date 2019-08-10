@@ -940,3 +940,6 @@ MonoBehaviour:
     type: 3}
   originPoint: {fileID: 601772907158385612}
   startPoint: {fileID: 2889020263709583886}
+  catapultBall: {fileID: 5883160102454034190, guid: f7dd0a20a247da04cb973b194c05c20e,
+    type: 3}
+  catapultBallsToSpawn: 10
