@@ -27,14 +27,9 @@ public class Ballista : MonoBehaviour
         {
             cooldownTimer -= Time.deltaTime;
         }
-
-        if(Input.GetKey(KeyCode.LeftShift))
-        {
-            TryFire();
-        }
     }
 
-    void TryFire()
+    public void TryFire(CastleShip castleShip, string actionID)
     {
         if(cooldownTimer <= 0)
         {

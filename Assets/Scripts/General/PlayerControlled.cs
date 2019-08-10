@@ -28,6 +28,14 @@ public class PlayerControlled : MonoBehaviour
         }
     }
 
+    public int PlayerID
+    {
+        get
+        {
+            return DEBUG_player;
+        }
+    }
+
     void Awake()
     {
         //DEBUG

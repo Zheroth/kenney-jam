@@ -25,16 +25,16 @@ public class Catapult : MonoBehaviour
         }
     }
 
-    public void TryFire(CastleShip castleShip)
+    public void TryFire(CastleShip castleShip, string actionID)
     {
         if (cooldownTimer <= 0)
         {
-            Fire(castleShip);
+            Fire(castleShip, actionID);
             cooldownTimer = 1 / shotsPerSecond;
         }
     }
 
-    void Fire(CastleShip castleShip)
+    void Fire(CastleShip castleShip, string actionID)
     {
         CatapultBall catapultBall = GameObject.Instantiate(this.catapultBall);
         catapultBall.transform.position = this.shootPoint.position;
