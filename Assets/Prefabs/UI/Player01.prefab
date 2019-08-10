@@ -103,9 +103,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cd1ceccfc9aa94fbbaee80c0ceeab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageable: {fileID: 0}
+  castleShip: {fileID: 0}
   healthBarImage: {fileID: 3669785821512981833}
   healthPercentage: {fileID: 4491112125081797667}
+  goldText: {fileID: 274864319799318769}
 --- !u!1 &1531516678521732733
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,11 @@ using Rewired;
 [RequireComponent(typeof(Damageable))]
 public class CastleShip : MonoBehaviour
 {
+    private int gold = 0;
+    public int Gold { get { return gold; } }
+    public delegate void OnGoldChanged(int gold);
+    public OnGoldChanged onGoldChanged;
+
     public float forwardAcceleration = 1200.0f;
     public float backwardAcceleration = 1200.0f;
     public float turnStrength = 10.0f;
@@ -18,6 +23,7 @@ public class CastleShip : MonoBehaviour
     public OnCastleShipUseAction OnActionB;
     public OnCastleShipUseAction OnActionC;
     public OnCastleShipUseAction OnActionD;
+
 
     private float currentThrust = 0.0f;
     private float currentTurn = 0.0f;
@@ -101,6 +107,22 @@ public class CastleShip : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Treasure treasure;
+        if(other.TryGetComponent<Treasure>(out treasure))
+        {
+            AddGold(treasure.Gold);
+            GameObject.Destroy(treasure.gameObject);
+        }
+    }
+
+    public void AddGold(int gold)
+    {
+        this.gold += gold;
+        onGoldChanged?.Invoke(this.gold);
     }
 
     public void SetCurrentThrust(float newThrust)

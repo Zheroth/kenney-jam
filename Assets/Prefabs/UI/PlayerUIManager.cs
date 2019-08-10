@@ -5,15 +5,21 @@ using UnityEngine;
 public class PlayerUIManager : MonoBehaviour
 {
     [SerializeField]
-    private Damageable damageable;
+    private CastleShip castleShip;
     [SerializeField]
     private UICombinedFilledImage healthBarImage;
     [SerializeField]
     private TMPro.TextMeshProUGUI healthPercentage;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI goldText;
 
     void Start()
     {
-        damageable.onHpChanged += OnHPChanged;
+        castleShip.DamageableRef.onHpChanged += OnHPChanged;
+        castleShip.onGoldChanged += OnGoldChanged;
+
+        SetHealthPer(castleShip.DamageableRef.HealthPercentage);
+        OnGoldChanged(castleShip.Gold);
     }
 
     private void SetHealthPer(float healthPer)
@@ -25,5 +31,10 @@ public class PlayerUIManager : MonoBehaviour
     private void OnHPChanged(int currentHealth, int maxHealth, float hpPercentage)
     {
         SetHealthPer(hpPercentage);
+    }
+
+    private void OnGoldChanged(int gold)
+    {
+        goldText.text = gold.ToString();
     }
 }
