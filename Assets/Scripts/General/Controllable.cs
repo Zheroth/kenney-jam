@@ -61,7 +61,6 @@ public class Controllable : MonoBehaviour
     {
         
         Vector3 moveVector = new Vector3(playerRef.GetAxis("MoveHorizontal"),0,playerRef.GetAxis("MoveVertical"));
-        Debug.Log(moveVector);
 
         //Main Thrust
         currentThrust = 0.0f;
