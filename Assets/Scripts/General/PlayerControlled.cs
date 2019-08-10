@@ -8,6 +8,8 @@ using UnityEngine.Experimental.PlayerLoop;
 [RequireComponent(typeof(CastleShip))]
 public class PlayerControlled : MonoBehaviour
 {
+    [SerializeField]
+    private int DEBUG_player = 0;
     private Player playerRef;
 
     private float deadZone = 0.1f;
@@ -29,7 +31,7 @@ public class PlayerControlled : MonoBehaviour
     void Awake()
     {
         //DEBUG
-        AssignPlayer(0);
+        AssignPlayer(DEBUG_player);
     }
 
     void Update()
