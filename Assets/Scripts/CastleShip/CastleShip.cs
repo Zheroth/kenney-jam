@@ -83,21 +83,25 @@ public class CastleShip : MonoBehaviour
 
     public void FireActionA()
     {
+        Debug.Log("ActionA");
         OnActionA?.Invoke();
     }
 
     public void FireActionB()
     {
+        Debug.Log("ActionB");
         OnActionB?.Invoke();
     }
 
     public void FireActionC()
     {
+        Debug.Log("ActionC");
         OnActionC?.Invoke();
     }
 
     public void FireActionD()
     {
+        Debug.Log("ActionD");
         OnActionD?.Invoke();
     }
 }
