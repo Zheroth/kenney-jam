@@ -8,20 +8,30 @@ public class GameManager : MonoSingleton<GameManager>
 {
     public Player[] playerArr = new Player[4];
 
+    public CastleShip castleShip;
+    public CastleShip castleShip2;
+
+    void Start()
+    {
+        castleShip.DamageableRef.OnDeath.AddListener(OnPlayerDeath);
+    }
+
     void Update()
     {
-        IList<Joystick> joystickLists = ReInput.controllers.Joysticks;
-        for (int i = 0; i < joystickLists.Count; i++)
+        for (int i = 0; i < 4; i++)
         {
-            if (joystickLists[i].GetAnyButtonDown())
-            {
-                SpawnPlayer(joystickLists[i].id);
-            }
+            ReInput.players.GetPlayers();
         }
     }
 
     public void SpawnPlayer(int playerId)
     {
         Debug.Log("Spawn player: "+playerId);
+
+    }
+
+    private void OnPlayerDeath()
+    {
+        Debug.Log("Player Died");
     }
 }
