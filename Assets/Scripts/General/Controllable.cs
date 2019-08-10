@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
 using Rewired.Data.Mapping;
+using UnityEngine.Experimental.PlayerLoop;
 
-public class PlayerControlled : MonoBehaviour
+public class Controllable : MonoBehaviour
 {
-    [SerializeField] private float acceleration = 100.0f;
-    [SerializeField] private float maxSpeed = 200.0f;
-    [SerializeField] private float breakSpeed = 200.0f;
+    [SerializeField] private float acceleration = 10.0f;
+    [SerializeField] private float maxSpeed = 20.0f;
+    [SerializeField] private float breakSpeed = 20.0f;
     [SerializeField] private float turnSpeed = 50.0f;
 
-    [SerializeField] private float hoverHeight = 3.0f;
-    [SerializeField] private float heightSmooth = 10.0f;
+    [SerializeField] private float hoverHeight = 1.5f;
+    [SerializeField] private float heightSmooth = 2.0f;
     [SerializeField] private float pitchSmooth = 5.0f;
 
     private Vector3 prevUp;
@@ -46,6 +47,11 @@ public class PlayerControlled : MonoBehaviour
     void Update()
     {
         GetInput();
+        //ProcessInput();
+    }
+
+    void FixedUpdate()
+    {
         ProcessInput();
     }
 
@@ -99,33 +105,26 @@ public class PlayerControlled : MonoBehaviour
         }
 
         //Update yaw
-        if (currentSpeed >= 0)
-        {
-            yaw += turnSpeed * moveVector.x * Time.deltaTime;
-        }
-        else
-        {
-            yaw -= turnSpeed * moveVector.x * Time.deltaTime;
-        }
+        yaw += turnSpeed * moveVector.x * Time.deltaTime;
 
         prevUp = transform.up;
         transform.rotation = Quaternion.Euler(0, yaw, 0);
 
-        Debug.DrawRay(transform.position+Vector3.up*0.1f, -prevUp, Color.blue);
+        Debug.DrawRay(transform.position+Vector3.up, -Vector3.up, Color.blue);
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position+Vector3.up*0.1f, -prevUp, out hit))
+        if (Physics.Raycast(transform.position, -Vector3.up, out hit))
         {
             Debug.DrawLine(transform.position, hit.point);
 
             //Calculate new up vector
-            Vector3 newUp = Vector3.Lerp(prevUp, hit.normal, pitchSmooth * Time.deltaTime);
+            //Vector3 newUp = Vector3.Lerp(prevUp, hit.normal, pitchSmooth * Time.deltaTime);
 
             //Tilt angle
-            Quaternion tilt = Quaternion.FromToRotation(transform.up, newUp);
+            //Quaternion tilt = Quaternion.FromToRotation(transform.up, newUp);
 
             //Apply to the ship
-            transform.rotation = tilt * transform.rotation;
+            //transform.rotation = tilt * transform.rotation;
 
             //Adjust height
             smoothY = Mathf.Lerp(smoothY, hoverHeight - hit.distance, heightSmooth * Time.deltaTime);
