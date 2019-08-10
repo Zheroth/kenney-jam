@@ -297,7 +297,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0bf7ef647d62e724d91a9dd3b1315248, type: 2}
+  - {fileID: 2100000, guid: 4a627d8833b29de4889b16bc4026a007, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1046,7 +1046,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0bf7ef647d62e724d91a9dd3b1315248, type: 2}
+  - {fileID: 2100000, guid: 4a627d8833b29de4889b16bc4026a007, type: 2}
   - {fileID: 2100000, guid: d6d6ac8b0effb5d438eb965d2b9a93e0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1521,7 +1521,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0bf7ef647d62e724d91a9dd3b1315248, type: 2}
+  - {fileID: 2100000, guid: 4a627d8833b29de4889b16bc4026a007, type: 2}
   - {fileID: 2100000, guid: d6d6ac8b0effb5d438eb965d2b9a93e0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1713,7 +1713,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0bf7ef647d62e724d91a9dd3b1315248, type: 2}
+  - {fileID: 2100000, guid: 4a627d8833b29de4889b16bc4026a007, type: 2}
   - {fileID: 2100000, guid: 8f512dd9f90fc3940a6625e492f60fe3, type: 2}
   - {fileID: 2100000, guid: df0665fb25fa0b148ab5fda04ba968f7, type: 2}
   - {fileID: 2100000, guid: 7290c56a1fb879847a4baf6623922759, type: 2}
@@ -2093,7 +2093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 958405d4a9ddc304a85d5dacf19e1f77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 0
+  maxHP: 50
   invulnerable: 0
   OnHit:
     m_PersistentCalls:
@@ -2152,6 +2152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7eaae60355b6814ebcbb8254e44ca17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG_player: 0
 --- !u!1 &944408922637691205
 GameObject:
   m_ObjectHideFlags: 0
@@ -2518,7 +2519,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: ab7f7360b5b715f4c883edad68700d29, type: 2}
-  - {fileID: 2100000, guid: 0bf7ef647d62e724d91a9dd3b1315248, type: 2}
+  - {fileID: 2100000, guid: 4a627d8833b29de4889b16bc4026a007, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2676,7 +2677,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0bf7ef647d62e724d91a9dd3b1315248, type: 2}
+  - {fileID: 2100000, guid: 4a627d8833b29de4889b16bc4026a007, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2938,14 +2939,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7379784950063990412, guid: 49dd800ed7009164696eb56218e3d821,
         type: 3}
-      propertyPath: controllable
-      value: 
-      objectReference: {fileID: 944408922564401696}
-    - target: {fileID: 7379784950063990412, guid: 49dd800ed7009164696eb56218e3d821,
-        type: 3}
       propertyPath: castleShip
       value: 
       objectReference: {fileID: 9124634857832278237}
+    - target: {fileID: 2634390459595569943, guid: 49dd800ed7009164696eb56218e3d821,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5fdd8207431d9a644b3e609342dd4ee0, type: 2}
+    - target: {fileID: 2634390459595569941, guid: 49dd800ed7009164696eb56218e3d821,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5fdd8207431d9a644b3e609342dd4ee0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49dd800ed7009164696eb56218e3d821, type: 3}
 --- !u!4 &2098598437596105575 stripped
@@ -3038,14 +3044,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7379784950063990412, guid: 49dd800ed7009164696eb56218e3d821,
         type: 3}
-      propertyPath: controllable
-      value: 
-      objectReference: {fileID: 944408922564401696}
-    - target: {fileID: 7379784950063990412, guid: 49dd800ed7009164696eb56218e3d821,
-        type: 3}
       propertyPath: castleShip
       value: 
       objectReference: {fileID: 9124634857832278237}
+    - target: {fileID: 2634390459595569943, guid: 49dd800ed7009164696eb56218e3d821,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4a627d8833b29de4889b16bc4026a007, type: 2}
+    - target: {fileID: 2634390459595569941, guid: 49dd800ed7009164696eb56218e3d821,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4a627d8833b29de4889b16bc4026a007, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49dd800ed7009164696eb56218e3d821, type: 3}
 --- !u!4 &8514993512274268257 stripped

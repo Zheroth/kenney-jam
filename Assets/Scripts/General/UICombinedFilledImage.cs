@@ -16,7 +16,7 @@ public class UICombinedFilledImage : MonoBehaviour
         SetFillAmount(fillPercentage);
     }
 
-    private void SetFillAmount(float value)
+    public void SetFillAmount(float value)
     {
         fillPercentage = value;
 
@@ -31,7 +31,7 @@ public class UICombinedFilledImage : MonoBehaviour
         }
     }
 
-    public float MapValue(float a0, float a1, float b0, float b1, float a)
+    private float MapValue(float a0, float a1, float b0, float b1, float a)
     {
         return b0 + (b1 - b0) * ((a - a0) / (a1 - a0));
     }
