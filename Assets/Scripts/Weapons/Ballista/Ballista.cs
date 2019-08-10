@@ -15,6 +15,8 @@ public class Ballista : MonoBehaviour
     private Transform shootPoint;
     [SerializeField]
     private float shotStrength = 10;
+    [SerializeField]
+    float angleSpread = 20;
 
     private float cooldownTimer = 0;
     
@@ -46,6 +48,7 @@ public class Ballista : MonoBehaviour
         BallistaArrow missile = GameObject.Instantiate(ballistaArrow);
         missile.transform.position = this.shootPoint.position;
         missile.transform.rotation = this.shootPoint.rotation;
+        missile.transform.Rotate(0, Random.Range(-angleSpread, angleSpread), 0, Space.Self);
         missile.Shoot(shotStrength);
     }
 }
