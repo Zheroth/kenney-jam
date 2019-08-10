@@ -34,7 +34,8 @@ public class PlayerControlled : MonoBehaviour
 
     void Update()
     {
-        GetInput();
+        GetMovementInput();
+        GetActionInput();
     }
 
     public void AssignPlayer(int playerId)
@@ -42,7 +43,7 @@ public class PlayerControlled : MonoBehaviour
         playerRef = ReInput.players.GetPlayer(playerId);
     }
 
-    private void GetInput()
+    private void GetMovementInput()
     {
         Vector3 moveVector = new Vector3(playerRef.GetAxis("MoveHorizontal"),0,playerRef.GetAxis("MoveVertical"));
 
@@ -61,6 +62,29 @@ public class PlayerControlled : MonoBehaviour
         if (Mathf.Abs(moveVector.x) > deadZone)
         {
             CastleShipRef.SetCurrentTurn(moveVector.x);
+        }
+    }
+
+    private void GetActionInput()
+    {
+        if (playerRef.GetButton("ActionA"))
+        {
+            CastleShipRef.FireActionA();
+        }
+
+        if (playerRef.GetButton("ActionB"))
+        {
+            CastleShipRef.FireActionB();
+        }
+
+        if (playerRef.GetButton("ActionC"))
+        {
+            CastleShipRef.FireActionC();
+        }
+
+        if (playerRef.GetButton("ActionD"))
+        {
+            CastleShipRef.FireActionD();
         }
     }
 }
