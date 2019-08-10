@@ -84,30 +84,30 @@ public class CastleShip : MonoBehaviour
     public void FireActionA()
     {
         Debug.Log("ActionA");
-        OnActionA?.Invoke(this);
+        OnActionA?.Invoke(this, "ActionA");
     }
 
     public void FireActionB()
     {
         Debug.Log("ActionB");
-        OnActionB?.Invoke(this);
+        OnActionB?.Invoke(this, "ActionB");
     }
 
     public void FireActionC()
     {
         Debug.Log("ActionC");
-        OnActionC?.Invoke(this);
+        OnActionC?.Invoke(this, "ActionC");
     }
 
     public void FireActionD()
     {
         Debug.Log("ActionD");
-        OnActionD?.Invoke(this);
+        OnActionD?.Invoke(this, "ActionD");
     }
 }
 
 [System.Serializable]
-public class OnCastleShipUseAction : UnityEvent<CastleShip>
+public class OnCastleShipUseAction : UnityEvent<CastleShip,string>
 {
 
 }
