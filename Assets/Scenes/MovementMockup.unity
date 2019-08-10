@@ -229,7 +229,7 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    m_lensFlareGradTexture: {fileID: 1784140485}
+    m_lensFlareGradTexture: {fileID: 1670270970}
     m_lensFlareHaloParams: {x: 0.1, y: 0.573, z: 1, w: 128}
     m_lensFlareHaloChrDistortion: 1.51
     m_lensFlareGaussianBlurAmount: 1
@@ -376,7 +376,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   EffectFlags:
     components: []
-  sharedInstanceID: ee0de6b2-d6db-4dca-b245-11d431505b42
+  sharedInstanceID: 488e35c0-b200-4f33-870b-211f396c8d20
 --- !u!114 &25705997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1741,7 +1741,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!28 &1784140485
+--- !u!28 &1670270970
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2283,6 +2283,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 944408922564401696, guid: c7d1645996da02048a3a9c585b408f8f,
+        type: 3}
+      propertyPath: hoverHeight
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7d1645996da02048a3a9c585b408f8f, type: 3}
