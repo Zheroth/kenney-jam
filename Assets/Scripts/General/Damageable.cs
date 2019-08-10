@@ -42,7 +42,10 @@ public class Damageable : MonoBehaviour
             }
 
             OnHit.Invoke();
-            onHpChanged(currentHP, maxHP, HealthPercentage);
+            if(onHpChanged != null)
+            {
+                onHpChanged(currentHP, maxHP, HealthPercentage);
+            }
 
             if (currentHP == 0)
             {
@@ -60,12 +63,18 @@ public class Damageable : MonoBehaviour
             currentHP = maxHP;
             OnHeal?.Invoke();
         }
-        onHpChanged(currentHP, maxHP, HealthPercentage);
+        if (onHpChanged != null)
+        {
+            onHpChanged(currentHP, maxHP, HealthPercentage);
+        }
     }
 
     public void ResetHP()
     {
         currentHP = maxHP;
-        onHpChanged(currentHP, maxHP, HealthPercentage);
+        if (onHpChanged != null)
+        {
+            onHpChanged(currentHP, maxHP, HealthPercentage);
+        }
     }
 }

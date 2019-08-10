@@ -24,14 +24,14 @@ public class CatapultBall : MonoBehaviour
         this.rigidBody.AddForce(this.transform.forward * strength, ForceMode.Impulse);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
         Damageable damageable;
-        if (other.gameObject.TryGetComponent<Damageable>(out damageable))
+        if (collision.gameObject.TryGetComponent<Damageable>(out damageable))
         {
             damageable.TakeDamage(damage);
-            Remove();
         }
+        Remove();
     }
 
     private void Update()
