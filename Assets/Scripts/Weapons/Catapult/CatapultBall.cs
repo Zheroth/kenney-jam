@@ -10,18 +10,15 @@ public class CatapultBall : MonoBehaviour
     [SerializeField]
     private int damage;
 
-    [SerializeField]
-    Controllable controllable;
-
     void FixedUpdate()
     {
         if (rigidBody.velocity != Vector3.zero)
             rigidBody.rotation = Quaternion.LookRotation(rigidBody.velocity);
     }
 
-    public void Shoot(float strength)
+    public void Shoot(float strength, Vector3 inheritedVelocity)
     {
-        this.rigidBody.AddRelativeForce(this.transform.forward * (strength + controllable.RigidbodyRef.velocity.z), ForceMode.Impulse);
+        this.rigidBody.AddRelativeForce(this.transform.forward * (strength), ForceMode.Impulse);
     }
 
     private void OnTriggerEnter(Collider other)
