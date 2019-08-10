@@ -62,21 +62,24 @@ public class PlayerControlled : MonoBehaviour
 
     private void ProcessInput()
     {
-        Debug.Log("MoveVector: "+moveVector);
-
         //Update speed
         if(moveVector.z > Mathf.Epsilon)
         {
-            Debug.Log("1");
             if (currentSpeed < maxSpeed)
             {
                 currentSpeed += acceleration * Time.deltaTime;
             }
-        }else
+        }else if (moveVector.z < -Mathf.Epsilon)
+        {
+            if (currentSpeed > -maxSpeed)
+            {
+                currentSpeed -= acceleration * Time.deltaTime;
+            }
+        }
+        else
         {
             if (currentSpeed > Mathf.Epsilon)
             {
-                Debug.Log("3");
                 currentSpeed -= breakSpeed * Time.deltaTime;
                 if (currentSpeed < 0)
                 {
@@ -84,7 +87,6 @@ public class PlayerControlled : MonoBehaviour
                 }
             }else if (currentSpeed < Mathf.Epsilon)
             {
-                Debug.Log("4");
                 currentSpeed += breakSpeed * Time.deltaTime;
                 if (currentSpeed > 0)
                 {
@@ -97,7 +99,15 @@ public class PlayerControlled : MonoBehaviour
         }
 
         //Update yaw
-        yaw += turnSpeed * moveVector.x * Time.deltaTime;
+        if (currentSpeed >= 0)
+        {
+            yaw += turnSpeed * moveVector.x * Time.deltaTime;
+        }
+        else
+        {
+            yaw -= turnSpeed * moveVector.x * Time.deltaTime;
+        }
+
         prevUp = transform.up;
         transform.rotation = Quaternion.Euler(0, yaw, 0);
 
