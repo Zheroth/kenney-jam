@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Framework.Utils;
 
-public class PlayerUIManager : MonoBehaviour
+public class PlayerUIManager : MonoSingleton<PlayerUIManager>
 {
     [SerializeField]
     private CastleShip castleShip;
