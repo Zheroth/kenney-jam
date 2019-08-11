@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Framework.Utils;
 using Rewired;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoSingleton<PlayerManager>
 {
-    public UnityEvent<int> OnPlayerJoined;
-    public UnityEvent<int> OnPlayerDismissed;
+    public PlayerEvent OnPlayerJoined;
+    public PlayerEvent OnPlayerDismissed;
 
     private HashSet<int> joinedPlayerIds = new HashSet<int>();
 
@@ -52,7 +53,7 @@ public class PlayerManager : MonoBehaviour
         if (!joinedPlayerIds.Contains(playerId))
         {
             joinedPlayerIds.Add(playerId);
-            OnPlayerJoined?.Invoke(playerId);
+            OnPlayerJoined?.Invoke(new PlayerArgs(playerId));
         }
     }
 
@@ -62,7 +63,21 @@ public class PlayerManager : MonoBehaviour
         if (joinedPlayerIds.Contains(playerId))
         {
             joinedPlayerIds.Remove(playerId);
-            OnPlayerDismissed?.Invoke(playerId);
+            OnPlayerDismissed?.Invoke(new PlayerArgs(playerId));
         }
     }
+
+    [Serializable]
+    public class PlayerArgs : EventArgs
+    {
+        public readonly int PlayerId;
+
+        public PlayerArgs(int newPlayerId)
+        {
+            PlayerId = newPlayerId;
+        }
+    }
+
+    [Serializable]
+    public class PlayerEvent : UnityEvent<PlayerArgs> {}
 }
