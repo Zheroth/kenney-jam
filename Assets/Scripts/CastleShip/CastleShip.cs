@@ -53,7 +53,7 @@ public class CastleShip : MonoBehaviour
 
     public void AddKills(int kills)
     {
-        OnKill(kills);
+        OnKill?.Invoke(kills);
     }
 
     private Damageable damageableRef;
