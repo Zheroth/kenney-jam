@@ -5,25 +5,16 @@ using UnityEngine;
 public class GameUIManager : MonoBehaviour
 {
     [SerializeField]
-    private PlayerUIManager[] playerUIManager;
+    private HumanPlayer[] humanPlayers;
 
     public void OnPlayerJoined(PlayerManager.PlayerArgs playerArgs)
     {
-        //for (int i = 0; i < playerUIManager.Length; i++)
-        //{
-        //    PlayerUIManager selectedPlayerUIManager = playerUIManager[i];
-        //    if (selectedPlayerUIManager.HasPlayer  selectedPlayerUIManager.BoundPlayerID == playerArgs.PlayerId)
-        //    {
-        //        return;
-        //    }
-        //}
-
-        for (int i = 0; i < playerUIManager.Length; i++)
+        for (int i = 0; i < humanPlayers.Length; i++)
         {
-            PlayerUIManager selectedPlayerUIManager = playerUIManager[i];
-            if (!selectedPlayerUIManager.HasPlayer)
+            HumanPlayer selHumanPlayer = humanPlayers[i];
+            if (!selHumanPlayer.HasPlayer)
             {
-                selectedPlayerUIManager.BindPlayer(playerArgs);
+                selHumanPlayer.BindPlayer(playerArgs);
                 return;
             }
         }
@@ -31,12 +22,12 @@ public class GameUIManager : MonoBehaviour
 
     public void OnPlayerDismissed(PlayerManager.PlayerArgs playerArgs)
     {
-        for (int i = 0; i < playerUIManager.Length; i++)
+        for (int i = 0; i < humanPlayers.Length; i++)
         {
-            PlayerUIManager selectedPlayerUIManager = playerUIManager[i];
-            if (selectedPlayerUIManager.HasPlayer && selectedPlayerUIManager.BoundPlayerID == playerArgs.PlayerId)
+            HumanPlayer selHumanPlayer = humanPlayers[i];
+            if (selHumanPlayer.HasPlayer && selHumanPlayer.BoundPlayerID == playerArgs.PlayerId)
             {
-                selectedPlayerUIManager.UnbindPlayer();
+                selHumanPlayer.UnBindPlayer();
                 return;
             }
         }

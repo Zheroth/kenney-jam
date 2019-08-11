@@ -9,10 +9,7 @@ using UnityEngine.Experimental.PlayerLoop;
 public class PlayerControlled : MonoBehaviour
 {
     [SerializeField]
-    Color DEBUG_Colour;
-
-    [SerializeField]
-    private int DEBUG_player = 0;
+    private int playerID = 0;
     private Player playerRef;
 
     private float deadZone = 0.1f;
@@ -35,25 +32,22 @@ public class PlayerControlled : MonoBehaviour
     {
         get
         {
-            return DEBUG_player;
+            return playerID;
         }
-    }
-
-    void Awake()
-    {
-        //DEBUG
-        AssignPlayer(DEBUG_player);
-        CastleShipRef.SetColourMaterial(DEBUG_Colour);
     }
 
     void Update()
     {
-        GetMovementInput();
-        GetActionInput();
+        if(playerRef!=null)
+        {
+            GetMovementInput();
+            GetActionInput();
+        }
     }
 
     public void AssignPlayer(int playerId)
     {
+        this.playerID = playerId;
         playerRef = ReInput.players.GetPlayer(playerId);
     }
 

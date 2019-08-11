@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    enum UISTate { Waiting, SelectingShip, Playing }
-    UISTate uiState = UISTate.Waiting;
+    // UNASSIGNED
+    [SerializeField]
+    private GameObject unassignedUIGroup;
 
     /// WAITING
     [SerializeField]
@@ -15,57 +16,34 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField]
     private GameObject playingUIGroup;
     [SerializeField]
-    private CastleShip castleShip;
-    [SerializeField]
     private UICombinedFilledImage healthBarImage;
     [SerializeField]
     private TMPro.TextMeshProUGUI healthPercentage;
     [SerializeField]
     private TMPro.TextMeshProUGUI goldText;
 
-    public int BoundPlayerID
-    {
-        get;
-        private set;
-    }
-
-    public bool HasPlayer
-    {
-        get;
-        private set;
-    }
+    // SELECTING SHIP
+    [SerializeField]
+    private GameObject selectingShipUIGroup;
 
     private void Start()
     {
-        UnbindPlayer();
-    }
-
-    public void BindPlayer(PlayerManager.PlayerArgs playerArgs)
-    {
-        this.BoundPlayerID = playerArgs.PlayerId;
-        this.HasPlayer = true;
-
-        castleShip.DamageableRef.onHpChanged += OnHPChanged;
-        castleShip.onGoldChanged += OnGoldChanged;
-
-        SetHealthPer(castleShip.DamageableRef.HealthPercentage);
-        OnGoldChanged(castleShip.Gold);
-
-        ChangeToShipSelection();
-    }
-
-    public void UnbindPlayer()
-    {
-        this.BoundPlayerID = -1;
-        this.HasPlayer = false;
-
-        castleShip.DamageableRef.onHpChanged -= OnHPChanged;
-        castleShip.onGoldChanged -= OnGoldChanged;
-
         SetHealthPer(1);
         OnGoldChanged(0);
+    }
 
-        ChangeToWaiting();
+    public void ConnectToHumanPlayer(HumanPlayer humanPlayer)
+    {
+        humanPlayer.onGoldChanged += OnGoldChanged;
+    }
+
+    public void ConnectToCastleShip(CastleShip castleShip)
+    {
+        castleShip.DamageableRef.onHpChanged += OnHPChanged;
+    }
+    public void DisconnectCastleShip(CastleShip castleShip)
+    {
+        castleShip.DamageableRef.onHpChanged -= OnHPChanged;
     }
 
     private void SetHealthPer(float healthPer)
@@ -84,17 +62,35 @@ public class PlayerUIManager : MonoBehaviour
         goldText.text = gold.ToString();
     }
 
-    private void ChangeToWaiting()
+    public void ChangeToUnassigned()
     {
-        this.uiState = UISTate.Waiting;
-        this.waitingUIGroup.SetActive(true);
+        this.waitingUIGroup.SetActive(false);
         this.playingUIGroup.SetActive(false);
+        this.selectingShipUIGroup.SetActive(false);
+        this.unassignedUIGroup.SetActive(true);
     }
 
-    private void ChangeToShipSelection()
+    public void ChangeToWaiting()
     {
-        this.uiState = UISTate.SelectingShip;
+        this.waitingUIGroup.SetActive(true);
+        this.playingUIGroup.SetActive(false);
+        this.selectingShipUIGroup.SetActive(false);
+        this.unassignedUIGroup.SetActive(false);
+    }
+
+    public void ChangeToPlaying()
+    {
         this.waitingUIGroup.SetActive(false);
         this.playingUIGroup.SetActive(true);
+        this.selectingShipUIGroup.SetActive(false);
+        this.unassignedUIGroup.SetActive(false);
+    }
+
+    public void ChangeToShipSelection()
+    {
+        this.waitingUIGroup.SetActive(false);
+        this.playingUIGroup.SetActive(true);
+        this.selectingShipUIGroup.SetActive(false);
+        this.unassignedUIGroup.SetActive(false);
     }
 }
