@@ -55,6 +55,7 @@ public class Trebuchet : MonoBehaviour
         for (int i = 0; i < catapultBallsToSpawn; i++)
         {
             CatapultBall spawnedBall = GameObject.Instantiate(catapultBall);
+            spawnedBall.castleShipRef = castleShip;
             Vector3 randomXZ = Random.insideUnitCircle * 1.5f;
             float randomY = Random.Range(0f, 3f);
 

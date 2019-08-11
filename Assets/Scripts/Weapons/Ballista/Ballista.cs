@@ -33,17 +33,17 @@ public class Ballista : MonoBehaviour
     {
         if(cooldownTimer <= 0)
         {
-            Fire();
+            Fire(castleShip);
             cooldownTimer = 1 / shotsPerSecond;
         }
     }
 
-    void Fire()
+    void Fire(CastleShip castleShip)
     {
         BallistaArrow missile = GameObject.Instantiate(ballistaArrow);
         missile.transform.position = this.shootPoint.position;
         missile.transform.rotation = this.shootPoint.rotation;
         missile.transform.Rotate(0, Random.Range(-angleSpread, angleSpread), 0, Space.Self);
-        missile.Shoot(shotStrength);
+        missile.Shoot(shotStrength, castleShip);
     }
 }
