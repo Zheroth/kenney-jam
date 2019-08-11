@@ -29,6 +29,8 @@ public class CastleShip : MonoBehaviour
 
     public HumanPlayer.OnKillsChanged OnKill;
 
+    public ParticleSystem fireEffect;
+
     private float currentThrust = 0.0f;
     private float currentTurn = 0.0f;
     private float currentSideThurst = 0.0f;
