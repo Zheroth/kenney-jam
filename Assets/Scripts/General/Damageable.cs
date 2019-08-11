@@ -29,6 +29,12 @@ public class Damageable : MonoBehaviour
     public float HealthPercentage
     { get { return (float)currentHP / (float)maxHP; } }
 
+    public bool IsAlive
+    {
+        get { return currentHP > 0; }
+
+    }
+
     public void Start()
     {
         ResetHP();
