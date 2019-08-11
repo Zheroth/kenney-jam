@@ -25,6 +25,10 @@ public class PlayerUIManager : MonoBehaviour
     // SELECTING SHIP
     [SerializeField]
     private GameObject selectingShipUIGroup;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI shipName;
+    [SerializeField]
+    private UnityEngine.UI.Image shipImage;
 
     private void Start()
     {
@@ -35,6 +39,7 @@ public class PlayerUIManager : MonoBehaviour
     public void ConnectToHumanPlayer(HumanPlayer humanPlayer)
     {
         humanPlayer.onGoldChanged += OnGoldChanged;
+        humanPlayer.onShipChanged += OnShipSelectionChanged;
     }
 
     public void ConnectToCastleShip(CastleShip castleShip)
@@ -60,6 +65,12 @@ public class PlayerUIManager : MonoBehaviour
     private void OnGoldChanged(int gold)
     {
         goldText.text = gold.ToString();
+    }
+
+    private void OnShipSelectionChanged(CastleShip ship)
+    {
+        this.shipImage.sprite = ship.Image;
+        this.shipName.text = ship.ShipName;
     }
 
     public void ChangeToUnassigned()
@@ -89,8 +100,8 @@ public class PlayerUIManager : MonoBehaviour
     public void ChangeToShipSelection()
     {
         this.waitingUIGroup.SetActive(false);
-        this.playingUIGroup.SetActive(true);
-        this.selectingShipUIGroup.SetActive(false);
+        this.playingUIGroup.SetActive(false);
+        this.selectingShipUIGroup.SetActive(true);
         this.unassignedUIGroup.SetActive(false);
     }
 }

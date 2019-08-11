@@ -58,6 +58,13 @@ public class CastleShip : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private Sprite shipImage;
+    public Sprite Image { get { return shipImage; } }
+    [SerializeField]
+    private string shipName;
+    public string ShipName{ get { return shipName; } }
+
     void Update()
     {
         UpdateModifiers();

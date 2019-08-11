@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,5 +29,8 @@ public class BattleManager : MonoBehaviour
         return newShip.GetComponent<CastleShip>();
     }
 
-
+    public CastleShip GetShip(CastleShip.CastleShipType shipType)
+    {
+        return shipDict[shipType].GetComponent<CastleShip>();
+    }
 }

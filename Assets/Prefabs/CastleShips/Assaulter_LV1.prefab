@@ -1369,6 +1369,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: CastleShip+OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  shipImage: {fileID: 21300000, guid: bef27eb2d1cb1b749a8fa9a1c339bd6a, type: 3}
+  shipName: Assaulter
 --- !u!114 &944408922564401700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1440,8 +1442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7eaae60355b6814ebcbb8254e44ca17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DEBUG_Colour: {r: 0, g: 0, b: 0, a: 0}
-  DEBUG_player: 1
+  playerID: 0
 --- !u!1 &944408922637691205
 GameObject:
   m_ObjectHideFlags: 0
@@ -2734,6 +2735,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 944408921831815427}
     m_Modifications:
+    - target: {fileID: 2634390459597563355, guid: 49dd800ed7009164696eb56218e3d821,
+        type: 3}
+      propertyPath: m_Name
+      value: Catapult
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634390459597563355, guid: 49dd800ed7009164696eb56218e3d821,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2634390459597339131, guid: 49dd800ed7009164696eb56218e3d821,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2804,16 +2815,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.3919999
       objectReference: {fileID: 0}
-    - target: {fileID: 2634390459597563355, guid: 49dd800ed7009164696eb56218e3d821,
-        type: 3}
-      propertyPath: m_Name
-      value: Catapult
-      objectReference: {fileID: 0}
-    - target: {fileID: 2634390459597563355, guid: 49dd800ed7009164696eb56218e3d821,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2634390459595569941, guid: 49dd800ed7009164696eb56218e3d821,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2839,6 +2840,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 944408922498781951}
     m_Modifications:
+    - target: {fileID: 2634390459597563355, guid: 49dd800ed7009164696eb56218e3d821,
+        type: 3}
+      propertyPath: m_Name
+      value: Catapult (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 2634390459597339131, guid: 49dd800ed7009164696eb56218e3d821,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2909,11 +2915,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.39199984
       objectReference: {fileID: 0}
-    - target: {fileID: 2634390459597563355, guid: 49dd800ed7009164696eb56218e3d821,
-        type: 3}
-      propertyPath: m_Name
-      value: Catapult (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 2634390459595569941, guid: 49dd800ed7009164696eb56218e3d821,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2951,6 +2952,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 944408921410992896}
     m_Modifications:
+    - target: {fileID: 7314762824014499368, guid: 4852aad553208ea4bb66fe6d0b1d382e,
+        type: 3}
+      propertyPath: m_Name
+      value: Trebuchet
+      objectReference: {fileID: 0}
     - target: {fileID: 7301560577163746884, guid: 4852aad553208ea4bb66fe6d0b1d382e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3005,11 +3011,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7314762824014499368, guid: 4852aad553208ea4bb66fe6d0b1d382e,
-        type: 3}
-      propertyPath: m_Name
-      value: Trebuchet
       objectReference: {fileID: 0}
     - target: {fileID: 2889020263709583886, guid: 4852aad553208ea4bb66fe6d0b1d382e,
         type: 3}
