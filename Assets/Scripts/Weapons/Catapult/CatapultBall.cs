@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CatapultBall : MonoBehaviour
 {
+    [SerializeField]
+    private Rigidbody RigidbodyRef;
     // Start is called before the first frame update
     private CastleShip castleRef;
     [SerializeField]
@@ -21,7 +23,7 @@ public class CatapultBall : MonoBehaviour
         Vector2 forcePos = this.transform.position;
         forcePos.y = castleShip.RigidbodyRef.centerOfMass.y;
         castleShip.RigidbodyRef.AddForce(-castleShip.transform.forward * strength/2, ForceMode.Impulse);
-        this.castleRef.RigidbodyRef.AddForce(this.transform.forward * strength, ForceMode.Impulse);
+        this.RigidbodyRef.AddForce(this.transform.forward * strength, ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision collision)
