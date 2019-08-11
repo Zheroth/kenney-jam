@@ -135,7 +135,7 @@ public class HumanPlayer : MonoBehaviour
             }
             onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
         }
-        if (playerRef.GetButton("Right Selection"))
+        else if (playerRef.GetButton("Right Selection"))
         {
             currentlySelectedShip--;
             if ((int)currentlySelectedShip >= 3)
@@ -143,6 +143,11 @@ public class HumanPlayer : MonoBehaviour
                 currentlySelectedShip = (CastleShip.CastleShipType)2;
             }
             onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
+        }
+
+        else if(playerRef.GetAnyButtonDown())
+        {
+            ChangeToPlaying();
         }
     }
 
