@@ -102,7 +102,6 @@ public class CastleShip : MonoBehaviour
             Material[] materials = renderers[i].materials;
             for (int j = 0; j < materials.Length; j++)
             {
-                Debug.Log(materials[j].name);
                 if(materials[j].name == "PLAYERCOLOUR" || materials[j].name == "PLAYERCOLOUR (Instance)")
                 {
                     materials[j].color = color;

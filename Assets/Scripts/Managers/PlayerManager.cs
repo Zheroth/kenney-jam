@@ -52,6 +52,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
         Debug.Log("Player "+playerId+" joined.");
         if (!joinedPlayerIds.Contains(playerId))
         {
+            Debug.Log("Player " + playerId + " joined for the first time.");
             joinedPlayerIds.Add(playerId);
             OnPlayerJoined?.Invoke(new PlayerArgs(playerId));
         }
