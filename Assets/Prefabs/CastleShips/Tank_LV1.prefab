@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 711370138387416789}
   - component: {fileID: 5976879094475755937}
   - component: {fileID: 2112373927668273453}
+  - component: {fileID: 2381857013949655205}
   m_Layer: 0
   m_Name: Tank_LV1
   m_TagString: Untagged
@@ -565,6 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa330f42cfaa0f24ca7c71e31fde78f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipType: 1
   forwardAcceleration: 1200
   backwardAcceleration: 1200
   turnStrength: 500
@@ -578,23 +580,23 @@ MonoBehaviour:
   OnActionA:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: CastleShip+OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   OnActionB:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: CastleShip+OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   OnActionC:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: CastleShip+OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   OnActionD:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: CastleShip+OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!54 &2112373927668273453
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -611,6 +613,20 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2381857013949655205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7342732931908494437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7eaae60355b6814ebcbb8254e44ca17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DEBUG_Colour: {r: 0, g: 0, b: 0, a: 0}
+  DEBUG_player: 0
 --- !u!1001 &652127293665244089
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,6 +7,8 @@ using Rewired;
 [RequireComponent(typeof(Damageable))]
 public class CastleShip : MonoBehaviour
 {
+    public CastleShipType shipType;
+
     private int gold = 0;
     public int Gold { get { return gold; } }
     public delegate void OnGoldChanged(int gold);
@@ -157,10 +159,17 @@ public class CastleShip : MonoBehaviour
         Debug.Log("ActionD");
         OnActionD?.Invoke(this, "ActionD");
     }
-}
 
-[System.Serializable]
-public class OnCastleShipUseAction : UnityEvent<CastleShip,string>
-{
+    public enum CastleShipType
+    {
+        Assaulter,
+        Tank,
+        Nimble
+    }
 
+    [System.Serializable]
+    public class OnCastleShipUseAction : UnityEvent<CastleShip,string>
+    {
+
+    }
 }

@@ -325,6 +325,7 @@ GameObject:
   - component: {fileID: 3061069819568057585}
   - component: {fileID: 267578604}
   - component: {fileID: 388025421523868072}
+  - component: {fileID: 3135053212641886272}
   m_Layer: 0
   m_Name: Nimble_LV1
   m_TagString: Untagged
@@ -407,6 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa330f42cfaa0f24ca7c71e31fde78f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipType: 2
   forwardAcceleration: 1200
   backwardAcceleration: 1200
   turnStrength: 150
@@ -419,23 +421,23 @@ MonoBehaviour:
   OnActionA:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: CastleShip+OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   OnActionB:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: CastleShip+OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   OnActionC:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: CastleShip+OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   OnActionD:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: CastleShip+OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &267578604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,6 +497,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.5
+--- !u!114 &3135053212641886272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8074920554892814015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7eaae60355b6814ebcbb8254e44ca17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DEBUG_Colour: {r: 0, g: 0, b: 0, a: 0}
+  DEBUG_player: 0
 --- !u!1001 &867981362213217722
 PrefabInstance:
   m_ObjectHideFlags: 0
