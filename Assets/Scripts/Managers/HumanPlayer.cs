@@ -174,12 +174,31 @@ public class HumanPlayer : MonoBehaviour
     }
     private void RemoveShip()
     {
-        playerUIManager.DisconnectCastleShip(CastleShip);
         GameObject.Destroy(CastleShip.gameObject);
     }
 
     private void OnShipDie()
     {
+        this.StartCoroutine(ShipDeathSequence());
+    }
+
+    private IEnumerator ShipDeathSequence()
+    {
+        playerUIManager.DisconnectCastleShip(CastleShip);
+
+        Vector3 scale = this.transform.localScale;
+        float timer = 0;
+        while(timer < 3)
+        {
+            timer += Time.deltaTime;
+
+            //float completion = timer / 3;
+
+            //this.transform.localScale = Vector3.Lerp(scale, Vector3.zero, completion);
+
+            yield return null;
+        }
+
         RemoveShip();
         ChangeToShipSelection();
     }

@@ -48,6 +48,11 @@ public class Damageable : MonoBehaviour
         }
         else
         {
+            if(currentHP <= 0)
+            {
+                return;
+            }
+
             currentHP -= damage;
             if (currentHP <= 0)
             {
