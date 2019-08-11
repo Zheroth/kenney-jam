@@ -95,7 +95,7 @@ public class HumanPlayer : MonoBehaviour
 
     private void ChangeToPlaying()
     {
-        AddShip(CastleShip.CastleShipType.Assaulter);
+        AddShip(currentlySelectedShip);
         this.playerState = PlayerState.Playing;
         playerUIManager.ChangeToPlaying();
     }
