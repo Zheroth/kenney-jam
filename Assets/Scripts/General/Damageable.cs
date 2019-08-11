@@ -9,6 +9,8 @@ public class Damageable : MonoBehaviour
     [SerializeField] private int maxHP;
     [SerializeField] private bool invulnerable;
 
+    [SerializeField] private ParticleSystem hitEffect;
+
     public UnityEvent OnHit;
     public UnityEvent OnHitWhileInvulnerable;
     public UnityEvent OnHeal;
@@ -52,6 +54,8 @@ public class Damageable : MonoBehaviour
                 OnDead?.Invoke();
                 OnDeath.Invoke();
             }
+
+            hitEffect.Play();
         }
     }
 
