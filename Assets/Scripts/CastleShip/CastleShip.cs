@@ -29,6 +29,8 @@ public class CastleShip : MonoBehaviour
 
     public HumanPlayer.OnKillsChanged OnKill;
 
+    public ParticleSystem fireEffect;
+
     private float currentThrust = 0.0f;
     private float currentTurn = 0.0f;
     private float currentSideThurst = 0.0f;
@@ -84,42 +86,45 @@ public class CastleShip : MonoBehaviour
 
     void FixedUpdate()
     {
-        //Hover force
-        RaycastHit hit;
-        for (int i = 0; i < hoverPoints.Length; i++)
+        if (DamageableRef.IsAlive)
         {
-            GameObject hoverPoint = hoverPoints[i];
-            if (Physics.Raycast(hoverPoint.transform.position, -Vector3.up, out hit, hoverHeight))
+            //Hover force
+            RaycastHit hit;
+            for (int i = 0; i < hoverPoints.Length; i++)
             {
-                float hoverDistance = hit.distance / hoverHeight;
-                RigidbodyRef.AddForceAtPosition(Vector3.up * hoverForce * (1.0f - hoverDistance), hoverPoint.transform.position);
-            }
-            else
-            {
-                if (transform.position.y > hoverPoint.transform.position.y)
+                GameObject hoverPoint = hoverPoints[i];
+                if (Physics.Raycast(hoverPoint.transform.position, -Vector3.up, out hit, hoverHeight))
                 {
-                    RigidbodyRef.AddForceAtPosition(hoverPoint.transform.up * hoverForce, hoverPoint.transform.position);
+                    float hoverDistance = hit.distance / hoverHeight;
+                    RigidbodyRef.AddForceAtPosition(Vector3.up * hoverForce * (1.0f - hoverDistance), hoverPoint.transform.position);
                 }
                 else
                 {
-                    RigidbodyRef.AddForceAtPosition(hoverPoint.transform.up * -hoverForce, hoverPoint.transform.position);
+                    if (transform.position.y > hoverPoint.transform.position.y)
+                    {
+                        RigidbodyRef.AddForceAtPosition(hoverPoint.transform.up * hoverForce, hoverPoint.transform.position);
+                    }
+                    else
+                    {
+                        RigidbodyRef.AddForceAtPosition(hoverPoint.transform.up * -hoverForce, hoverPoint.transform.position);
+                    }
                 }
             }
-        }
 
-        if (Mathf.Abs(currentThrust) > 0)
-        {
-            RigidbodyRef.AddForce(transform.forward * currentThrust * thrustModifier * Time.deltaTime);
-        }
+            if (Mathf.Abs(currentThrust) > 0)
+            {
+                RigidbodyRef.AddForce(transform.forward * currentThrust * thrustModifier * Time.deltaTime);
+            }
 
-        if (Mathf.Abs(currentSideThurst) > 0)
-        {
-            RigidbodyRef.AddForce(transform.right * currentSideThurst * Time.deltaTime);
-        }
+            if (Mathf.Abs(currentSideThurst) > 0)
+            {
+                RigidbodyRef.AddForce(transform.right * currentSideThurst * Time.deltaTime);
+            }
 
-        if (currentTurn != 0)
-        {
-            RigidbodyRef.AddRelativeTorque(Vector3.up * currentTurn * turnStrength * Time.deltaTime);
+            if (currentTurn != 0)
+            {
+                RigidbodyRef.AddRelativeTorque(Vector3.up * currentTurn * turnStrength * Time.deltaTime);
+            }
         }
     }
 

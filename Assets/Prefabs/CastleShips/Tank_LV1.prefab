@@ -982,6 +982,7 @@ Transform:
   - {fileID: 8042510474139238319}
   - {fileID: 9091301758245477584}
   - {fileID: 8984106859909709378}
+  - {fileID: 1095867592445467173}
   - {fileID: 6858287287925579523}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1071,6 +1072,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 958405d4a9ddc304a85d5dacf19e1f77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smoke: {fileID: 0}
+  smokeThresshold: 0
   maxHP: 50
   invulnerable: 0
   hitEffect: {fileID: 2995832332786532193}
@@ -1102,7 +1105,40 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6034724083152249717}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6961632215573671515}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2381857013949655205}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &5976879094475755937
@@ -1171,6 +1207,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: CastleShip+OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  fireEffect: {fileID: 0}
   shipImage: {fileID: 21300000, guid: 1be7951b217552f47adb4e03cb1524c9, type: 3}
   shipName: Tank
 --- !u!54 &2112373927668273453
@@ -1276,6 +1313,87 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 13255f00c4d2ff64fab69030be19312c,
     type: 3}
   m_PrefabInstance: {fileID: 652127293665244089}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &718541915786538901
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2409512708081763455}
+    m_Modifications:
+    - target: {fileID: 5912598626376625607, guid: 0834b2d7f44db694ba5144b058d82eac,
+        type: 3}
+      propertyPath: m_Name
+      value: FireEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 490201678549382576, guid: 0834b2d7f44db694ba5144b058d82eac,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 490201678549382576, guid: 0834b2d7f44db694ba5144b058d82eac,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 490201678549382576, guid: 0834b2d7f44db694ba5144b058d82eac,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 490201678549382576, guid: 0834b2d7f44db694ba5144b058d82eac,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 490201678549382576, guid: 0834b2d7f44db694ba5144b058d82eac,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.99854976
+      objectReference: {fileID: 0}
+    - target: {fileID: 490201678549382576, guid: 0834b2d7f44db694ba5144b058d82eac,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 490201678549382576, guid: 0834b2d7f44db694ba5144b058d82eac,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.053836845
+      objectReference: {fileID: 0}
+    - target: {fileID: 490201678549382576, guid: 0834b2d7f44db694ba5144b058d82eac,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 490201678549382576, guid: 0834b2d7f44db694ba5144b058d82eac,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 490201678549382576, guid: 0834b2d7f44db694ba5144b058d82eac,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -186.172
+      objectReference: {fileID: 0}
+    - target: {fileID: 490201678549382576, guid: 0834b2d7f44db694ba5144b058d82eac,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0834b2d7f44db694ba5144b058d82eac, type: 3}
+--- !u!4 &1095867592445467173 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 490201678549382576, guid: 0834b2d7f44db694ba5144b058d82eac,
+    type: 3}
+  m_PrefabInstance: {fileID: 718541915786538901}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6034724083152249717 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6505277606209228000, guid: 0834b2d7f44db694ba5144b058d82eac,
+    type: 3}
+  m_PrefabInstance: {fileID: 718541915786538901}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &940794129681016145
 PrefabInstance:
@@ -2488,7 +2606,7 @@ PrefabInstance:
     - target: {fileID: 7129562220107465546, guid: 91a1a8637f39cdd479c6f66abfc2ea75,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7129562220107465546, guid: 91a1a8637f39cdd479c6f66abfc2ea75,
         type: 3}
