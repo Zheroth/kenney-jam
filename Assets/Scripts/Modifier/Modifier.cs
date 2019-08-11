@@ -8,11 +8,11 @@ public class Modifier
 
     public virtual void ActivateModifier(CastleShip castleShipRef)
     {
-
+        ;
     }
 
     public virtual void DeactivateModifier(CastleShip castleShipRef)
     {
-
+        ;
     }
 }

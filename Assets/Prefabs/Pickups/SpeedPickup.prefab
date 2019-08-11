@@ -297,8 +297,9 @@ GameObject:
   - component: {fileID: 9166423992816467352}
   - component: {fileID: 8254007212663758606}
   - component: {fileID: 8254007212663758605}
+  - component: {fileID: -6335535794489404859}
   m_Layer: 0
-  m_Name: SpeedUpgrade
+  m_Name: SpeedPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,7 +313,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5743582876544536810}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00000058114523}
-  m_LocalPosition: {x: 157.34, y: 48.4896, z: 36.7}
+  m_LocalPosition: {x: 157.34, y: 47, z: 36.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5085478146285835148}
@@ -351,6 +352,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-6335535794489404859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5743582876544536810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbbcb9728de2a384fb7acfb0d5625d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8126858463653912991
 GameObject:
   m_ObjectHideFlags: 0

@@ -129,7 +129,7 @@ public class CastleShip : MonoBehaviour
         if (other.TryGetComponent<SpeedPickup>(out speedPickup))
         {
             AddModifier(new SpeedModifier(), 8.0f);
-            GameObject.Destroy(speedPickup);
+            GameObject.Destroy(speedPickup.gameObject);
             return;
         }
     }
