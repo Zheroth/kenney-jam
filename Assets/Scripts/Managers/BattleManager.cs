@@ -9,26 +9,35 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<CastleShip> availableCastleShips;
 
     private int roundNumber;
-
     private List<HumanPlayer> humanPlayers = new List<HumanPlayer>();
     private HumanPlayer currentKing = null;
 
-    private Dictionary<CastleShip.CastleShipType, GameObject> shipDict = new Dictionary<CastleShip.CastleShipType, GameObject>();
+    private Dictionary<CastleShip.CastleShipType, GameObject> shipDict;
 
-    void Awake()
+    private Dictionary<CastleShip.CastleShipType, GameObject> ShipDict
     {
-        for(int i=0; i<availableCastleShips.Count; i++)
+        get
         {
-            if (!shipDict.ContainsKey(availableCastleShips[i].shipType))
+            if (shipDict == null)
             {
-                shipDict.Add(availableCastleShips[i].shipType, availableCastleShips[i].gameObject);
+                shipDict = new Dictionary<CastleShip.CastleShipType, GameObject>();
+
+                for(int i=0; i<availableCastleShips.Count; i++)
+                {
+                    if (!shipDict.ContainsKey(availableCastleShips[i].shipType))
+                    {
+                        shipDict.Add(availableCastleShips[i].shipType, availableCastleShips[i].gameObject);
+                    }
+                }
             }
+
+            return shipDict;
         }
     }
 
     public CastleShip SpawnShip(CastleShip.CastleShipType shipType, int playerId, Transform spawnTransform)
     {
-        GameObject newShip = Instantiate(shipDict[shipType], spawnTransform);
+        GameObject newShip = Instantiate(ShipDict[shipType], spawnTransform);
         newShip.GetComponent<PlayerControlled>().AssignPlayer(playerId);
         targetGroup.AddMember(newShip.transform,1.0f,3.0f);
         return newShip.GetComponent<CastleShip>();
@@ -36,8 +45,6 @@ public class BattleManager : MonoBehaviour
 
     public CastleShip GetShip(CastleShip.CastleShipType shipType)
     {
-        return shipDict[shipType].GetComponent<CastleShip>();
+        return ShipDict[shipType].GetComponent<CastleShip>();
     }
-
-
 }
