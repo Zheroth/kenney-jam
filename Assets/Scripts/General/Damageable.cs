@@ -48,7 +48,6 @@ public class Damageable : MonoBehaviour
             {
                 OnDead?.Invoke();
                 OnDeath.Invoke();
-                Destroy(this.gameObject);
             }
         }
     }

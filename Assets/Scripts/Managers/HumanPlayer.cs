@@ -170,10 +170,17 @@ public class HumanPlayer : MonoBehaviour
         CastleShip.OnKill += AddKill;
         CastleShip.SetColourMaterial(this.playerColour);
         playerUIManager.ConnectToCastleShip(CastleShip);
+        CastleShip.DamageableRef.OnDeath.AddListener(OnShipDie);
     }
     private void RemoveShip()
     {
         playerUIManager.DisconnectCastleShip(CastleShip);
-        GameObject.Destroy(CastleShip);
+        GameObject.Destroy(CastleShip.gameObject);
+    }
+
+    private void OnShipDie()
+    {
+        RemoveShip();
+        ChangeToShipSelection();
     }
 }
