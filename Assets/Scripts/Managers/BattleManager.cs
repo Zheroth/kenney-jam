@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    [SerializeField] private Cinemachine.CinemachineTargetGroup targetGroup;
     [SerializeField] private List<CastleShip> availableCastleShips;
 
     private Dictionary<CastleShip.CastleShipType, GameObject> shipDict = new Dictionary<CastleShip.CastleShipType, GameObject>();
@@ -23,6 +24,7 @@ public class BattleManager : MonoBehaviour
     {
         GameObject newShip = Instantiate(shipDict[shipType], spawnTransform);
         newShip.GetComponent<PlayerControlled>().AssignPlayer(playerId);
+        targetGroup.AddMember(newShip.transform,1.0f,3.0f);
         return newShip.GetComponent<CastleShip>();
     }
 
