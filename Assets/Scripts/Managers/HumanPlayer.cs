@@ -134,16 +134,7 @@ public class HumanPlayer : MonoBehaviour
 
     private void SelectingShipUpdate()
     {
-        if(playerRef.GetButtonDown("Left"))
-        {
-            currentlySelectedShip--;
-            if ((int)currentlySelectedShip < 0)
-            {
-                currentlySelectedShip = (CastleShip.CastleShipType)2;
-            }
-            onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
-        }
-        else if (playerRef.GetButtonDown("Right"))
+        if(playerRef.GetButton("Left Selection"))
         {
             currentlySelectedShip++;
             if ((int)currentlySelectedShip >= 3)
@@ -151,15 +142,26 @@ public class HumanPlayer : MonoBehaviour
                 currentlySelectedShip = 0;
             }
             onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
-        }else if(playerRef.GetButtonDown("Accept"))
+        }
+        else if (playerRef.GetButton("Right Selection"))
+        {
+            currentlySelectedShip--;
+            if ((int)currentlySelectedShip >= 3)
+            {
+                currentlySelectedShip = (CastleShip.CastleShipType)2;
+            }
+            onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
+        }
+
+        else if(playerRef.GetAnyButtonDown())
         {
             ChangeToPlaying();
         }
     }
 
-    private void AddKill(int kill)
+    private void AddKill(int newKills)
     {
-        this.kills++;
+        this.kills+=newKills;
         onKillsChanged?.Invoke(kills);
     }
 
