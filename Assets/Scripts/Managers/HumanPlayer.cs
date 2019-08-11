@@ -12,18 +12,14 @@ public class HumanPlayer : MonoBehaviour
     [SerializeField]
     Transform spawnPosition;
 
-    public int Kills
-    {
-        get { return this.kills; }
-    }
-    private int kills = 0;
-
     public int Victories
     {
         get;
         private set;
     }
 
+    private int kills;
+    public int Kills { get { return kills; } }
     private int gold = 0;
     public int Gold { get { return gold; } }
     public delegate void OnGoldChanged(int gold);
@@ -134,7 +130,16 @@ public class HumanPlayer : MonoBehaviour
 
     private void SelectingShipUpdate()
     {
-        if(playerRef.GetButton("Left Selection"))
+        if(playerRef.GetButtonDown("Left"))
+        {
+            currentlySelectedShip--;
+            if ((int)currentlySelectedShip < 0)
+            {
+                currentlySelectedShip = (CastleShip.CastleShipType)2;
+            }
+            onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
+        }
+        else if (playerRef.GetButtonDown("Right"))
         {
             currentlySelectedShip++;
             if ((int)currentlySelectedShip >= 3)
@@ -142,18 +147,7 @@ public class HumanPlayer : MonoBehaviour
                 currentlySelectedShip = 0;
             }
             onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
-        }
-        else if (playerRef.GetButton("Right Selection"))
-        {
-            currentlySelectedShip--;
-            if ((int)currentlySelectedShip >= 3)
-            {
-                currentlySelectedShip = (CastleShip.CastleShipType)2;
-            }
-            onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
-        }
-
-        else if(playerRef.GetAnyButtonDown())
+        }else if(playerRef.GetButtonDown("Accept"))
         {
             ChangeToPlaying();
         }
@@ -161,7 +155,7 @@ public class HumanPlayer : MonoBehaviour
 
     private void AddKill(int newKills)
     {
-        this.kills+=newKills;
+        this.kills += newKills;
         onKillsChanged?.Invoke(kills);
     }
 
@@ -173,7 +167,6 @@ public class HumanPlayer : MonoBehaviour
         }
         castleShip = battleManagerRef.SpawnShip(castleShipType, this.BoundPlayerID, this.spawnPosition);
         CastleShip.OnGoldChanged += AddGold;
-        CastleShip.OnKill += AddKill;
         CastleShip.SetColourMaterial(this.playerColour);
         playerUIManager.ConnectToCastleShip(CastleShip);
     }
