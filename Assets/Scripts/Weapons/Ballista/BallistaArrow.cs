@@ -9,15 +9,19 @@ public class BallistaArrow : MonoBehaviour
     [SerializeField]
     private int damage;
 
+    [SerializeField]
+    CastleShip castleShip;
+
     void FixedUpdate()
     {
         if (rigidBody.velocity != Vector3.zero)
             rigidBody.rotation = Quaternion.LookRotation(rigidBody.velocity);
     }
 
-    public void Shoot(float strength)
+    public void Shoot(float strength, CastleShip castleShip)
     {
         this.rigidBody.AddRelativeForce(this.transform.forward*strength, ForceMode.Impulse);
+        this.castleShip = castleShip;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,7 +29,11 @@ public class BallistaArrow : MonoBehaviour
         Damageable damageable;
         if(other.gameObject.TryGetComponent<Damageable>(out damageable))
         {
-            damageable.TakeDamage(damage);
+            if(other.gameObject == castleShip.gameObject)
+            {
+                return;
+            }
+            damageable.TakeDamage(damage, () => castleShip.AddKills(1));
             Remove();
         }
     }
