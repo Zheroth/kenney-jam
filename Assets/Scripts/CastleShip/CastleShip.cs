@@ -9,11 +9,6 @@ public class CastleShip : MonoBehaviour
 {
     public CastleShipType shipType;
 
-    private int gold = 0;
-    public int Gold { get { return gold; } }
-    public delegate void OnGoldChanged(int gold);
-    public OnGoldChanged onGoldChanged;
-
     public float forwardAcceleration = 1200.0f;
     public float backwardAcceleration = 1200.0f;
     public float turnStrength = 10.0f;
@@ -26,6 +21,7 @@ public class CastleShip : MonoBehaviour
     public OnCastleShipUseAction OnActionC;
     public OnCastleShipUseAction OnActionD;
 
+    public HumanPlayer.OnGoldChanged OnGoldChanged;
 
     private float currentThrust = 0.0f;
     private float currentTurn = 0.0f;
@@ -115,15 +111,14 @@ public class CastleShip : MonoBehaviour
         Treasure treasure;
         if(other.TryGetComponent<Treasure>(out treasure))
         {
-            AddGold(treasure.Gold);
+            this.AddGold(treasure.Gold);
             GameObject.Destroy(treasure.gameObject);
         }
     }
 
     public void AddGold(int gold)
     {
-        this.gold += gold;
-        onGoldChanged?.Invoke(this.gold);
+        OnGoldChanged?.Invoke(gold);
     }
 
     public void SetCurrentThrust(float newThrust)
