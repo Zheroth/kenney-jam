@@ -411,6 +411,7 @@ MonoBehaviour:
   shipType: 2
   forwardAcceleration: 1200
   backwardAcceleration: 1200
+  sideAcceleration: 400
   turnStrength: 150
   hoverForce: 5
   hoverHeight: 5
@@ -509,8 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7eaae60355b6814ebcbb8254e44ca17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DEBUG_Colour: {r: 0, g: 0, b: 0, a: 0}
-  DEBUG_player: 0
+  playerID: 0
 --- !u!1001 &867981362213217722
 PrefabInstance:
   m_ObjectHideFlags: 0

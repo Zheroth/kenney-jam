@@ -11,9 +11,12 @@ public class CastleShip : MonoBehaviour
 
     public float forwardAcceleration = 1200.0f;
     public float backwardAcceleration = 1200.0f;
+    public float sideAcceleration = 400.0f;
+    private float dodgeForce = 20.0f;
     public float turnStrength = 10.0f;
     public float hoverForce = 5.0f;
     public float hoverHeight = 3.0f;
+    
     public GameObject[] hoverPoints;
 
     public OnCastleShipUseAction OnActionA;
@@ -25,6 +28,7 @@ public class CastleShip : MonoBehaviour
 
     private float currentThrust = 0.0f;
     private float currentTurn = 0.0f;
+    private float currentSideThurst = 0.0f;
 
     private float thrustModifier = 1.0f;
 
@@ -93,6 +97,11 @@ public class CastleShip : MonoBehaviour
             RigidbodyRef.AddForce(transform.forward * currentThrust * thrustModifier * Time.deltaTime);
         }
 
+        if (Mathf.Abs(currentSideThurst) > 0)
+        {
+            RigidbodyRef.AddForce(transform.right * currentSideThurst * Time.deltaTime);
+        }
+
         if (currentTurn != 0)
         {
             RigidbodyRef.AddRelativeTorque(Vector3.up * currentTurn * turnStrength * Time.deltaTime);
@@ -149,6 +158,11 @@ public class CastleShip : MonoBehaviour
         currentTurn = newTurn;
     }
 
+    public void SetCurrentSideThrust(float newSideThrust)
+    {
+        currentSideThurst = newSideThrust;
+    }
+
     public void SetCurrentThrustModifier(float newThrustModifier)
     {
         thrustModifier = newThrustModifier;
@@ -176,6 +190,18 @@ public class CastleShip : MonoBehaviour
     {
         Debug.Log("ActionD");
         OnActionD?.Invoke(this, "ActionD");
+    }
+
+    public void SideDodge(bool right)
+    {
+        if (right)
+        {
+            RigidbodyRef.AddForce(transform.right * dodgeForce, ForceMode.Impulse);
+        }
+        else
+        {
+            RigidbodyRef.AddForce(-transform.right * dodgeForce, ForceMode.Impulse);
+        }
     }
 
     public void AddModifier(Modifier modifier, float durations)
