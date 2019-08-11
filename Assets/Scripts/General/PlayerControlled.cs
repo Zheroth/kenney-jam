@@ -55,7 +55,6 @@ public class PlayerControlled : MonoBehaviour
     {
         Vector3 moveVector = new Vector3(playerRef.GetAxis("MoveHorizontal"),0,playerRef.GetAxis("MoveVertical"));
         float sideThrust = playerRef.GetAxis("SideThrust");
-        Debug.Log(sideThrust);
 
         //Main Thrust
         CastleShipRef.SetCurrentThrust(0.0f);

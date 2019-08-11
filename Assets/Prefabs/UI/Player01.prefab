@@ -441,6 +441,7 @@ MonoBehaviour:
   healthBarImage: {fileID: 3669785821512981833}
   healthPercentage: {fileID: 4491112125081797667}
   goldText: {fileID: 274864319799318769}
+  coinAnimator: {fileID: 7012360074611549520}
   killCount: {fileID: 7148545311898875314}
   selectingShipUIGroup: {fileID: 8961174969156739861}
   shipName: {fileID: 6123801864420446775}

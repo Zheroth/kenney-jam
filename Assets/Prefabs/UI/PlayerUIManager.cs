@@ -22,6 +22,8 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI goldText;
     [SerializeField]
+    private Animator coinAnimator;
+    [SerializeField]
     private TMPro.TextMeshProUGUI killCount;
 
     // SELECTING SHIP
@@ -69,6 +71,8 @@ public class PlayerUIManager : MonoBehaviour
     private void OnGoldChanged(int gold)
     {
         goldText.text = gold.ToString();
+        coinAnimator.SetTrigger("Get");
+        Debug.Log("Gold Changed");
     }
 
     private void OnShipSelectionChanged(CastleShip ship)
