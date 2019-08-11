@@ -8,9 +8,14 @@ public class BallistaArrow : MonoBehaviour
     private Rigidbody rigidBody;
     [SerializeField]
     private int damage;
-
     [SerializeField]
-    CastleShip castleShip;
+    TrailRenderer trail;
+    [SerializeField]
+    GameObject missile;
+
+    private bool removed = false;
+
+    private CastleShip castleShip;
 
     void FixedUpdate()
     {
@@ -40,14 +45,20 @@ public class BallistaArrow : MonoBehaviour
 
     private void Update()
     {
-        if(this.transform.position.y < 30)
+        if (!removed)
         {
-            Remove();
+            if (this.transform.position.y < 30)
+            {
+                Remove();
+            }
         }
     }
 
     private void Remove()
     {
-        GameObject.Destroy(this.gameObject);
+        this.removed = true;
+        Destroy(this.gameObject, trail.time);
+        this.missile.SetActive(false);
+        this.rigidBody.isKinematic = true;
     }
 }
