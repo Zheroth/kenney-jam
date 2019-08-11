@@ -36,6 +36,7 @@ public class PlayerUIManager : MonoBehaviour
     {
         SetHealthPer(1);
         OnGoldChanged(0);
+        OnKillsChanged(0);
     }
 
     public void ConnectToHumanPlayer(HumanPlayer humanPlayer)

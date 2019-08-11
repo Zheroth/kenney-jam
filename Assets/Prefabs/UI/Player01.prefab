@@ -441,7 +441,7 @@ MonoBehaviour:
   healthBarImage: {fileID: 3669785821512981833}
   healthPercentage: {fileID: 4491112125081797667}
   goldText: {fileID: 274864319799318769}
-  killCount: {fileID: 0}
+  killCount: {fileID: 7148545311898875314}
   selectingShipUIGroup: {fileID: 8961174969156739861}
   shipName: {fileID: 6123801864420446775}
   shipImage: {fileID: 4866925745114745023}
@@ -1218,7 +1218,7 @@ GameObject:
   - component: {fileID: 1654997924045562367}
   - component: {fileID: 7148545311898875314}
   m_Layer: 5
-  m_Name: coins
+  m_Name: kills
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1643,7 +1643,7 @@ GameObject:
   - component: {fileID: 5998813392242320659}
   - component: {fileID: 315056501082412847}
   m_Layer: 5
-  m_Name: Coins
+  m_Name: killIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

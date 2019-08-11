@@ -167,6 +167,7 @@ public class HumanPlayer : MonoBehaviour
         }
         castleShip = battleManagerRef.SpawnShip(castleShipType, this.BoundPlayerID, this.spawnPosition);
         CastleShip.OnGoldChanged += AddGold;
+        CastleShip.OnKill += AddKill;
         CastleShip.SetColourMaterial(this.playerColour);
         playerUIManager.ConnectToCastleShip(CastleShip);
     }

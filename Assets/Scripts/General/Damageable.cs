@@ -42,15 +42,13 @@ public class Damageable : MonoBehaviour
             }
 
             OnHit.Invoke();
-            if(onHpChanged != null)
-            {
-                onHpChanged(currentHP, maxHP, HealthPercentage);
-            }
+            onHpChanged?.Invoke(currentHP, maxHP, HealthPercentage);
 
             if (currentHP == 0)
             {
                 OnDead?.Invoke();
                 OnDeath.Invoke();
+                Destroy(this.gameObject);
             }
         }
     }
