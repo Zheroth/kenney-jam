@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Rewired;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class HumanPlayer : MonoBehaviour
 {
     [SerializeField]
     BattleManager battleManagerRef;
+    Player playerRef;
 
     [SerializeField]
     Transform spawnPosition;
@@ -21,6 +23,10 @@ public class HumanPlayer : MonoBehaviour
     public delegate void OnGoldChanged(int gold);
     public OnGoldChanged onGoldChanged;
 
+    public delegate void OnShipChanged(CastleShip newShip);
+    public OnShipChanged onShipChanged;
+
+
     [SerializeField]
     private Color playerColour;
 
@@ -30,7 +36,7 @@ public class HumanPlayer : MonoBehaviour
     enum PlayerState { Unassigned, Waiting, SelectingShip, Playing }
     PlayerState playerState = PlayerState.Unassigned;
 
-    private CastleShip currentlySelectedShip;
+    private CastleShip.CastleShipType currentlySelectedShip = CastleShip.CastleShipType.Assaulter;
 
     [SerializeField]
     private CastleShip castleShip;
@@ -58,8 +64,8 @@ public class HumanPlayer : MonoBehaviour
     {
         this.BoundPlayerID = playerArgs.PlayerId;
         this.HasPlayer = true;
-        ChangeToPlaying();
-        //ChangeToShipSelection();
+        playerRef = ReInput.players.GetPlayer(BoundPlayerID);
+        ChangeToShipSelection();
     }
 
     public void UnBindPlayer()
@@ -89,7 +95,7 @@ public class HumanPlayer : MonoBehaviour
 
     private void ChangeToPlaying()
     {
-        AddShip(CastleShip.CastleShipType.Assaulter);
+        AddShip(currentlySelectedShip);
         this.playerState = PlayerState.Playing;
         playerUIManager.ChangeToPlaying();
     }
@@ -120,7 +126,29 @@ public class HumanPlayer : MonoBehaviour
 
     private void SelectingShipUpdate()
     {
-        //If directional buttons are pushed, change the ship
+        if(playerRef.GetButton("Left Selection"))
+        {
+            currentlySelectedShip++;
+            if ((int)currentlySelectedShip >= 3)
+            {
+                currentlySelectedShip = 0;
+            }
+            onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
+        }
+        else if (playerRef.GetButton("Right Selection"))
+        {
+            currentlySelectedShip--;
+            if ((int)currentlySelectedShip >= 3)
+            {
+                currentlySelectedShip = (CastleShip.CastleShipType)2;
+            }
+            onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
+        }
+
+        else if(playerRef.GetAnyButtonDown())
+        {
+            ChangeToPlaying();
+        }
     }
 
     private void AddShip(CastleShip.CastleShipType castleShipType)
