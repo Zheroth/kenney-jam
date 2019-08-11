@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Rewired;
+using System;
 
 [RequireComponent(typeof(Damageable))]
 public class CastleShip : MonoBehaviour
@@ -48,6 +49,11 @@ public class CastleShip : MonoBehaviour
 
             return rigidbodyRef;
         }
+    }
+
+    public void AddKills(int kills)
+    {
+        OnKill(kills);
     }
 
     private Damageable damageableRef;

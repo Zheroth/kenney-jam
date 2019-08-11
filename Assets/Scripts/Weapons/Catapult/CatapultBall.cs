@@ -5,23 +5,23 @@ using UnityEngine;
 public class CatapultBall : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField]
-    private Rigidbody rigidBody;
+    private CastleShip castleRef;
     [SerializeField]
     private int damage;
 
     void FixedUpdate()
     {
-        if (rigidBody.velocity != Vector3.zero)
-            rigidBody.rotation = Quaternion.LookRotation(rigidBody.velocity);
+        if (castleRef.RigidbodyRef.velocity != Vector3.zero)
+            castleRef.RigidbodyRef.rotation = Quaternion.LookRotation(castleRef.RigidbodyRef.velocity);
     }
 
-    public void Shoot(float strength, Rigidbody shipRigidbody)
+    public void Shoot(float strength, CastleShip castleShip)
     {
+        this.castleRef = castleShip;
         Vector2 forcePos = this.transform.position;
-        forcePos.y = shipRigidbody.centerOfMass.y;
-        shipRigidbody.AddForce(-shipRigidbody.transform.forward * strength/2, ForceMode.Impulse);
-        this.rigidBody.AddForce(this.transform.forward * strength, ForceMode.Impulse);
+        forcePos.y = castleShip.RigidbodyRef.centerOfMass.y;
+        castleShip.RigidbodyRef.AddForce(-castleShip.transform.forward * strength/2, ForceMode.Impulse);
+        this.castleRef.RigidbodyRef.AddForce(this.transform.forward * strength, ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -29,7 +29,7 @@ public class CatapultBall : MonoBehaviour
         Damageable damageable;
         if (collision.gameObject.TryGetComponent<Damageable>(out damageable))
         {
-            damageable.TakeDamage(damage);
+            damageable.TakeDamage(damage, () => castleRef.AddKills(1));
         }
         Remove();
     }

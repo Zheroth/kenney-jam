@@ -27,7 +27,7 @@ public class Damageable : MonoBehaviour
         ResetHP();
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Action OnDead = null)
     {
         if (invulnerable)
         {
@@ -49,6 +49,7 @@ public class Damageable : MonoBehaviour
 
             if (currentHP == 0)
             {
+                OnDead?.Invoke();
                 OnDeath.Invoke();
             }
         }
