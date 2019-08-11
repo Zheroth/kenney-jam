@@ -26,9 +26,12 @@ public class CastleShip : MonoBehaviour
     public OnCastleShipUseAction OnActionC;
     public OnCastleShipUseAction OnActionD;
 
-
     private float currentThrust = 0.0f;
     private float currentTurn = 0.0f;
+
+    private float thrustModifier = 1.0f;
+
+    private List<Modifier> modifierList = new List<Modifier>();
 
     private Rigidbody rigidbodyRef;
     public Rigidbody RigidbodyRef
@@ -58,6 +61,11 @@ public class CastleShip : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        UpdateModifiers();
+    }
+
     void FixedUpdate()
     {
         //Hover force
@@ -85,7 +93,7 @@ public class CastleShip : MonoBehaviour
 
         if (Mathf.Abs(currentThrust) > 0)
         {
-            RigidbodyRef.AddForce(transform.forward * currentThrust * Time.deltaTime);
+            RigidbodyRef.AddForce(transform.forward * currentThrust * thrustModifier * Time.deltaTime);
         }
 
         if (currentTurn != 0)
@@ -117,6 +125,15 @@ public class CastleShip : MonoBehaviour
         {
             AddGold(treasure.Gold);
             GameObject.Destroy(treasure.gameObject);
+            return;
+        }
+
+        SpeedPickup speedPickup;
+        if (other.TryGetComponent<SpeedPickup>(out speedPickup))
+        {
+            AddModifier(new SpeedModifier(), 8.0f);
+            GameObject.Destroy(speedPickup);
+            return;
         }
     }
 
@@ -134,6 +151,11 @@ public class CastleShip : MonoBehaviour
     public void SetCurrentTurn(float newTurn)
     {
         currentTurn = newTurn;
+    }
+
+    public void SetCurrentThrustModifier(float newThrustModifier)
+    {
+        thrustModifier = newThrustModifier;
     }
 
     public void FireActionA()
@@ -158,6 +180,26 @@ public class CastleShip : MonoBehaviour
     {
         Debug.Log("ActionD");
         OnActionD?.Invoke(this, "ActionD");
+    }
+
+    public void AddModifier(Modifier modifier, float durations)
+    {
+        modifier.Duration = durations;
+        modifier.ActivateModifier(this);
+        modifierList.Add(modifier);
+    }
+
+    public void UpdateModifiers()
+    {
+        for (int i = modifierList.Count-1; i >= 0; i--)
+        {
+            modifierList[i].Duration -= Time.deltaTime;
+            if (modifierList[i].Duration <= 0)
+            {
+                modifierList[i].DeactivateModifier(this);
+                modifierList.RemoveAt(i);
+            }
+        }
     }
 
     public enum CastleShipType
