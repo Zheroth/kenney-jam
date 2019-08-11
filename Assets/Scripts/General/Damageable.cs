@@ -11,6 +11,9 @@ public class Damageable : MonoBehaviour
     [SerializeField]
     private float smokeThresshold;
 
+    [SerializeField]
+    private Cinemachine.CinemachineImpulseSource onHitImpulse;
+
     [SerializeField] private int maxHP;
     [SerializeField] private bool invulnerable;
 
@@ -77,6 +80,7 @@ public class Damageable : MonoBehaviour
                 }
             }
 
+            onHitImpulse.GenerateImpulse();
             OnHit.Invoke();
             onHpChanged?.Invoke(currentHP, maxHP, HealthPercentage);
 

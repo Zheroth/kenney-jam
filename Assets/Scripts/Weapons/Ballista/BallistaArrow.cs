@@ -57,6 +57,7 @@ public class BallistaArrow : MonoBehaviour
     private void Remove()
     {
         this.removed = true;
+        trail.time = 0.5f;
         Destroy(this.gameObject, trail.time);
         this.missile.SetActive(false);
         this.rigidBody.isKinematic = true;

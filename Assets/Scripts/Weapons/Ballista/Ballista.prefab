@@ -212,7 +212,7 @@ MonoBehaviour:
     type: 3}
   shootPoint: {fileID: 3466373724511385335}
   shotStrength: 50
-  angleSpread: 0
+  angleSpread: 10
 --- !u!1 &347151861760719497
 GameObject:
   m_ObjectHideFlags: 0
