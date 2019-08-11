@@ -38,6 +38,8 @@ public class BattleManager : MonoBehaviour
     public CastleShip SpawnShip(CastleShip.CastleShipType shipType, int playerId, Transform spawnTransform)
     {
         GameObject newShip = Instantiate(ShipDict[shipType], spawnTransform);
+        newShip.transform.position = spawnTransform.position;
+        newShip.transform.rotation = spawnTransform.rotation;
         newShip.GetComponent<PlayerControlled>().AssignPlayer(playerId);
         targetGroup.AddMember(newShip.transform,1.0f,3.0f);
         return newShip.GetComponent<CastleShip>();
