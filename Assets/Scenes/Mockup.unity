@@ -5605,6 +5605,46 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d65570657b713234485418e34d96fa89, type: 3}
+--- !u!28 &135446798
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 2
+  m_Width: 256
+  m_Height: 1
+  m_CompleteImageSize: 1024
+  m_TextureFormat: 5
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 0
+    m_WrapV: 0
+    m_WrapW: 0
+  m_LightmapFormat: 0
+  m_ColorSpace: 0
+  image data: 1024
+  _typelessdata: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  m_StreamData:
+    offset: 0
+    size: 0
+    path: 
 --- !u!1 &135471365 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: d65570657b713234485418e34d96fa89,
@@ -22891,46 +22931,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d65570657b713234485418e34d96fa89, type: 3}
---- !u!28 &600593128
-Texture2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 2
-  m_Width: 256
-  m_Height: 1
-  m_CompleteImageSize: 1024
-  m_TextureFormat: 5
-  m_MipCount: 1
-  m_IsReadable: 1
-  m_StreamingMipmaps: 0
-  m_StreamingMipmapsPriority: 0
-  m_AlphaIsTransparency: 0
-  m_ImageCount: 1
-  m_TextureDimension: 2
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 0
-    m_WrapV: 0
-    m_WrapW: 0
-  m_LightmapFormat: 0
-  m_ColorSpace: 0
-  image data: 1024
-  _typelessdata: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-  m_StreamData:
-    offset: 0
-    size: 0
-    path: 
 --- !u!1 &601183898 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: d65570657b713234485418e34d96fa89,
@@ -38142,61 +38142,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898362851545596868, guid: 4f3a3173f3489ac44a5c85eb11e6ea9d,
-        type: 3}
-      propertyPath: _userData.joystickMaps.Array.data[0].actionElementMaps.Array.size
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898362851545596868, guid: 4f3a3173f3489ac44a5c85eb11e6ea9d,
-        type: 3}
-      propertyPath: _userData.keyboardMaps.Array.data[0].actionElementMaps.Array.data[0]._keyboardKeyCode
-      value: 273
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898362851545596868, guid: 4f3a3173f3489ac44a5c85eb11e6ea9d,
-        type: 3}
-      propertyPath: _userData.joystickMaps.Array.data[0].actionElementMaps.Array.data[23]._actionId
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898362851545596868, guid: 4f3a3173f3489ac44a5c85eb11e6ea9d,
-        type: 3}
-      propertyPath: _userData.joystickMaps.Array.data[0].actionElementMaps.Array.data[23]._elementType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898362851545596868, guid: 4f3a3173f3489ac44a5c85eb11e6ea9d,
-        type: 3}
-      propertyPath: _userData.joystickMaps.Array.data[0].actionElementMaps.Array.data[23]._elementIdentifierId
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898362851545596868, guid: 4f3a3173f3489ac44a5c85eb11e6ea9d,
-        type: 3}
-      propertyPath: _userData.joystickMaps.Array.data[0].actionElementMaps.Array.data[24]._actionId
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898362851545596868, guid: 4f3a3173f3489ac44a5c85eb11e6ea9d,
-        type: 3}
-      propertyPath: _userData.joystickMaps.Array.data[0].actionElementMaps.Array.data[24]._elementType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898362851545596868, guid: 4f3a3173f3489ac44a5c85eb11e6ea9d,
-        type: 3}
-      propertyPath: _userData.joystickMaps.Array.data[0].actionElementMaps.Array.data[24]._elementIdentifierId
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898362851545596868, guid: 4f3a3173f3489ac44a5c85eb11e6ea9d,
-        type: 3}
-      propertyPath: _userData.joystickMaps.Array.data[0].actionElementMaps.Array.data[25]._actionId
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898362851545596868, guid: 4f3a3173f3489ac44a5c85eb11e6ea9d,
-        type: 3}
-      propertyPath: _userData.joystickMaps.Array.data[0].actionElementMaps.Array.data[25]._elementType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4898362851545596868, guid: 4f3a3173f3489ac44a5c85eb11e6ea9d,
-        type: 3}
-      propertyPath: _userData.joystickMaps.Array.data[0].actionElementMaps.Array.data[25]._elementIdentifierId
-      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f3a3173f3489ac44a5c85eb11e6ea9d, type: 3}
@@ -67207,7 +67152,7 @@ MonoBehaviour:
   m_UpdateMethod: 2
   m_Targets:
   - target: {fileID: 811868014}
-    weight: 0
+    weight: 0.001
     radius: 0
 --- !u!1 &1644742318 stripped
 GameObject:
@@ -73577,7 +73522,7 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    m_lensFlareGradTexture: {fileID: 600593128}
+    m_lensFlareGradTexture: {fileID: 135446798}
     m_lensFlareHaloParams: {x: 0.1, y: 0.573, z: 1, w: 128}
     m_lensFlareHaloChrDistortion: 1.51
     m_lensFlareGaussianBlurAmount: 1
@@ -85807,6 +85752,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3468907335688334041, guid: 07541056b1909124b9497ef8b33ee3e7,
+        type: 3}
+      propertyPath: m_Name
+      value: GameUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3468907335688334041, guid: 07541056b1909124b9497ef8b33ee3e7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6304079909076851241, guid: 07541056b1909124b9497ef8b33ee3e7,
+        type: 3}
+      propertyPath: damageable
+      value: 
+      objectReference: {fileID: 300962328}
+    - target: {fileID: 6304079909076851241, guid: 07541056b1909124b9497ef8b33ee3e7,
+        type: 3}
+      propertyPath: castleShip
+      value: 
+      objectReference: {fileID: 300962329}
+    - target: {fileID: 283680729800588894, guid: 07541056b1909124b9497ef8b33ee3e7,
+        type: 3}
+      propertyPath: castleShip
+      value: 
+      objectReference: {fileID: 300962329}
+    - target: {fileID: 2745707660687529821, guid: 07541056b1909124b9497ef8b33ee3e7,
+        type: 3}
+      propertyPath: damageable
+      value: 
+      objectReference: {fileID: 788025162}
+    - target: {fileID: 2745707660687529821, guid: 07541056b1909124b9497ef8b33ee3e7,
+        type: 3}
+      propertyPath: castleShip
+      value: 
+      objectReference: {fileID: 1117789906}
+    - target: {fileID: 4937323042196551560, guid: 07541056b1909124b9497ef8b33ee3e7,
+        type: 3}
+      propertyPath: castleShip
+      value: 
+      objectReference: {fileID: 1797899876}
     - target: {fileID: 8960916677573576290, guid: 07541056b1909124b9497ef8b33ee3e7,
         type: 3}
       propertyPath: humanPlayers.Array.data[0]
@@ -85827,16 +85812,6 @@ PrefabInstance:
       propertyPath: humanPlayers.Array.data[3]
       value: 
       objectReference: {fileID: 436506406}
-    - target: {fileID: 3468907335688334041, guid: 07541056b1909124b9497ef8b33ee3e7,
-        type: 3}
-      propertyPath: m_Name
-      value: GameUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468907335688334041, guid: 07541056b1909124b9497ef8b33ee3e7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3468907335688334021, guid: 07541056b1909124b9497ef8b33ee3e7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -86017,26 +85992,6 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2745707660687529821, guid: 07541056b1909124b9497ef8b33ee3e7,
-        type: 3}
-      propertyPath: damageable
-      value: 
-      objectReference: {fileID: 788025162}
-    - target: {fileID: 2745707660687529821, guid: 07541056b1909124b9497ef8b33ee3e7,
-        type: 3}
-      propertyPath: castleShip
-      value: 
-      objectReference: {fileID: 1117789906}
-    - target: {fileID: 6304079909076851241, guid: 07541056b1909124b9497ef8b33ee3e7,
-        type: 3}
-      propertyPath: damageable
-      value: 
-      objectReference: {fileID: 300962328}
-    - target: {fileID: 6304079909076851241, guid: 07541056b1909124b9497ef8b33ee3e7,
-        type: 3}
-      propertyPath: castleShip
-      value: 
-      objectReference: {fileID: 300962329}
     - target: {fileID: 8380158262747999724, guid: 07541056b1909124b9497ef8b33ee3e7,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -86352,21 +86307,11 @@ PrefabInstance:
       propertyPath: m_fontStyle
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 283680729800588894, guid: 07541056b1909124b9497ef8b33ee3e7,
-        type: 3}
-      propertyPath: castleShip
-      value: 
-      objectReference: {fileID: 300962329}
     - target: {fileID: 9122229439525223450, guid: 07541056b1909124b9497ef8b33ee3e7,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4937323042196551560, guid: 07541056b1909124b9497ef8b33ee3e7,
-        type: 3}
-      propertyPath: castleShip
-      value: 
-      objectReference: {fileID: 1797899876}
     - target: {fileID: 4175848872491890124, guid: 07541056b1909124b9497ef8b33ee3e7,
         type: 3}
       propertyPath: m_IsActive
