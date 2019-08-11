@@ -753,7 +753,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Press Any Key
+  m_text: Press Start
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6780a13e2bfb09a419dbb72a51454f52, type: 2}
   m_sharedMaterial: {fileID: -4043961707831581520, guid: 6780a13e2bfb09a419dbb72a51454f52,
