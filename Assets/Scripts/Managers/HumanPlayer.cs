@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class HumanPlayer : MonoBehaviour
 {
+    [SerializeField]
+    BattleManager battleManagerRef;
+
+    [SerializeField]
+    Transform spawnPosition;
+
     public int Victories
     {
         get;
@@ -34,7 +40,6 @@ public class HumanPlayer : MonoBehaviour
     {
         playerUIManager.ConnectToHumanPlayer(this);
         ChangeToUnassigned();
-        //AddShip();
     }
 
     public int BoundPlayerID
@@ -53,7 +58,8 @@ public class HumanPlayer : MonoBehaviour
     {
         this.BoundPlayerID = playerArgs.PlayerId;
         this.HasPlayer = true;
-        ChangeToShipSelection();
+        ChangeToPlaying();
+        //ChangeToShipSelection();
     }
 
     public void UnBindPlayer()
@@ -83,6 +89,7 @@ public class HumanPlayer : MonoBehaviour
 
     private void ChangeToPlaying()
     {
+        AddShip(CastleShip.CastleShipType.Assaulter);
         this.playerState = PlayerState.Playing;
         playerUIManager.ChangeToPlaying();
     }
@@ -116,20 +123,20 @@ public class HumanPlayer : MonoBehaviour
         //If directional buttons are pushed, change the ship
     }
 
-    private void AddShip()
+    private void AddShip(CastleShip.CastleShipType castleShipType)
     {
-        if(CastleShip!=null)
+        if (CastleShip!=null)
         {
             RemoveShip();
         }
-        //CastleShip = BattleManager.GetNewShip();
+        castleShip = battleManagerRef.SpawnShip(castleShipType, this.BoundPlayerID, this.spawnPosition);
         CastleShip.OnGoldChanged += AddGold;
         CastleShip.SetColourMaterial(this.playerColour);
-        CastleShip.GetComponent<PlayerControlled>().AssignPlayer(this.BoundPlayerID);
         playerUIManager.ConnectToCastleShip(CastleShip);
     }
     private void RemoveShip()
     {
         playerUIManager.DisconnectCastleShip(CastleShip);
+        GameObject.Destroy(CastleShip);
     }
 }
