@@ -26,6 +26,8 @@ public class CastleShip : MonoBehaviour
 
     public HumanPlayer.OnGoldChanged OnGoldChanged;
 
+    public HumanPlayer.OnKillsChanged OnKill;
+
     private float currentThrust = 0.0f;
     private float currentTurn = 0.0f;
     private float currentSideThurst = 0.0f;

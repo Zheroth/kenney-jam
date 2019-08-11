@@ -12,6 +12,12 @@ public class HumanPlayer : MonoBehaviour
     [SerializeField]
     Transform spawnPosition;
 
+    public int Kills
+    {
+        get { return this.kills; }
+    }
+    private int kills = 0;
+
     public int Victories
     {
         get;
@@ -26,6 +32,8 @@ public class HumanPlayer : MonoBehaviour
     public delegate void OnShipChanged(CastleShip newShip);
     public OnShipChanged onShipChanged;
 
+    public delegate void OnKillsChanged(int killCount);
+    public OnKillsChanged onKillsChanged;
 
     [SerializeField]
     private Color playerColour;
@@ -151,6 +159,12 @@ public class HumanPlayer : MonoBehaviour
         }
     }
 
+    private void AddKill(int kill)
+    {
+        this.kills++;
+        onKillsChanged?.Invoke(kills);
+    }
+
     private void AddShip(CastleShip.CastleShipType castleShipType)
     {
         if (CastleShip!=null)
@@ -159,6 +173,7 @@ public class HumanPlayer : MonoBehaviour
         }
         castleShip = battleManagerRef.SpawnShip(castleShipType, this.BoundPlayerID, this.spawnPosition);
         CastleShip.OnGoldChanged += AddGold;
+        CastleShip.OnKill += AddKill;
         CastleShip.SetColourMaterial(this.playerColour);
         playerUIManager.ConnectToCastleShip(CastleShip);
     }

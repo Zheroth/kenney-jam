@@ -21,6 +21,8 @@ public class PlayerUIManager : MonoBehaviour
     private TMPro.TextMeshProUGUI healthPercentage;
     [SerializeField]
     private TMPro.TextMeshProUGUI goldText;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI killCount;
 
     // SELECTING SHIP
     [SerializeField]
@@ -40,6 +42,7 @@ public class PlayerUIManager : MonoBehaviour
     {
         humanPlayer.onGoldChanged += OnGoldChanged;
         humanPlayer.onShipChanged += OnShipSelectionChanged;
+        humanPlayer.onKillsChanged += OnKillsChanged;
     }
 
     public void ConnectToCastleShip(CastleShip castleShip)
@@ -71,6 +74,11 @@ public class PlayerUIManager : MonoBehaviour
     {
         this.shipImage.sprite = ship.Image;
         this.shipName.text = ship.ShipName;
+    }
+
+    private void OnKillsChanged(int killCount)
+    {
+        this.killCount.text = killCount.ToString();
     }
 
     public void ChangeToUnassigned()

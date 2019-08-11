@@ -8,6 +8,11 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Cinemachine.CinemachineTargetGroup targetGroup;
     [SerializeField] private List<CastleShip> availableCastleShips;
 
+    private int roundNumber;
+
+    private List<HumanPlayer> humanPlayers = new List<HumanPlayer>();
+    private HumanPlayer currentKing = null;
+
     private Dictionary<CastleShip.CastleShipType, GameObject> shipDict = new Dictionary<CastleShip.CastleShipType, GameObject>();
 
     void Awake()
@@ -33,4 +38,6 @@ public class BattleManager : MonoBehaviour
     {
         return shipDict[shipType].GetComponent<CastleShip>();
     }
+
+
 }
