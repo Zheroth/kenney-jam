@@ -54,6 +54,8 @@ public class PlayerControlled : MonoBehaviour
     private void GetMovementInput()
     {
         Vector3 moveVector = new Vector3(playerRef.GetAxis("MoveHorizontal"),0,playerRef.GetAxis("MoveVertical"));
+        float sideThrust = playerRef.GetAxis("SideThrust");
+        Debug.Log(sideThrust);
 
         //Main Thrust
         CastleShipRef.SetCurrentThrust(0.0f);
@@ -70,6 +72,23 @@ public class PlayerControlled : MonoBehaviour
         if (Mathf.Abs(moveVector.x) > deadZone)
         {
             CastleShipRef.SetCurrentTurn(moveVector.x);
+        }
+
+        //Side
+        CastleShipRef.SetCurrentSideThrust(0.0f);
+        if (Mathf.Abs(sideThrust) > deadZone)
+        {
+            CastleShipRef.SetCurrentSideThrust(sideThrust * CastleShipRef.sideAcceleration);
+        }
+
+        if (playerRef.GetButtonDoublePressDown("SideDodgeLeft"))
+        {
+            CastleShipRef.SideDodge(false);
+        }
+
+        if (playerRef.GetButtonDoublePressDown("SideDodgeRight"))
+        {
+            CastleShipRef.SideDodge(true);
         }
     }
 

@@ -1308,6 +1308,7 @@ MonoBehaviour:
   shipType: 0
   forwardAcceleration: 1200
   backwardAcceleration: 1200
+  sideAcceleration: 400
   turnStrength: 500
   hoverForce: 5
   hoverHeight: 3
