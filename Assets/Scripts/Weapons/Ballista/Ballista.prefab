@@ -211,8 +211,8 @@ MonoBehaviour:
   ballistaArrow: {fileID: 1802250070821544785, guid: f9a4c8decdeb33d43a4769ceb949ba1f,
     type: 3}
   shootPoint: {fileID: 3466373724511385335}
-  shotStrength: 20
-  angleSpread: 10
+  shotStrength: 50
+  angleSpread: 0
 --- !u!1 &347151861760719497
 GameObject:
   m_ObjectHideFlags: 0

@@ -188,9 +188,11 @@ public class HumanPlayer : MonoBehaviour
 
         Vector3 scale = this.transform.localScale;
         float timer = 0;
-        while(timer < 3)
+
+        Time.timeScale = 0.3f;
+        while(timer < 2)
         {
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
 
             //float completion = timer / 3;
 
@@ -198,6 +200,7 @@ public class HumanPlayer : MonoBehaviour
 
             yield return null;
         }
+        Time.timeScale = 1f;
 
         RemoveShip();
         ChangeToShipSelection();
