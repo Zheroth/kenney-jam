@@ -70,7 +70,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 0.5
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -184,6 +184,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 8473287047727367416}
   damage: 8
+  trail: {fileID: 8567639719972200151}
+  ball: {fileID: 8940178845384737790}
   castleShipRef: {fileID: 0}
 --- !u!54 &8473287047727367416
 Rigidbody:

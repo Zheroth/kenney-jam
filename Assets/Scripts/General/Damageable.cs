@@ -6,6 +6,11 @@ using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
 {
+    [SerializeField]
+    private ParticleSystem smoke;
+    [SerializeField]
+    private float smokeThresshold;
+
     [SerializeField] private int maxHP;
     [SerializeField] private bool invulnerable;
 
@@ -41,6 +46,24 @@ public class Damageable : MonoBehaviour
             if (currentHP <= 0)
             {
                 currentHP = 0;
+            }
+
+            if(smoke!=null)
+            {
+                if(currentHP <= smokeThresshold)
+                {
+                    if(!smoke.isPlaying)
+                    {
+                        smoke.Play(true);
+                    }
+                }
+                if(currentHP > smokeThresshold)
+                {
+                    if (smoke.isPlaying)
+                    {
+                        smoke.Stop(true);
+                    }
+                }
             }
 
             OnHit.Invoke();

@@ -9,8 +9,14 @@ public class CatapultBall : MonoBehaviour
     private Rigidbody rigidBody;
     [SerializeField]
     private int damage;
+    [SerializeField]
+    TrailRenderer trail;
+    [SerializeField]
+    GameObject ball;
 
-    //HACKS
+    private bool removed = false;
+
+    //PUBLIC FOR HACKS
     public CastleShip castleShipRef;
 
     void FixedUpdate()
@@ -41,14 +47,20 @@ public class CatapultBall : MonoBehaviour
 
     private void Update()
     {
-        if (this.transform.position.y < 30)
+        if(!removed)
         {
-            Remove();
+            if (this.transform.position.y < 30)
+            {
+                Remove();
+            }
         }
     }
 
     private void Remove()
     {
-        GameObject.Destroy(this.gameObject);
+        this.removed = true;
+        Destroy(this.gameObject, trail.time);
+        this.ball.SetActive(false);
+        this.rigidBody.isKinematic = true;
     }
 }
