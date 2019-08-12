@@ -1361,7 +1361,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: CastleShip+OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  fireEffect: {fileID: 0}
+  fireEffect: {fileID: 5300856298301708538}
   shipImage: {fileID: 21300000, guid: bef27eb2d1cb1b749a8fa9a1c339bd6a, type: 3}
   shipName: Assaulter
 --- !u!114 &944408922564401700
