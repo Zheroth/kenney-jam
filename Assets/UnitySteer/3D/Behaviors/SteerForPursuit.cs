@@ -167,5 +167,17 @@ namespace UnitySteer.Behaviors
 
             return force;
         }
+
+        //public DetectableObject Quarry
+        //{
+        //    get
+        //    {
+        //        return _quarry;
+        //    }
+        //    set
+        //    {
+        //        _quarry = value;
+        //    }
+        //}
     }
 }

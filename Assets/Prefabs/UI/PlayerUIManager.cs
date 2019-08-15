@@ -72,7 +72,6 @@ public class PlayerUIManager : MonoBehaviour
     {
         goldText.text = gold.ToString();
         coinAnimator.SetTrigger("Get");
-        Debug.Log("Gold Changed");
     }
 
     private void OnShipSelectionChanged(CastleShip ship)
