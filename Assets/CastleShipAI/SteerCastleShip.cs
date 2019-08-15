@@ -39,11 +39,11 @@ public class CastleShipSeek : Action
         float speed = 1;
         speed = Mathf.Lerp(0,1,distance/3);
 
-        if(distance > 5)
+        if(distance > 7)
         {
             sharedCastleShip.Value.SetCurrentThrust(speed * sharedCastleShip.Value.forwardAcceleration);
         }
-        else if(distance < 3)
+        else if(distance < 5)
         {
             sharedCastleShip.Value.SetCurrentThrust(-1 * sharedCastleShip.Value.backwardAcceleration);
         }
@@ -59,7 +59,12 @@ public class CastleShipSeek : Action
 
     public override TaskStatus OnUpdate()
     {
-        //sharedCastleShip.Value.SetCurrentTurn(turnAmount);
+        if (steerTarget.Value == null)
+        {
+            sharedCastleShip.Value.SetCurrentThrust(0);
+            sharedCastleShip.Value.SetCurrentTurn(0);
+            return TaskStatus.Failure;
+        }
         Seek();
         return TaskStatus.Running;
     }
