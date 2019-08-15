@@ -31,6 +31,8 @@ public class CastleShipSeek : Action
         }
     }
 
+    private float _speed;
+    private float MaxSpeed = 8;
     /// <summary>
     /// Array of steering behaviors
     /// </summary>
@@ -65,8 +67,6 @@ public class CastleShipSeek : Action
         var allSteerings = sharedCastleShip.Value.GetComponents<Steering>();
         Steerings = allSteerings.Where(x => !x.IsPostProcess).ToArray();
         SteeringPostprocessors = allSteerings.Where(x => x.IsPostProcess).ToArray();
-        Debug.Log("Steerings" + Steerings.Length);
-        Debug.Log("SteeringPostprocessors" + SteeringPostprocessors.Length);
     }
 
     void Seek()
@@ -165,18 +165,21 @@ public class CastleShipSeek : Action
         UnityEngine.Profiling.Profiler.EndSample();
         var targetDirection = Vector3.ClampMagnitude(force / sharedCastleShip.Value.RigidbodyRef.mass, 1);
 
+        Debug.Log(targetDirection);
+
+        //TODO: Fix NaN NaN NaN Postprocessor bug
         //Post processing steering
         Vector3 adjustedVelocity = Vector3.zero;
-        UnityEngine.Profiling.Profiler.BeginSample("Adding up post-processing steerings");
-        for (var i = 0; i < SteeringPostprocessors.Length; i++)
-        {
-            var s = SteeringPostprocessors[i];
-            if (s.enabled)
-            {
-                adjustedVelocity += s.WeighedForce;
-            }
-        }
-        UnityEngine.Profiling.Profiler.EndSample();
+        //UnityEngine.Profiling.Profiler.BeginSample("Adding up post-processing steerings");
+        //for (var i = 0; i < SteeringPostprocessors.Length; i++)
+        //{
+        //    var s = SteeringPostprocessors[i];
+        //    if (s.enabled)
+        //    {
+        //        adjustedVelocity += s.WeighedForce;
+        //    }
+        //}
+        //UnityEngine.Profiling.Profiler.EndSample();
 
         if (adjustedVelocity != Vector3.zero)
         {
@@ -188,11 +191,32 @@ public class CastleShipSeek : Action
 
         Debug.Log(targetDirection);
 
-        //sharedCastleShip.Value.SetCurrentTurn(targetDirection.x);
-        //sharedCastleShip.Value.SetCurrentThrust(newVelocity.x);
-        Seek(targetDirection*2);
-        TraceDisplacement(targetDirection*2, Color.red);
+        Seek(targetDirection * 2);
+        //TraceDisplacement(targetDirection*2, Color.red);
 
+        //float TargetSpeed = targetDirection.magnitude;
+        //Vector3 orientationVelocity = Mathf.Approximately(_speed, 0) ? sharedCastleShip.Value.transform.forward : targetDirection / TargetSpeed;
+    }
+
+    Vector3 CalculatePositionDelta(float TargetSpeed, Vector3 orientationVelocity)
+    {
+        /*
+     * Notice that we clamp the target speed and not the speed itself, 
+     * because the vehicle's maximum speed might just have been lowered
+     * and we don't want its actual speed to suddenly drop.
+     */
+        var targetSpeed = Mathf.Clamp(TargetSpeed, 0, MaxSpeed);
+        if (Mathf.Approximately(_speed, targetSpeed))
+        {
+            _speed = targetSpeed;
+        }
+        else
+        {
+            var rate = TargetSpeed > _speed ? sharedCastleShip.Value.forwardAcceleration : sharedCastleShip.Value.forwardAcceleration;
+            _speed = Mathf.Lerp(_speed, targetSpeed, Time.deltaTime * rate);
+        }
+
+        return sharedCastleShip.Value.transform.forward * _speed * Time.deltaTime;
     }
 
     private void TraceDisplacement(Vector3 delta, Color color)
