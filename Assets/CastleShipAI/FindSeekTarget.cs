@@ -23,7 +23,7 @@ public class FindSeekTarget : Action
         {
             if(castleShips[i] != castleShip.Value)
             {
-                steerTarget.Value = castleShips[0].transform;
+                steerTarget.Value = castleShips[i].transform;
                 return TaskStatus.Success;
             }
         }

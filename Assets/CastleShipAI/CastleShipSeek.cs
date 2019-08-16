@@ -228,6 +228,7 @@ public class CastleShipSeek : Action
     {
         if (steerTarget.Value == null)
         {
+            SteerForPursuit.Quarry = null;
             sharedCastleShip.Value.SetCurrentThrust(0);
             sharedCastleShip.Value.SetCurrentTurn(0);
             return TaskStatus.Failure;

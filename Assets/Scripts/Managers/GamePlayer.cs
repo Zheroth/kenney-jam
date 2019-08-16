@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HumanPlayer : MonoBehaviour
+public class GamePlayer : MonoBehaviour
 {
+    [SerializeField]
+    private bool ai = false;
+
     [SerializeField]
     BattleManager battleManagerRef;
     Player playerRef;
@@ -48,8 +51,17 @@ public class HumanPlayer : MonoBehaviour
 
     private void Start()
     {
-        playerUIManager.ConnectToHumanPlayer(this);
-        ChangeToUnassigned();
+        playerUIManager.ConnectToGamePlayer(this);
+
+        if(ai)
+        {
+            this.HasPlayer = true;
+            ChangeToPlaying();
+        }
+        else
+        {
+            ChangeToUnassigned();
+        }
     }
 
     public int BoundPlayerID
@@ -99,7 +111,7 @@ public class HumanPlayer : MonoBehaviour
 
     private void ChangeToPlaying()
     {
-        AddShip(currentlySelectedShip);
+        AddShip(currentlySelectedShip, ai);
         this.playerState = PlayerState.Playing;
         playerUIManager.ChangeToPlaying();
     }
@@ -159,13 +171,13 @@ public class HumanPlayer : MonoBehaviour
         onKillsChanged?.Invoke(kills);
     }
 
-    private void AddShip(CastleShip.CastleShipType castleShipType)
+    private void AddShip(CastleShip.CastleShipType castleShipType, bool ai = false)
     {
         if (CastleShip!=null)
         {
             RemoveShip();
         }
-        castleShip = battleManagerRef.SpawnShip(castleShipType, this.BoundPlayerID, this.spawnPosition);
+        castleShip = battleManagerRef.SpawnShip(castleShipType, this.BoundPlayerID, this.spawnPosition, ai);
         CastleShip.OnGoldChanged += AddGold;
         CastleShip.OnKill += AddKill;
         CastleShip.SetColourMaterial(this.playerColour);
@@ -203,6 +215,13 @@ public class HumanPlayer : MonoBehaviour
         Time.timeScale = 1f;
 
         RemoveShip();
-        ChangeToShipSelection();
+        if(ai)
+        {
+            ChangeToPlaying();
+        }
+        else
+        {
+            ChangeToShipSelection();
+        }
     }
 }

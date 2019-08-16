@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class ComputerControlled : MonoBehaviour
 {
+    [SerializeField]
+    private CastleShip castleShip;
+    [SerializeField]
+    private Color playerColour;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        castleShip.SetColourMaterial(this.playerColour);
     }
 }
