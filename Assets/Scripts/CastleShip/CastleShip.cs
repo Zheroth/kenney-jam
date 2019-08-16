@@ -25,9 +25,9 @@ public class CastleShip : MonoBehaviour
     public OnCastleShipUseAction OnActionC;
     public OnCastleShipUseAction OnActionD;
 
-    public HumanPlayer.OnGoldChanged OnGoldChanged;
+    public GamePlayer.OnGoldChanged OnGoldChanged;
 
-    public HumanPlayer.OnKillsChanged OnKill;
+    public GamePlayer.OnKillsChanged OnKill;
 
     public ParticleSystem fireEffect;
 

@@ -7,10 +7,11 @@ public class BattleManager : MonoBehaviour
 {
     [SerializeField] private Cinemachine.CinemachineTargetGroup targetGroup;
     [SerializeField] private List<CastleShip> availableCastleShips;
+    [SerializeField] private List<CastleShip> availableAICastleShips;
 
     private int roundNumber;
-    private List<HumanPlayer> humanPlayers = new List<HumanPlayer>();
-    private HumanPlayer currentKing = null;
+    private List<GamePlayer> humanPlayers = new List<GamePlayer>();
+    private GamePlayer currentKing = null;
 
     private Dictionary<CastleShip.CastleShipType, GameObject> shipDict;
 
@@ -35,12 +36,36 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public CastleShip SpawnShip(CastleShip.CastleShipType shipType, int playerId, Transform spawnTransform)
+    private Dictionary<CastleShip.CastleShipType, GameObject> aiShipDict;
+
+    private Dictionary<CastleShip.CastleShipType, GameObject> AIShipDict
     {
-        GameObject newShip = Instantiate(ShipDict[shipType], spawnTransform);
+        get
+        {
+            if (aiShipDict == null)
+            {
+                aiShipDict = new Dictionary<CastleShip.CastleShipType, GameObject>();
+
+                for (int i = 0; i < availableAICastleShips.Count; i++)
+                {
+                    if (!aiShipDict.ContainsKey(availableAICastleShips[i].shipType))
+                    {
+                        aiShipDict.Add(availableAICastleShips[i].shipType, availableAICastleShips[i].gameObject);
+                    }
+                }
+            }
+
+            return aiShipDict;
+        }
+    }
+
+
+    public CastleShip SpawnShip(CastleShip.CastleShipType shipType, int playerId, Transform spawnTransform, bool ai = false)
+    {
+        GameObject newShip = ai ? Instantiate(AIShipDict[shipType], spawnTransform) : Instantiate(ShipDict[shipType], spawnTransform);
         newShip.transform.position = spawnTransform.position;
         newShip.transform.rotation = spawnTransform.rotation;
-        newShip.GetComponent<PlayerControlled>().AssignPlayer(playerId);
+        if (!ai) { newShip.GetComponent<PlayerControlled>().AssignPlayer(playerId); }
         targetGroup.AddMember(newShip.transform,1.0f,3.0f);
         return newShip.GetComponent<CastleShip>();
     }
