@@ -41,7 +41,7 @@ public class PlayerUIManager : MonoBehaviour
         OnKillsChanged(0);
     }
 
-    public void ConnectToHumanPlayer(HumanPlayer humanPlayer)
+    public void ConnectToGamePlayer(GamePlayer humanPlayer)
     {
         humanPlayer.onGoldChanged += OnGoldChanged;
         humanPlayer.onShipChanged += OnShipSelectionChanged;
@@ -72,7 +72,6 @@ public class PlayerUIManager : MonoBehaviour
     {
         goldText.text = gold.ToString();
         coinAnimator.SetTrigger("Get");
-        Debug.Log("Gold Changed");
     }
 
     private void OnShipSelectionChanged(CastleShip ship)

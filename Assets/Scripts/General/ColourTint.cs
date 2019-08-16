@@ -26,7 +26,10 @@ public class ColourTint : MonoBehaviour
             Material[] materials = renderers[i].materials;
             for (int j = 0; j < materials.Length; j++)
             {
-                matPropBlock.Add(new MaterialProperties(materials[j]));
+                if(materials[j].HasProperty("_Color"))
+                {
+                    matPropBlock.Add(new MaterialProperties(materials[j]));
+                }
             }
         }
     }
