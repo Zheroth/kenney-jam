@@ -165,8 +165,6 @@ public class CastleShipSeek : Action
         UnityEngine.Profiling.Profiler.EndSample();
         var targetDirection = Vector3.ClampMagnitude(force / sharedCastleShip.Value.RigidbodyRef.mass, 1);
 
-        Debug.Log(targetDirection);
-
         //TODO: Fix NaN NaN NaN Postprocessor bug
         //Post processing steering
         Vector3 adjustedVelocity = Vector3.zero;
@@ -188,8 +186,6 @@ public class CastleShipSeek : Action
             TraceDisplacement(targetDirection, Color.white);
             targetDirection = adjustedVelocity;
         }
-
-        Debug.Log(targetDirection);
 
         Seek(targetDirection * 2);
         //TraceDisplacement(targetDirection*2, Color.red);
