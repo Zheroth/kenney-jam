@@ -1,0 +1,77 @@
+# Made using Asset Forge (www.assetforge.io) version 1.3 
+
+newmtl stone (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 0.667 0.663 0.737 
+Ks 0.330000 0.330000 0.330000 
+
+newmtl stone (Instance) (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 0.667 0.663 0.737 
+Ks 0.330000 0.330000 0.330000 
+
+newmtl lightStone (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 0.812 0.808 0.855 
+Ks 0.330000 0.330000 0.330000 
+
+newmtl lightStone (Instance) (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 0.812 0.808 0.855 
+Ks 0.330000 0.330000 0.330000 
+
+newmtl wood (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 0.882 0.579 0.402 
+Ks 0.330000 0.330000 0.330000 
+
+newmtl customMaterial8 (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 0.189 0.312 0.6 
+Ks 0.330000 0.330000 0.330000 
+
+newmtl border (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 1 0.518 0.376 
+Ks 0.330000 0.330000 0.330000 
+
+newmtl bricks (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 0.886 0.467 0.341 
+Ks 0.330000 0.330000 0.330000 
+
+newmtl border (Instance) (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 1 0.518 0.376 
+Ks 0.330000 0.330000 0.330000 
+
+newmtl bricks (Instance) (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 0.886 0.467 0.341 
+Ks 0.330000 0.330000 0.330000 
+
+newmtl wood (Instance) (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 0.882 0.579 0.402 
+Ks 0.330000 0.330000 0.330000 
+
+newmtl _defaultMat (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 1 1 1 
+Ks 0.330000 0.330000 0.330000 
+
+newmtl _defaultMat (Instance) (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 1 1 1 
+Ks 0.330000 0.330000 0.330000 
+
+newmtl customMaterial10 (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 0.9 0.735 0.076 
+Ks 0.330000 0.330000 0.330000 
+
+newmtl roof (Instance) (Instance)
+Ka 0.000000 0.000000 0.000000 
+Kd 0.886 0.467 0.341 
+Ks 0.330000 0.330000 0.330000 
+
