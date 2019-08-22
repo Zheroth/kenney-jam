@@ -40,7 +40,7 @@ public class GamePlayer : MonoBehaviour
     [SerializeField]
     private PlayerUIManager playerUIManager;
 
-    enum PlayerState { Unassigned, Waiting, SelectingShip, Playing }
+    enum PlayerState { Unassigned, Assigned, Waiting, SelectingShip, Playing }
     PlayerState playerState = PlayerState.Unassigned;
 
     private CastleShip.CastleShipType currentlySelectedShip = CastleShip.CastleShipType.Assaulter;
@@ -53,15 +53,7 @@ public class GamePlayer : MonoBehaviour
     {
         playerUIManager.ConnectToGamePlayer(this);
 
-        if(ai)
-        {
-            this.HasPlayer = true;
-            ChangeToPlaying();
-        }
-        else
-        {
-            ChangeToUnassigned();
-        }
+        ChangeToUnassigned();
     }
 
     public int BoundPlayerID
@@ -81,7 +73,7 @@ public class GamePlayer : MonoBehaviour
         this.BoundPlayerID = playerArgs.PlayerId;
         this.HasPlayer = true;
         playerRef = ReInput.players.GetPlayer(BoundPlayerID);
-        ChangeToShipSelection();
+        ChangeToAssigned(playerArgs);
     }
 
     public void UnBindPlayer()
@@ -89,6 +81,12 @@ public class GamePlayer : MonoBehaviour
         this.BoundPlayerID = 0;
         this.HasPlayer = false;
         ChangeToUnassigned();
+    }
+
+    private void ChangeToAssigned(PlayerManager.PlayerArgs playerArgs)
+    {
+        this.playerState = PlayerState.Assigned;
+        playerUIManager.ChangeToAssigned(playerArgs);
     }
 
     private void ChangeToUnassigned()

@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    public enum GameState
+    {
+        Setup,
+        Selection,
+        Playing,
+        Finished
+    }
+
     public enum GameMode
     {
         Deathmatch,
@@ -105,11 +113,19 @@ public class BattleManager : MonoBehaviour
     public void IncreaseLives()
     {
         lives++;
+        if (lives > 20)
+        {
+            lives = 1;
+        }
         OnLivesChanged?.Invoke(lives);
     }
     public void DecreaseLives()
     {
         lives--;
+        if(lives < 1)
+        {
+            lives = 20;
+        }
         OnLivesChanged?.Invoke(lives);
     }
 
@@ -117,11 +133,19 @@ public class BattleManager : MonoBehaviour
     public void IncreaseKillCount()
     {
         killCount++;
+        if(killCount > 20)
+        {
+            killCount = 1;
+        }
         OnKillCountChanged?.Invoke(killCount);
     }
     public void DecreaseKillCount()
     {
         killCount--;
+        if (killCount < 0)
+        {
+            killCount = 20;
+        }
         OnKillCountChanged?.Invoke(killCount);
     }
 
@@ -134,11 +158,19 @@ public class BattleManager : MonoBehaviour
     public void IncreaseBotCount()
     {
         botsCount++;
+        if(botsCount > 3)
+        {
+            botsCount = 1;
+        }
         OnBotCountChanged?.Invoke(botsCount);
     }
     public void DecreaseBotCount()
     {
         botsCount--;
+        if (botsCount < 1)
+        {
+            botsCount = 3;
+        }
         OnBotCountChanged?.Invoke(botsCount);
     }
 

@@ -1,9 +1,18 @@
-﻿using System.Collections;
+﻿using Rewired;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerUIManager : MonoBehaviour
 {
+    // SETUP
+    [SerializeField]
+    private GameObject assignedUIGroup;
+    [SerializeField]
+    private GameObject controller;
+    [SerializeField]
+    private GameObject keyboard;
+
     // UNASSIGNED
     [SerializeField]
     private GameObject unassignedUIGroup;
@@ -60,7 +69,7 @@ public class PlayerUIManager : MonoBehaviour
     private void SetHealthPer(float healthPer)
     {
         healthBarImage.SetFillAmount(healthPer);
-        healthPercentage.text = ((int)(healthPer*100)).ToString();
+        healthPercentage.text = ((int)(healthPer * 100)).ToString();
     }
 
     private void OnHPChanged(int currentHealth, int maxHealth, float hpPercentage)
@@ -85,35 +94,53 @@ public class PlayerUIManager : MonoBehaviour
         this.killCount.text = killCount.ToString();
     }
 
-    public void ChangeToUnassigned()
+    void TurnAllOff()
     {
+        this.assignedUIGroup.SetActive(false);
         this.waitingUIGroup.SetActive(false);
         this.playingUIGroup.SetActive(false);
         this.selectingShipUIGroup.SetActive(false);
+        this.unassignedUIGroup.SetActive(false);
+    }
+
+    public void ChangeToAssigned(PlayerManager.PlayerArgs playerArgs)
+    {
+        TurnAllOff();
+        if (ReInput.players.GetPlayer(playerArgs.PlayerId).controllers.GetLastActiveController().type == ControllerType.Joystick)
+        {
+            this.controller.SetActive(true);
+            this.keyboard.SetActive(false);
+        }
+        else if (ReInput.players.GetPlayer(playerArgs.PlayerId).controllers.GetLastActiveController().type == ControllerType.Mouse 
+            || ReInput.players.GetPlayer(playerArgs.PlayerId).controllers.GetLastActiveController().type == ControllerType.Keyboard)
+        {
+            this.controller.SetActive(false);
+            this.keyboard.SetActive(true);
+        }
+        this.assignedUIGroup.SetActive(true);
+    }
+
+    public void ChangeToUnassigned()
+    {
+        TurnAllOff();
         this.unassignedUIGroup.SetActive(true);
     }
 
     public void ChangeToWaiting()
     {
+        TurnAllOff();
         this.waitingUIGroup.SetActive(true);
-        this.playingUIGroup.SetActive(false);
-        this.selectingShipUIGroup.SetActive(false);
-        this.unassignedUIGroup.SetActive(false);
     }
 
     public void ChangeToPlaying()
     {
-        this.waitingUIGroup.SetActive(false);
+        TurnAllOff();
         this.playingUIGroup.SetActive(true);
-        this.selectingShipUIGroup.SetActive(false);
-        this.unassignedUIGroup.SetActive(false);
     }
 
     public void ChangeToShipSelection()
     {
-        this.waitingUIGroup.SetActive(false);
-        this.playingUIGroup.SetActive(false);
+        TurnAllOff();
         this.selectingShipUIGroup.SetActive(true);
-        this.unassignedUIGroup.SetActive(false);
     }
 }
