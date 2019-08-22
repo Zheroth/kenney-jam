@@ -5,6 +5,22 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    public enum GameMode
+    {
+        Deathmatch,
+        KillCount
+    }
+    private GameMode gameMode;
+    public Action<GameMode> OnGameModeChanged;
+    private int lives = 3;
+    public Action<int> OnLivesChanged;
+    private int killCount = 5;
+    public Action<int> OnKillCountChanged;
+    private bool bots = true;
+    public Action<bool> OnBotsChanged;
+    private int botsCount = 4;
+    public Action<int> OnBotCountChanged;
+
     [SerializeField] private Cinemachine.CinemachineTargetGroup targetGroup;
     [SerializeField] private List<CastleShip> availableCastleShips;
     [SerializeField] private List<CastleShip> availableAICastleShips;
@@ -73,5 +89,65 @@ public class BattleManager : MonoBehaviour
     public CastleShip GetShip(CastleShip.CastleShipType shipType)
     {
         return ShipDict[shipType].GetComponent<CastleShip>();
+    }
+
+    public void IncreaseGameMode()
+    {
+        gameMode = gameMode.Next();
+        OnGameModeChanged?.Invoke(gameMode);
+    }
+    public void DecreaseGameMode()
+    {
+        gameMode = gameMode.Previous();
+        OnGameModeChanged?.Invoke(gameMode);
+    }
+
+    public void IncreaseLives()
+    {
+        lives++;
+        OnLivesChanged?.Invoke(lives);
+    }
+    public void DecreaseLives()
+    {
+        lives--;
+        OnLivesChanged?.Invoke(lives);
+    }
+
+
+    public void IncreaseKillCount()
+    {
+        killCount++;
+        OnKillCountChanged?.Invoke(killCount);
+    }
+    public void DecreaseKillCount()
+    {
+        killCount--;
+        OnKillCountChanged?.Invoke(killCount);
+    }
+
+    public void ToggleBots()
+    {
+        bots = !bots;
+        OnBotsChanged?.Invoke(bots);
+    }
+
+    public void IncreaseBotCount()
+    {
+        botsCount++;
+        OnBotCountChanged?.Invoke(botsCount);
+    }
+    public void DecreaseBotCount()
+    {
+        botsCount--;
+        OnBotCountChanged?.Invoke(botsCount);
+    }
+
+    public void RunAllCallbacks()
+    {
+        OnGameModeChanged?.Invoke(gameMode);
+        OnKillCountChanged?.Invoke(killCount);
+        OnLivesChanged?.Invoke(lives);
+        OnBotsChanged?.Invoke(bots);
+        OnBotCountChanged?.Invoke(botsCount);
     }
 }
