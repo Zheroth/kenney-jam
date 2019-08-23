@@ -267,7 +267,10 @@ public class GamePlayer : MonoBehaviour
     }
     private void RemoveShip()
     {
-        GameObject.Destroy(CastleShip.gameObject);
+        if(CastleShip!=null)
+        {
+            GameObject.Destroy(CastleShip.gameObject);
+        }
     }
 
     private void OnShipDie()
