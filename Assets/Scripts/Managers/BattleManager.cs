@@ -7,7 +7,6 @@ public class BattleManager : MonoBehaviour
 {
     [SerializeField]
     private Color[] playerUsableColours;
-    [SerializeField]
     private List<PlayerColor> colours;
 
     public enum GameState
@@ -34,6 +33,8 @@ public class BattleManager : MonoBehaviour
     private int botsCount = 4;
     public Action<int> OnBotCountChanged;
 
+    public CastleBG castleBG;
+
     [SerializeField] private Cinemachine.CinemachineTargetGroup targetGroup;
     [SerializeField] private List<CastleShip> availableCastleShips;
     [SerializeField] private List<CastleShip> availableAICastleShips;
@@ -42,6 +43,23 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private List<GamePlayer> gamePlayers = new List<GamePlayer>();
     private GamePlayer currentKing = null;
+    public GamePlayer CurrentKing
+    {
+        get
+        {
+            return currentKing;
+        }
+        set
+        {
+            if (currentKing != null)
+            {
+                currentKing.ChangeKingStatus(false);
+            }
+            currentKing = value;
+            value.ChangeKingStatus(true);
+            castleBG.SetColour(value.PlayerColour);
+        }
+    }
 
     public bool MatchInProgress
     {
@@ -149,12 +167,29 @@ public class BattleManager : MonoBehaviour
         newShip.transform.rotation = spawnTransform.rotation;
         if (!ai) { newShip.GetComponent<PlayerControlled>().AssignPlayer(playerId); }
         targetGroup.AddMember(newShip.transform,1.0f,3.0f);
-        return newShip.GetComponent<CastleShip>();
+        CastleShip castleShip = newShip.GetComponent<CastleShip>();
+        return castleShip;
     }
 
     public CastleShip GetShip(CastleShip.CastleShipType shipType)
     {
         return ShipDict[shipType].GetComponent<CastleShip>();
+    }
+
+    public void OnShipKilled(GamePlayer killer)
+    {
+        if(currentKing == null)
+        {
+            CurrentKing = killer;
+
+        }
+        else
+        {
+            if(killer.Kills >= currentKing.Kills)
+            {
+                CurrentKing = killer;
+            }
+        }
     }
 
     public void IncreaseGameMode()
@@ -267,6 +302,7 @@ public class BattleManager : MonoBehaviour
                     selGamePlayer.SetColour(this.GetFirstAvailableColour());
                 }
                 selGamePlayer.ChangeToShipSelection();
+                selGamePlayer.onAddKill += this.OnShipKilled;
             }
         }
         this.gameState = GameState.Playing;

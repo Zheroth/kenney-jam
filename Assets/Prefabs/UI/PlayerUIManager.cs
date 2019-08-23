@@ -18,6 +18,10 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField]
     private Image keyboardImage;
 
+    // GAMEPLAYER INFO
+    [SerializeField]
+    private GameObject gameplayerInfoUIGroup;
+
     // UNASSIGNED
     [SerializeField]
     private GameObject unassignedUIGroup;
@@ -41,6 +45,10 @@ public class PlayerUIManager : MonoBehaviour
     private TMPro.TextMeshProUGUI killCount;
     [SerializeField]
     private UICombinedFilledImage barFilledImage;
+    [SerializeField]
+    private Image king;
+    [SerializeField]
+    private GameObject kingGO;
 
     // SELECTING SHIP
     [SerializeField]
@@ -57,12 +65,13 @@ public class PlayerUIManager : MonoBehaviour
         OnKillsChanged(0);
     }
 
-    public void ConnectToGamePlayer(GamePlayer humanPlayer)
+    public void ConnectToGamePlayer(GamePlayer gamePlayer)
     {
-        humanPlayer.onGoldChanged += OnGoldChanged;
-        humanPlayer.onShipChanged += OnShipSelectionChanged;
-        humanPlayer.onKillsChanged += OnKillsChanged;
-        humanPlayer.onColourChanged += OnColourChanged;
+        gamePlayer.onGoldChanged += OnGoldChanged;
+        gamePlayer.onShipChanged += OnShipSelectionChanged;
+        gamePlayer.onKillsChanged += OnKillsChanged;
+        gamePlayer.onColourChanged += OnColourChanged;
+        gamePlayer.OnKingStatusChanged += OnKingStatusChanged;
     }
 
     public void ConnectToCastleShip(CastleShip castleShip)
@@ -108,10 +117,17 @@ public class PlayerUIManager : MonoBehaviour
         this.controllerImage.color = colour;
         this.keyboardImage.color = colour;
         this.barFilledImage.SetColor(colour);
+        this.king.color = colour;
+    }
+
+    private void OnKingStatusChanged(bool value)
+    {
+        this.kingGO.SetActive(value);
     }
 
     void TurnAllOff()
     {
+        this.gameplayerInfoUIGroup.SetActive(false);
         this.assignedUIGroup.SetActive(false);
         this.waitingUIGroup.SetActive(false);
         this.playingUIGroup.SetActive(false);
@@ -152,11 +168,13 @@ public class PlayerUIManager : MonoBehaviour
     {
         TurnAllOff();
         this.playingUIGroup.SetActive(true);
+        this.gameplayerInfoUIGroup.SetActive(true);
     }
 
     public void ChangeToShipSelection()
     {
         TurnAllOff();
         this.selectingShipUIGroup.SetActive(true);
+        this.gameplayerInfoUIGroup.SetActive(true);
     }
 }

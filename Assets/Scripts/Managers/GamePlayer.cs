@@ -45,7 +45,10 @@ public class GamePlayer : MonoBehaviour
     public delegate void OnKillsChanged(int killCount);
     public OnKillsChanged onKillsChanged;
 
-    private Color PlayerColour
+    public delegate void OnAddKill(GamePlayer gamePlayer);
+    public OnAddKill onAddKill;
+
+    public Color PlayerColour
     {
         get
         {
@@ -69,6 +72,8 @@ public class GamePlayer : MonoBehaviour
     public delegate void OnColourChanged(Color color);
     public OnColourChanged onColourChanged;
 
+    public Action<bool> OnKingStatusChanged;
+
     [SerializeField]
     private PlayerUIManager playerUIManager;
 
@@ -84,7 +89,7 @@ public class GamePlayer : MonoBehaviour
     private void Start()
     {
         playerUIManager.ConnectToGamePlayer(this);
-
+        ChangeKingStatus(false);
         ChangeToUnassigned();
     }
 
@@ -249,6 +254,7 @@ public class GamePlayer : MonoBehaviour
     {
         this.kills += newKills;
         onKillsChanged?.Invoke(kills);
+        onAddKill?.Invoke(this);
     }
 
     private void AddShip(CastleShip.CastleShipType castleShipType, bool ai = false)
@@ -273,6 +279,11 @@ public class GamePlayer : MonoBehaviour
         }
     }
 
+    public void ChangeKingStatus(bool value)
+    {
+        OnKingStatusChanged?.Invoke(value);
+    }
+
     private void OnShipDie()
     {
         this.StartCoroutine(ShipDeathSequence());
@@ -285,8 +296,8 @@ public class GamePlayer : MonoBehaviour
         Vector3 scale = this.transform.localScale;
         float timer = 0;
 
-        Time.timeScale = 0.3f;
-        while(timer < 2)
+        Time.timeScale = 0.5f;
+        while(timer < 1)
         {
             timer += Time.unscaledDeltaTime;
 
