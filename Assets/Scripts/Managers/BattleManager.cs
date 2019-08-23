@@ -13,10 +13,10 @@ public class BattleManager : MonoBehaviour
     public enum GameState
     {
         Setup,
-        Selection,
         Playing,
         Finished
     }
+    private GameState gameState = GameState.Setup;
 
     public enum GameMode
     {
@@ -43,6 +43,18 @@ public class BattleManager : MonoBehaviour
     private List<GamePlayer> gamePlayers = new List<GamePlayer>();
     private GamePlayer currentKing = null;
 
+    public bool MatchInProgress
+    {
+        get
+        {
+            if(this.gameState == GameState.Playing)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+
     public void OnPlayerJoined(PlayerManager.PlayerArgs playerArgs)
     {
         for (int i = 0; i < gamePlayers.Count; i++)
@@ -50,6 +62,12 @@ public class BattleManager : MonoBehaviour
             GamePlayer selGamePlayer = gamePlayers[i];
             if (!selGamePlayer.HasPlayer)
             {
+                selGamePlayer.BindPlayer(playerArgs);
+                return;
+            }
+            else if(selGamePlayer.isAI)
+            {
+                selGamePlayer.UnBindAI();
                 selGamePlayer.BindPlayer(playerArgs);
                 return;
             }
@@ -251,6 +269,7 @@ public class BattleManager : MonoBehaviour
                 selGamePlayer.ChangeToShipSelection();
             }
         }
+        this.gameState = GameState.Playing;
     }
 
     public int GetNextColor(int index, int direction)

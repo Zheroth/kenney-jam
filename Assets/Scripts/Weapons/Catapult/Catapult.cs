@@ -27,7 +27,6 @@ public class Catapult : MonoBehaviour
 
     public void TryFire(CastleShip castleShip, string actionID)
     {
-        Debug.Log("TRY FIRE " + cooldownTimer);
         if (cooldownTimer <= 0)
         {
             Fire(castleShip, actionID);
@@ -37,7 +36,6 @@ public class Catapult : MonoBehaviour
 
     void Fire(CastleShip castleShip, string actionID)
     {
-        Debug.Log("FIRE");
         CatapultBall catapultBall = GameObject.Instantiate(this.catapultBall);
         catapultBall.transform.position = this.shootPoint.position;
         catapultBall.transform.rotation = this.shootPoint.rotation;

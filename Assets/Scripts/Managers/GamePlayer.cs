@@ -234,6 +234,14 @@ public class GamePlayer : MonoBehaviour
             {
                 this.ColorID = battleManagerRef.GetNextColor(this.ColorID, 1);
             }
+
+            if(battleManagerRef.MatchInProgress)
+            {
+                if (playerRef.GetButtonDown("Accept"))
+                {
+                    this.ChangeToShipSelection();
+                }
+            }
         }
     }
 
@@ -292,9 +300,15 @@ public class GamePlayer : MonoBehaviour
         ChangeToShipSelection();
     }
 
-    internal void BindAI()
+    public void BindAI()
     {
         this.ai = true;
         this.HasPlayer = true;
+    }
+    public void UnBindAI()
+    {
+        this.ai = false;
+        this.HasPlayer = false;
+        this.RemoveShip();
     }
 }
