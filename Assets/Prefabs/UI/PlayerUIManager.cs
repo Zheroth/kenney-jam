@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerUIManager : MonoBehaviour
 {
@@ -11,17 +12,21 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField]
     private GameObject controller;
     [SerializeField]
+    private Image controllerImage;
+    [SerializeField]
     private GameObject keyboard;
+    [SerializeField]
+    private Image keyboardImage;
 
     // UNASSIGNED
     [SerializeField]
     private GameObject unassignedUIGroup;
 
-    /// WAITING
+    // WAITING
     [SerializeField]
     private GameObject waitingUIGroup;
 
-    /// PLAYING
+    // PLAYING
     [SerializeField]
     private GameObject playingUIGroup;
     [SerializeField]
@@ -34,6 +39,8 @@ public class PlayerUIManager : MonoBehaviour
     private Animator coinAnimator;
     [SerializeField]
     private TMPro.TextMeshProUGUI killCount;
+    [SerializeField]
+    private UICombinedFilledImage barFilledImage;
 
     // SELECTING SHIP
     [SerializeField]
@@ -55,6 +62,7 @@ public class PlayerUIManager : MonoBehaviour
         humanPlayer.onGoldChanged += OnGoldChanged;
         humanPlayer.onShipChanged += OnShipSelectionChanged;
         humanPlayer.onKillsChanged += OnKillsChanged;
+        humanPlayer.onColourChanged += OnColourChanged;
     }
 
     public void ConnectToCastleShip(CastleShip castleShip)
@@ -92,6 +100,14 @@ public class PlayerUIManager : MonoBehaviour
     private void OnKillsChanged(int killCount)
     {
         this.killCount.text = killCount.ToString();
+    }
+
+    private void OnColourChanged(Color colour)
+    {
+        this.shipImage.color = colour;
+        this.controllerImage.color = colour;
+        this.keyboardImage.color = colour;
+        this.barFilledImage.SetColor(colour);
     }
 
     void TurnAllOff()

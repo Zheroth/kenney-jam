@@ -12,6 +12,9 @@ public class MenuSelectable : MonoBehaviour, IPointerEnterHandler
     private UnityEvent onPointerEnter;
 
     [SerializeField]
+    private UnityEvent onUse;
+
+    [SerializeField]
     private UnityEvent onLeft;
     [SerializeField]
     private UnityEvent onRight;
@@ -36,6 +39,10 @@ public class MenuSelectable : MonoBehaviour, IPointerEnterHandler
         else if (playerRef.GetButtonDown("Right"))
         {
             onRight?.Invoke();
+        }
+        else if (playerRef.GetButtonDown("Accept"))
+        {
+            onUse?.Invoke();
         }
     }
 

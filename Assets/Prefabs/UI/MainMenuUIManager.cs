@@ -35,8 +35,6 @@ public class MainMenuUIManager : MonoBehaviour
 
     [SerializeField]
     private GameObject lives;
-    [SerializeField]
-    private GameObject killCount;
 
     [SerializeField]
     private MenuSelectable currentSelected;
@@ -85,12 +83,12 @@ public class MainMenuUIManager : MonoBehaviour
         if (gameMode == BattleManager.GameMode.Deathmatch)
         {
             lives.SetActive(true);
-            killCount.SetActive(false);
+            killCountSelect.gameObject.SetActive(false);
         }
         else if (gameMode == BattleManager.GameMode.KillCount)
         {
             lives.SetActive(false);
-            killCount.SetActive(true);
+            killCountSelect.gameObject.SetActive(true);
         }
     }
 
@@ -107,6 +105,8 @@ public class MainMenuUIManager : MonoBehaviour
     private void OnBotsChanged(bool botsEnabled)
     {
         this.botsText.text = botsEnabled.ToString();
+
+        this.botsCountSelect.gameObject.SetActive(botsEnabled);
     }
 
     private void OnBotCountChanged(int botCount)
@@ -221,4 +221,10 @@ public class MainMenuUIManager : MonoBehaviour
     }
 
     #endregion
+
+    public void StartMatch()
+    {
+        this.gameObject.SetActive(false);
+        this.battleManager.StartMatch();
+    }
 }

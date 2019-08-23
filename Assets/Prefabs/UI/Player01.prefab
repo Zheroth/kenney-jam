@@ -513,7 +513,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assignedUIGroup: {fileID: 4115234919165296687}
   controller: {fileID: 5593242023141582033}
+  controllerImage: {fileID: 2672327337437064655}
   keyboard: {fileID: 2001742023155658520}
+  keyboardImage: {fileID: 9171724610404111589}
   unassignedUIGroup: {fileID: 7290135829971996052}
   waitingUIGroup: {fileID: 3632827558066581699}
   playingUIGroup: {fileID: 2846052932684462196}
@@ -522,6 +524,7 @@ MonoBehaviour:
   goldText: {fileID: 274864319799318769}
   coinAnimator: {fileID: 7012360074611549520}
   killCount: {fileID: 7148545311898875314}
+  barFilledImage: {fileID: 3669785821512981833}
   selectingShipUIGroup: {fileID: 8961174969156739861}
   shipName: {fileID: 6123801864420446775}
   shipImage: {fileID: 4866925745114745023}
@@ -1482,19 +1485,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.28025985, b: 0.28025985, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 6bab3d9c647e27e4a96a2dd16bf6d1ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 531e7ffcfdc780e49b790865af452833, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 1
   m_UseSpriteMesh: 0
@@ -1514,7 +1517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5034405245456692967
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1595,14 +1598,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.28025985, b: 0.28025985, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: eeaed304b62783543a968d2e2c5a6a92, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 33061c4a518e2974eaf8ef360059ddef, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3170,7 +3173,8 @@ MonoBehaviour:
   - {fileID: 3593083233385773345}
   - {fileID: 6034574068199878495}
   - {fileID: 9178281148460494912}
-  fillPercentage: 0.373
+  fillPercentage: 1
+  barColor: {r: 0.8867924, g: 0.28025985, b: 0.28025985, a: 1}
 --- !u!1 &8102902423800276659
 GameObject:
   m_ObjectHideFlags: 0
@@ -3620,19 +3624,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.28025985, b: 0.28025985, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 3c6cde019fad47142b634c72ed5a4220, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 15ddb6f9f12077c44a2a06cf344bef7d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0.11899996
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 1
   m_UseSpriteMesh: 0

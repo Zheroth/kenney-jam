@@ -10,10 +10,22 @@ public class UICombinedFilledImage : MonoBehaviour
     [SerializeField]
     [Range(0,1)]
     private float fillPercentage = 1;
+    [SerializeField]
+    private Color barColor;
 
     private void OnValidate()
     {
         SetFillAmount(fillPercentage);
+        SetColor(barColor);
+    }
+
+    public void SetColor(Color color)
+    {
+        for (int i = 0; i < images.Length; i++)
+        {
+            Image image = images[i];
+            image.color = color;
+        }
     }
 
     public void SetFillAmount(float value)

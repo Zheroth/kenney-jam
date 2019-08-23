@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    [SerializeField]
+    private Color[] playerUsableColours;
+    [SerializeField]
+    private List<PlayerColor> colours;
+
     public enum GameState
     {
         Setup,
@@ -34,8 +39,35 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<CastleShip> availableAICastleShips;
 
     private int roundNumber;
-    private List<GamePlayer> humanPlayers = new List<GamePlayer>();
+    [SerializeField]
+    private List<GamePlayer> gamePlayers = new List<GamePlayer>();
     private GamePlayer currentKing = null;
+
+    public void OnPlayerJoined(PlayerManager.PlayerArgs playerArgs)
+    {
+        for (int i = 0; i < gamePlayers.Count; i++)
+        {
+            GamePlayer selGamePlayer = gamePlayers[i];
+            if (!selGamePlayer.HasPlayer)
+            {
+                selGamePlayer.BindPlayer(playerArgs);
+                return;
+            }
+        }
+    }
+
+    public void OnPlayerDismissed(PlayerManager.PlayerArgs playerArgs)
+    {
+        for (int i = 0; i < gamePlayers.Count; i++)
+        {
+            GamePlayer selGamePlayer = gamePlayers[i];
+            if (selGamePlayer.HasPlayer && selGamePlayer.BoundPlayerID == playerArgs.PlayerId)
+            {
+                selGamePlayer.UnBindPlayer();
+                return;
+            }
+        }
+    }
 
     private Dictionary<CastleShip.CastleShipType, GameObject> shipDict;
 
@@ -83,6 +115,14 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        this.colours = new List<PlayerColor>();
+        for (int i = 0; i < playerUsableColours.Length; i++)
+        {
+            colours.Add(new PlayerColor(playerUsableColours[i], true));
+        }
+    }
 
     public CastleShip SpawnShip(CastleShip.CastleShipType shipType, int playerId, Transform spawnTransform, bool ai = false)
     {
@@ -158,7 +198,7 @@ public class BattleManager : MonoBehaviour
     public void IncreaseBotCount()
     {
         botsCount++;
-        if(botsCount > 3)
+        if(botsCount > 4)
         {
             botsCount = 1;
         }
@@ -169,7 +209,7 @@ public class BattleManager : MonoBehaviour
         botsCount--;
         if (botsCount < 1)
         {
-            botsCount = 3;
+            botsCount = 4;
         }
         OnBotCountChanged?.Invoke(botsCount);
     }
@@ -181,5 +221,87 @@ public class BattleManager : MonoBehaviour
         OnLivesChanged?.Invoke(lives);
         OnBotsChanged?.Invoke(bots);
         OnBotCountChanged?.Invoke(botsCount);
+    }
+
+    public void StartMatch()
+    {
+        if(bots)
+        {
+            int filledWithBots = 0;
+            for (int i = 0; i < gamePlayers.Count && filledWithBots < botsCount; i++)
+            {
+                GamePlayer selGamePlayer = gamePlayers[i];
+                if(!selGamePlayer.HasPlayer)
+                {
+                    selGamePlayer.BindAI();
+                    filledWithBots++;
+                }
+            }
+        }
+
+        for (int i = 0; i < gamePlayers.Count; i++)
+        {
+            GamePlayer selGamePlayer = gamePlayers[i];
+            if(selGamePlayer.HasPlayer)
+            {
+                selGamePlayer.ChangeToShipSelection();
+            }
+        }
+    }
+
+    public int GetNextColor(int index, int direction)
+    {
+        colours[index].available = true;
+        int offset = index;
+        for (int i = 0; i < colours.Count; i++)
+        {
+            offset += direction;
+            if (offset >= colours.Count)
+            {
+                offset = 0;
+            }
+            if (offset < 0)
+            {
+                offset = colours.Count - 1;
+            }
+            if (colours[offset].available)
+            {
+                colours[offset].available = false;
+                return offset;
+            }
+        }
+        colours[index].available = false;
+        return index;
+    }
+
+    public int GetFirstAvailableColour()
+    {
+        for (int i = 0; i < colours.Count; i++)
+        {
+            if(colours[i].available)
+            {
+                colours[i].available = false;
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public Color GetColour(int index)
+    {
+        return colours[index].color;
+    }
+}
+
+[Serializable]
+class PlayerColor
+{
+    public Color color = Color.white;
+    public bool available = true;
+
+    public PlayerColor(Color color, bool available)
+    {
+        this.color = color;
+        this.available = available;
     }
 }
