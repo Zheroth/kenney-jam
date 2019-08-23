@@ -1362,6 +1362,9 @@ MonoBehaviour:
     m_TypeName: CastleShip+OnCastleShipUseAction, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   fireEffect: {fileID: 5300856298301708538}
+  colouredTrailRenderers:
+  - {fileID: 2345571724358389531}
+  - {fileID: 7045941520715984540}
   shipImage: {fileID: 21300000, guid: bef27eb2d1cb1b749a8fa9a1c339bd6a, type: 3}
   shipName: Assaulter
 --- !u!114 &944408922564401700
@@ -3152,12 +3155,12 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.3919999
       objectReference: {fileID: 0}
-    - target: {fileID: 2634390459595569943, guid: 49dd800ed7009164696eb56218e3d821,
+    - target: {fileID: 2634390459595569941, guid: 49dd800ed7009164696eb56218e3d821,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5fdd8207431d9a644b3e609342dd4ee0, type: 2}
-    - target: {fileID: 2634390459595569941, guid: 49dd800ed7009164696eb56218e3d821,
+    - target: {fileID: 2634390459595569943, guid: 49dd800ed7009164696eb56218e3d821,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -3252,12 +3255,12 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.39199984
       objectReference: {fileID: 0}
-    - target: {fileID: 2634390459595569943, guid: 49dd800ed7009164696eb56218e3d821,
+    - target: {fileID: 2634390459595569941, guid: 49dd800ed7009164696eb56218e3d821,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4a627d8833b29de4889b16bc4026a007, type: 2}
-    - target: {fileID: 2634390459595569941, guid: 49dd800ed7009164696eb56218e3d821,
+    - target: {fileID: 2634390459595569943, guid: 49dd800ed7009164696eb56218e3d821,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

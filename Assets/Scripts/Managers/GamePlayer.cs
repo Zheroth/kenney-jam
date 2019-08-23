@@ -7,6 +7,9 @@ using UnityEngine;
 public class GamePlayer : MonoBehaviour
 {
     [SerializeField]
+    ConfigurableJoint anchoredJoint;
+
+    [SerializeField]
     private bool ai = false;
     public bool isAI
     {
@@ -138,12 +141,14 @@ public class GamePlayer : MonoBehaviour
 
     public void ChangeToShipSelection()
     {
-        if(isAI)
-        {
-            this.ColorID = battleManagerRef.GetFirstAvailableColour();
-        }
         this.playerState = PlayerState.SelectingShip;
         playerUIManager.ChangeToShipSelection();
+
+        if (ai)
+        {
+            //TODO Add Ship Selection Coroutine
+            Invoke("ChangeToPlaying", UnityEngine.Random.Range(4, 10));
+        }
     }
 
     private void ChangeToPlaying()
@@ -182,10 +187,9 @@ public class GamePlayer : MonoBehaviour
 
     private void SelectingShipUpdate()
     {
-        if(ai)
+        if(isAI)
         {
-            //TODO Add Ship Selection Coroutine
-            Invoke("ChangeToPlaying", UnityEngine.Random.Range(4,10));
+
         }
         else
         {
@@ -251,6 +255,7 @@ public class GamePlayer : MonoBehaviour
         CastleShip.SetColourMaterial(this.PlayerColour);
         playerUIManager.ConnectToCastleShip(CastleShip);
         CastleShip.DamageableRef.OnDeath.AddListener(OnShipDie);
+        anchoredJoint.connectedBody = CastleShip.RigidbodyRef;
     }
     private void RemoveShip()
     {
@@ -283,14 +288,8 @@ public class GamePlayer : MonoBehaviour
         Time.timeScale = 1f;
 
         RemoveShip();
-        if(ai)
-        {
-            ChangeToPlaying();
-        }
-        else
-        {
-            ChangeToShipSelection();
-        }
+
+        ChangeToShipSelection();
     }
 
     internal void BindAI()

@@ -244,6 +244,10 @@ public class BattleManager : MonoBehaviour
             GamePlayer selGamePlayer = gamePlayers[i];
             if(selGamePlayer.HasPlayer)
             {
+                if (selGamePlayer.isAI)
+                {
+                    selGamePlayer.SetColour(this.GetFirstAvailableColour());
+                }
                 selGamePlayer.ChangeToShipSelection();
             }
         }
