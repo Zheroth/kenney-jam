@@ -139,7 +139,7 @@ public class GamePlayer : MonoBehaviour
 
     public void ChangeToEndOfBattle()
     {
-        CancelInvoke();
+        this.CancelInvoke("ChangeToPlaying");
         this.playerState = PlayerState.EndOfBattle;
         this.RemoveShip();
         playerUIManager.ChangeToEndOfBattle();
@@ -148,6 +148,21 @@ public class GamePlayer : MonoBehaviour
     public void ChangeToUnassigned()
     {
         this.playerState = PlayerState.Unassigned;
+
+        if (this.HasPlayer)
+        {
+            this.ResetValues();
+            if (this.isAI)
+            {
+                this.UnBindAI();
+            }
+            else
+            {
+                this.UnBindPlayer();
+            }
+            this.onAddKill -= battleManagerRef.OnShipKilled;
+        }
+
         playerUIManager.ChangeToUnassigned();
     }
 
@@ -325,6 +340,14 @@ public class GamePlayer : MonoBehaviour
         RemoveShip();
 
         ChangeToShipSelection();
+    }
+
+    public void ResetValues()
+    {
+        this.kills = 0;
+        this.onKillsChanged(0);
+        this.gold = 0;
+        this.onGoldChanged(0);
     }
 
     public void BindAI()

@@ -293,13 +293,15 @@ public class BattleManager : MonoBehaviour
     {
         endMenu.Close();
         setupMenu.Open();
+
+        for (int i = 0; i < colours.Count; i++)
+        {
+            this.colours[i].available = true;
+        }
         for (int i = 0; i < gamePlayers.Count; i++)
         {
             GamePlayer selGamePlayer = gamePlayers[i];
-            if (selGamePlayer.HasPlayer)
-            {
-                selGamePlayer.onAddKill -= this.OnShipKilled;
-            }
+            selGamePlayer.ChangeToUnassigned();
         }
     }
 
