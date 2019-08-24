@@ -7,16 +7,11 @@ using UnityEngine.UI;
 
 public class MainMenuUIManager : MonoBehaviour
 {
-    private Player playerRef;
     private Player PlayerRef
     {
         get
         {
-            if (playerRef == null)
-            {
-                playerRef = PlayerManager.Instance.MainPlayer;
-            }
-            return playerRef;
+            return PlayerManager.Instance.MainPlayer;
         }
     }
 

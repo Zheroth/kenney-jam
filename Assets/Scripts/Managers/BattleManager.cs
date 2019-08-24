@@ -303,6 +303,8 @@ public class BattleManager : MonoBehaviour
             GamePlayer selGamePlayer = gamePlayers[i];
             selGamePlayer.ChangeToUnassigned();
         }
+
+        PlayerManager.Instance.ResetPlayerManager();
     }
 
     public void ChangeToStartMatch()

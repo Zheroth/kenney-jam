@@ -32,8 +32,11 @@ public class GamePlayer : MonoBehaviour
         private set;
     }
 
-    private int kills;
-    public int Kills { get { return kills; } }
+    private int lives = 3;
+    public int Lives { get { return lives; } }
+    public delegate void OnLivesChanged(int lives);
+    public OnLivesChanged onLivesChanged;
+
     private int gold = 0;
     public int Gold { get { return gold; } }
     public delegate void OnGoldChanged(int gold);
@@ -42,6 +45,8 @@ public class GamePlayer : MonoBehaviour
     public delegate void OnShipChanged(CastleShip newShip);
     public OnShipChanged onShipChanged;
 
+    private int kills;
+    public int Kills { get { return kills; } }
     public delegate void OnKillsChanged(int killCount);
     public OnKillsChanged onKillsChanged;
 
@@ -101,7 +106,7 @@ public class GamePlayer : MonoBehaviour
 
     public string PlayerName
     {
-        get { return string.Format("PLAYER{0}", BoundPlayerID+1.ToString("00")); }
+        get { return string.Format("PLAYER{0}", (BoundPlayerID+1).ToString("0")); }
     }
 
     public bool HasPlayer
@@ -283,6 +288,18 @@ public class GamePlayer : MonoBehaviour
         this.kills += newKills;
         onKillsChanged?.Invoke(kills);
         onAddKill?.Invoke(this);
+    }
+
+    private void AddLife(int livesToAdd)
+    {
+        lives += livesToAdd;
+        onLivesChanged?.Invoke(Lives);
+    }
+
+    private void RemoveLife(int livesToRemove)
+    {
+        lives -= livesToRemove;
+        onLivesChanged?.Invoke(Lives);
     }
 
     private void AddShip(CastleShip.CastleShipType castleShipType, bool ai = false)

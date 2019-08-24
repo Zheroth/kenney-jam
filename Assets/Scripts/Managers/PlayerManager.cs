@@ -81,6 +81,15 @@ public class PlayerManager : MonoSingleton<PlayerManager>
         }
     }
 
+    public void ResetPlayerManager()
+    {
+        joinedPlayerIds.Clear();
+        //for (int i = 0; i < PlayerIdArr.Length; i++)
+        //{
+        //    DismissPlayer(PlayerIdArr[i]);
+        //}
+    }
+
     [Serializable]
     public class PlayerArgs : EventArgs
     {
