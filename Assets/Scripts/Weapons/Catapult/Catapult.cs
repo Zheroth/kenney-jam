@@ -30,7 +30,7 @@ public class Catapult : MonoBehaviour
         if (cooldownTimer <= 0)
         {
             Fire(castleShip, actionID);
-            cooldownTimer = 1 / shotsPerSecond;
+            cooldownTimer = 1.0f / shotsPerSecond;
         }
     }
 

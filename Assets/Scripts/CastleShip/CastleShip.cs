@@ -73,6 +73,9 @@ public class CastleShip : MonoBehaviour
     }
 
     [SerializeField]
+    private TrailRenderer[] colouredTrailRenderers;
+
+    [SerializeField]
     private Sprite shipImage;
     public Sprite Image { get { return shipImage; } }
     [SerializeField]
@@ -130,6 +133,11 @@ public class CastleShip : MonoBehaviour
 
     public void SetColourMaterial(Color color)
     {
+        for (int i = 0; i < colouredTrailRenderers.Length; i++)
+        {
+            colouredTrailRenderers[i].startColor = color;
+        }
+
         Renderer[] renderers = gameObject.GetComponentsInChildren<Renderer>();
         for (int i = 0; i < renderers.Length; i++)
         {

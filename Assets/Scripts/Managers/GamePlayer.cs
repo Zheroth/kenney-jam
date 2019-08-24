@@ -1,4 +1,5 @@
 ﻿using Rewired;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,17 @@ using UnityEngine;
 public class GamePlayer : MonoBehaviour
 {
     [SerializeField]
+    ConfigurableJoint anchoredJoint;
+
+    [SerializeField]
     private bool ai = false;
+    public bool isAI
+    {
+        get
+        {
+            return ai;
+        }
+    }
 
     [SerializeField]
     BattleManager battleManagerRef;
@@ -21,8 +32,17 @@ public class GamePlayer : MonoBehaviour
         private set;
     }
 
-    private int kills;
-    public int Kills { get { return kills; } }
+    public bool IsDead { get { return playerState == PlayerState.Dead; }}
+
+    private bool useLives = false;
+    private int maxLives = 3;
+    private int lives = 3;
+    public int Lives { get { return lives; } }
+    public delegate void OnLivesChanged(int lives);
+    public OnLivesChanged onLivesChanged;
+    public delegate void OnUseLivesChanged(bool useLives);
+    public OnUseLivesChanged onUseLivesChanged;
+
     private int gold = 0;
     public int Gold { get { return gold; } }
     public delegate void OnGoldChanged(int gold);
@@ -31,16 +51,44 @@ public class GamePlayer : MonoBehaviour
     public delegate void OnShipChanged(CastleShip newShip);
     public OnShipChanged onShipChanged;
 
+    private int kills;
+    public int Kills { get { return kills; } }
     public delegate void OnKillsChanged(int killCount);
     public OnKillsChanged onKillsChanged;
 
-    [SerializeField]
-    private Color playerColour;
+    public delegate void OnAddKill(GamePlayer gamePlayer);
+    public OnAddKill onAddKill;
+
+    public Color PlayerColour
+    {
+        get
+        {
+            return battleManagerRef.GetColour(colorId);
+        }
+    }
+    private int colorId = 0;
+    private int ColorID
+    {
+        get
+        {
+            return colorId;
+        }
+        set
+        {
+            colorId = value;
+            onColourChanged?.Invoke(PlayerColour);
+        }
+    }
+
+    public delegate void OnColourChanged(Color color);
+    public OnColourChanged onColourChanged;
+
+    public Action<bool> OnKingStatusChanged;
 
     [SerializeField]
     private PlayerUIManager playerUIManager;
 
-    enum PlayerState { Unassigned, Waiting, SelectingShip, Playing }
+    enum PlayerState { Unassigned, Assigned, Waiting, SelectingShip, Playing, EndOfBattle, Dead }
     PlayerState playerState = PlayerState.Unassigned;
 
     private CastleShip.CastleShipType currentlySelectedShip = CastleShip.CastleShipType.Assaulter;
@@ -52,16 +100,8 @@ public class GamePlayer : MonoBehaviour
     private void Start()
     {
         playerUIManager.ConnectToGamePlayer(this);
-
-        if(ai)
-        {
-            this.HasPlayer = true;
-            ChangeToPlaying();
-        }
-        else
-        {
-            ChangeToUnassigned();
-        }
+        ChangeKingStatus(false);
+        ChangeToUnassigned();
     }
 
     public int BoundPlayerID
@@ -70,10 +110,20 @@ public class GamePlayer : MonoBehaviour
         private set;
     }
 
+    public string PlayerName
+    {
+        get { return string.Format("PLAYER{0}", (BoundPlayerID+1).ToString("0")); }
+    }
+
     public bool HasPlayer
     {
         get;
         private set;
+    }
+
+    public void SetColour(int colour)
+    {
+        this.ColorID = colour;
     }
 
     public void BindPlayer(PlayerManager.PlayerArgs playerArgs)
@@ -81,7 +131,7 @@ public class GamePlayer : MonoBehaviour
         this.BoundPlayerID = playerArgs.PlayerId;
         this.HasPlayer = true;
         playerRef = ReInput.players.GetPlayer(BoundPlayerID);
-        ChangeToShipSelection();
+        ChangeToAssigned(playerArgs);
     }
 
     public void UnBindPlayer()
@@ -91,22 +141,58 @@ public class GamePlayer : MonoBehaviour
         ChangeToUnassigned();
     }
 
-    private void ChangeToUnassigned()
+    public void ChangeToAssigned(PlayerManager.PlayerArgs playerArgs)
+    {
+        this.playerState = PlayerState.Assigned;
+        playerUIManager.ChangeToAssigned(playerArgs);
+        ColorID = battleManagerRef.GetFirstAvailableColour();
+    }
+
+    public void ChangeToEndOfBattle()
+    {
+        this.CancelInvoke("ChangeToPlaying");
+        this.playerState = PlayerState.EndOfBattle;
+        this.RemoveShip();
+        playerUIManager.ChangeToEndOfBattle();
+    }
+
+    public void ChangeToUnassigned()
     {
         this.playerState = PlayerState.Unassigned;
+
+        if (this.HasPlayer)
+        {
+            this.ResetValues();
+            if (this.isAI)
+            {
+                this.UnBindAI();
+            }
+            else
+            {
+                this.UnBindPlayer();
+            }
+            this.onAddKill -= battleManagerRef.OnShipKilled;
+        }
+
         playerUIManager.ChangeToUnassigned();
     }
 
-    private void ChangeToWaiting()
+    public void ChangeToWaiting()
     {
         this.playerState = PlayerState.Waiting;
         playerUIManager.ChangeToWaiting();
     }
 
-    private void ChangeToShipSelection()
+    public void ChangeToShipSelection()
     {
         this.playerState = PlayerState.SelectingShip;
         playerUIManager.ChangeToShipSelection();
+
+        if (ai)
+        {
+            //TODO Add Ship Selection Coroutine
+            Invoke("ChangeToPlaying", UnityEngine.Random.Range(4, 10));
+        }
     }
 
     private void ChangeToPlaying()
@@ -114,6 +200,12 @@ public class GamePlayer : MonoBehaviour
         AddShip(currentlySelectedShip, ai);
         this.playerState = PlayerState.Playing;
         playerUIManager.ChangeToPlaying();
+    }
+
+    private void ChangeToDead()
+    {
+        this.playerState = PlayerState.Dead;
+        playerUIManager.ChangeToDead();
     }
 
     public void AddGold(int gold)
@@ -127,6 +219,9 @@ public class GamePlayer : MonoBehaviour
         switch (playerState)
         {
             case PlayerState.Unassigned:
+                break;
+            case PlayerState.Assigned:
+                AssignedUpdate();
                 break;
             case PlayerState.Waiting:
                 break;
@@ -142,33 +237,98 @@ public class GamePlayer : MonoBehaviour
 
     private void SelectingShipUpdate()
     {
-        if(playerRef.GetButtonDown("Left"))
+        if(isAI)
         {
-            currentlySelectedShip--;
-            if ((int)currentlySelectedShip < 0)
-            {
-                currentlySelectedShip = (CastleShip.CastleShipType)2;
-            }
-            onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
+
         }
-        else if (playerRef.GetButtonDown("Right"))
+        else
         {
-            currentlySelectedShip++;
-            if ((int)currentlySelectedShip >= 3)
+            if (playerRef.GetButtonDown("Left"))
             {
-                currentlySelectedShip = 0;
+                currentlySelectedShip--;
+                if ((int)currentlySelectedShip < 0)
+                {
+                    currentlySelectedShip = (CastleShip.CastleShipType)2;
+                }
+                onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
             }
-            onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
-        }else if(playerRef.GetButtonDown("Accept"))
-        {
-            ChangeToPlaying();
+            else if (playerRef.GetButtonDown("Right"))
+            {
+                currentlySelectedShip++;
+                if ((int)currentlySelectedShip >= 3)
+                {
+                    currentlySelectedShip = 0;
+                }
+                onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
+            }
+            else if (playerRef.GetButtonDown("Accept"))
+            {
+                ChangeToPlaying();
+            }
         }
+    }
+
+    private void AssignedUpdate()
+    {
+        if (ai)
+        {
+
+        }
+        else
+        {
+            if (playerRef.GetButtonDown("Left"))
+            {
+                this.ColorID = battleManagerRef.GetNextColor(this.ColorID, -1);
+            }
+            if (playerRef.GetButtonDown("Right"))
+            {
+                this.ColorID = battleManagerRef.GetNextColor(this.ColorID, 1);
+            }
+
+            if(battleManagerRef.MatchInProgress)
+            {
+                if (playerRef.GetButtonDown("Accept"))
+                {
+                    this.ChangeToShipSelection();
+                }
+            }
+        }
+    }
+
+    public void SetUsingLives(bool useLives)
+    {
+        this.useLives = useLives;
+        onUseLivesChanged?.Invoke(this.useLives);
+    }
+
+    public void SetMaxLives(int maxLives)
+    {
+        this.maxLives = maxLives;
+    }
+
+    public void SetLivesToMax()
+    {
+        this.lives = this.maxLives;
+        onLivesChanged?.Invoke(Lives);
     }
 
     private void AddKill(int newKills)
     {
         this.kills += newKills;
         onKillsChanged?.Invoke(kills);
+        onAddKill?.Invoke(this);
+    }
+
+    private void AddLife(int livesToAdd)
+    {
+        lives += livesToAdd;
+        onLivesChanged?.Invoke(Lives);
+    }
+
+    private void RemoveLife(int livesToRemove)
+    {
+        lives -= livesToRemove;
+        onLivesChanged?.Invoke(Lives);
     }
 
     private void AddShip(CastleShip.CastleShipType castleShipType, bool ai = false)
@@ -180,13 +340,22 @@ public class GamePlayer : MonoBehaviour
         castleShip = battleManagerRef.SpawnShip(castleShipType, this.BoundPlayerID, this.spawnPosition, ai);
         CastleShip.OnGoldChanged += AddGold;
         CastleShip.OnKill += AddKill;
-        CastleShip.SetColourMaterial(this.playerColour);
+        CastleShip.SetColourMaterial(this.PlayerColour);
         playerUIManager.ConnectToCastleShip(CastleShip);
         CastleShip.DamageableRef.OnDeath.AddListener(OnShipDie);
+        anchoredJoint.connectedBody = CastleShip.RigidbodyRef;
     }
     private void RemoveShip()
     {
-        GameObject.Destroy(CastleShip.gameObject);
+        if(CastleShip!=null)
+        {
+            GameObject.Destroy(CastleShip.gameObject);
+        }
+    }
+
+    public void ChangeKingStatus(bool value)
+    {
+        OnKingStatusChanged?.Invoke(value);
     }
 
     private void OnShipDie()
@@ -201,8 +370,8 @@ public class GamePlayer : MonoBehaviour
         Vector3 scale = this.transform.localScale;
         float timer = 0;
 
-        Time.timeScale = 0.3f;
-        while(timer < 2)
+        Time.timeScale = 0.5f;
+        while(timer < 1)
         {
             timer += Time.unscaledDeltaTime;
 
@@ -215,13 +384,38 @@ public class GamePlayer : MonoBehaviour
         Time.timeScale = 1f;
 
         RemoveShip();
-        if(ai)
+
+        RemoveLife(1);
+        if (useLives && Lives < 0)
         {
-            ChangeToPlaying();
+            this.ChangeToDead();
         }
         else
         {
             ChangeToShipSelection();
         }
+
+        battleManagerRef.OnShipDeath(this);
+    }
+
+    public void ResetValues()
+    {
+        this.kills = 0;
+        this.onKillsChanged(0);
+        this.gold = 0;
+        this.onGoldChanged(0);
+        SetLivesToMax();
+    }
+
+    public void BindAI()
+    {
+        this.ai = true;
+        this.HasPlayer = true;
+    }
+    public void UnBindAI()
+    {
+        this.ai = false;
+        this.HasPlayer = false;
+        this.RemoveShip();
     }
 }

@@ -11,7 +11,19 @@ public class PlayerManager : MonoSingleton<PlayerManager>
     public PlayerEvent OnPlayerJoined;
     public PlayerEvent OnPlayerDismissed;
 
-    private HashSet<int> joinedPlayerIds = new HashSet<int>();
+    public Player MainPlayer
+    {
+        get
+        {
+            if(joinedPlayerIds.Count > 0)
+            {
+                return ReInput.players.GetPlayer(joinedPlayerIds[0]);
+            }
+            return null;
+        }
+    }
+
+    private List<int> joinedPlayerIds = new List<int>();
 
     private int[] playerIdArr;
     private int[] PlayerIdArr
@@ -42,6 +54,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
                 if (ReInput.players.GetPlayer(PlayerIdArr[i]).GetButtonDown("Start"))
                 {
                     JoinPlayer(i);
+                    return;
                 }
             }
         }
@@ -66,6 +79,15 @@ public class PlayerManager : MonoSingleton<PlayerManager>
             joinedPlayerIds.Remove(playerId);
             OnPlayerDismissed?.Invoke(new PlayerArgs(playerId));
         }
+    }
+
+    public void ResetPlayerManager()
+    {
+        joinedPlayerIds.Clear();
+        //for (int i = 0; i < PlayerIdArr.Length; i++)
+        //{
+        //    DismissPlayer(PlayerIdArr[i]);
+        //}
     }
 
     [Serializable]

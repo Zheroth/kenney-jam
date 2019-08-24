@@ -34,11 +34,11 @@ public class BallistaArrow : MonoBehaviour
         Damageable damageable;
         if(other.gameObject.TryGetComponent<Damageable>(out damageable))
         {
-            if(other.gameObject == castleShip.gameObject)
+            if(castleShip != null && other.gameObject == castleShip.gameObject)
             {
                 return;
             }
-            damageable.TakeDamage(damage, () => castleShip.AddKills(1));
+            damageable.TakeDamage(damage, () => castleShip?.AddKills(1));
             Remove();
         }
     }

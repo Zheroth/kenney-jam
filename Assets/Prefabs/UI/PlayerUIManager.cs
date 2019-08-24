@@ -1,18 +1,51 @@
-﻿using System.Collections;
+﻿using Rewired;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerUIManager : MonoBehaviour
 {
+    // SETUP
+    [SerializeField]
+    private GameObject assignedUIGroup;
+    [SerializeField]
+    private GameObject controller;
+    [SerializeField]
+    private Image controllerImage;
+    [SerializeField]
+    private GameObject keyboard;
+    [SerializeField]
+    private Image keyboardImage;
+
+    // GAMEPLAYER INFO
+    [SerializeField]
+    private GameObject gameplayerInfoUIGroup;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI goldText;
+    [SerializeField]
+    private Animator coinAnimator;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI killCount;
+    [SerializeField]
+    private Image king;
+    [SerializeField]
+    private GameObject kingGO;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI livesText;
+    [SerializeField]
+    private GameObject livesGo;
+
     // UNASSIGNED
     [SerializeField]
     private GameObject unassignedUIGroup;
 
-    /// WAITING
+    // WAITING
     [SerializeField]
     private GameObject waitingUIGroup;
 
-    /// PLAYING
+    // PLAYING
     [SerializeField]
     private GameObject playingUIGroup;
     [SerializeField]
@@ -20,11 +53,14 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI healthPercentage;
     [SerializeField]
-    private TMPro.TextMeshProUGUI goldText;
+    private UICombinedFilledImage barFilledImage;
+
+
+    // END OF BATTLE
     [SerializeField]
-    private Animator coinAnimator;
+    GameObject endOfBattleGO;
     [SerializeField]
-    private TMPro.TextMeshProUGUI killCount;
+    Image endOfBattleFlag;
 
     // SELECTING SHIP
     [SerializeField]
@@ -34,18 +70,27 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField]
     private UnityEngine.UI.Image shipImage;
 
+    // DEAD
+    [SerializeField]
+    private GameObject deadGO;
+
     private void Start()
     {
         SetHealthPer(1);
         OnGoldChanged(0);
         OnKillsChanged(0);
+        OnLivesChanged(3);
     }
 
-    public void ConnectToGamePlayer(GamePlayer humanPlayer)
+    public void ConnectToGamePlayer(GamePlayer gamePlayer)
     {
-        humanPlayer.onGoldChanged += OnGoldChanged;
-        humanPlayer.onShipChanged += OnShipSelectionChanged;
-        humanPlayer.onKillsChanged += OnKillsChanged;
+        gamePlayer.onGoldChanged += OnGoldChanged;
+        gamePlayer.onShipChanged += OnShipSelectionChanged;
+        gamePlayer.onKillsChanged += OnKillsChanged;
+        gamePlayer.onColourChanged += OnColourChanged;
+        gamePlayer.OnKingStatusChanged += OnKingStatusChanged;
+        gamePlayer.onLivesChanged += OnLivesChanged;
+        gamePlayer.onUseLivesChanged += OnUseLivesChanged;
     }
 
     public void ConnectToCastleShip(CastleShip castleShip)
@@ -60,7 +105,7 @@ public class PlayerUIManager : MonoBehaviour
     private void SetHealthPer(float healthPer)
     {
         healthBarImage.SetFillAmount(healthPer);
-        healthPercentage.text = ((int)(healthPer*100)).ToString();
+        healthPercentage.text = ((int)(healthPer * 100)).ToString();
     }
 
     private void OnHPChanged(int currentHealth, int maxHealth, float hpPercentage)
@@ -74,6 +119,16 @@ public class PlayerUIManager : MonoBehaviour
         coinAnimator.SetTrigger("Get");
     }
 
+    private void OnLivesChanged(int lives)
+    {
+        livesText.text = lives.ToString();
+    }
+
+    private void OnUseLivesChanged(bool useLives)
+    {
+        livesGo.SetActive(useLives);
+    }
+
     private void OnShipSelectionChanged(CastleShip ship)
     {
         this.shipImage.sprite = ship.Image;
@@ -85,35 +140,85 @@ public class PlayerUIManager : MonoBehaviour
         this.killCount.text = killCount.ToString();
     }
 
-    public void ChangeToUnassigned()
+    private void OnColourChanged(Color colour)
     {
+        this.shipImage.color = colour;
+        this.controllerImage.color = colour;
+        this.keyboardImage.color = colour;
+        this.barFilledImage.SetColor(colour);
+        this.king.color = colour;
+        this.endOfBattleFlag.color = colour;
+    }
+
+    private void OnKingStatusChanged(bool value)
+    {
+        this.kingGO.SetActive(value);
+    }
+
+    void TurnAllOff()
+    {
+        this.gameplayerInfoUIGroup.SetActive(false);
+        this.assignedUIGroup.SetActive(false);
         this.waitingUIGroup.SetActive(false);
         this.playingUIGroup.SetActive(false);
         this.selectingShipUIGroup.SetActive(false);
+        this.unassignedUIGroup.SetActive(false);
+        this.endOfBattleGO.SetActive(false);
+        this.deadGO.SetActive(false);
+    }
+
+    public void ChangeToAssigned(PlayerManager.PlayerArgs playerArgs)
+    {
+        TurnAllOff();
+        if (ReInput.players.GetPlayer(playerArgs.PlayerId).controllers.GetLastActiveController().type == ControllerType.Joystick)
+        {
+            this.controller.SetActive(true);
+            this.keyboard.SetActive(false);
+        }
+        else if (ReInput.players.GetPlayer(playerArgs.PlayerId).controllers.GetLastActiveController().type == ControllerType.Mouse 
+            || ReInput.players.GetPlayer(playerArgs.PlayerId).controllers.GetLastActiveController().type == ControllerType.Keyboard)
+        {
+            this.controller.SetActive(false);
+            this.keyboard.SetActive(true);
+        }
+        this.assignedUIGroup.SetActive(true);
+    }
+
+    public void ChangeToUnassigned()
+    {
+        TurnAllOff();
         this.unassignedUIGroup.SetActive(true);
     }
 
     public void ChangeToWaiting()
     {
+        TurnAllOff();
         this.waitingUIGroup.SetActive(true);
-        this.playingUIGroup.SetActive(false);
-        this.selectingShipUIGroup.SetActive(false);
-        this.unassignedUIGroup.SetActive(false);
     }
 
     public void ChangeToPlaying()
     {
-        this.waitingUIGroup.SetActive(false);
+        TurnAllOff();
         this.playingUIGroup.SetActive(true);
-        this.selectingShipUIGroup.SetActive(false);
-        this.unassignedUIGroup.SetActive(false);
+        this.gameplayerInfoUIGroup.SetActive(true);
     }
 
     public void ChangeToShipSelection()
     {
-        this.waitingUIGroup.SetActive(false);
-        this.playingUIGroup.SetActive(false);
+        TurnAllOff();
         this.selectingShipUIGroup.SetActive(true);
-        this.unassignedUIGroup.SetActive(false);
+        this.gameplayerInfoUIGroup.SetActive(true);
+    }
+
+    public void ChangeToEndOfBattle()
+    {
+        TurnAllOff();
+        this.endOfBattleGO.SetActive(true);
+    }
+
+    public void ChangeToDead()
+    {
+        TurnAllOff();
+        this.deadGO.SetActive(true);
     }
 }
