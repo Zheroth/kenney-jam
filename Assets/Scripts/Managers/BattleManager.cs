@@ -6,6 +6,11 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour
 {
     [SerializeField]
+    private MainMenuUIManager setupMenu;
+    [SerializeField]
+    private EndMenuUIManager endMenu;
+
+    [SerializeField]
     private Color[] playerUsableColours;
     private List<PlayerColor> colours;
 
@@ -58,6 +63,10 @@ public class BattleManager : MonoBehaviour
             currentKing = value;
             value.ChangeKingStatus(true);
             castleBG.SetColour(value.PlayerColour);
+            if(gameMode == GameMode.KillCount && value.Kills >= killCount)
+            {
+                this.ChangeToEndMatch();
+            }
         }
     }
 
@@ -160,6 +169,11 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        ChangeToSetup();
+    }
+
     public CastleShip SpawnShip(CastleShip.CastleShipType shipType, int playerId, Transform spawnTransform, bool ai = false)
     {
         GameObject newShip = ai ? Instantiate(AIShipDict[shipType], spawnTransform) : Instantiate(ShipDict[shipType], spawnTransform);
@@ -181,7 +195,6 @@ public class BattleManager : MonoBehaviour
         if(currentKing == null)
         {
             CurrentKing = killer;
-
         }
         else
         {
@@ -276,9 +289,25 @@ public class BattleManager : MonoBehaviour
         OnBotCountChanged?.Invoke(botsCount);
     }
 
-    public void StartMatch()
+    public void ChangeToSetup()
     {
-        if(bots)
+        endMenu.Close();
+        setupMenu.Open();
+        for (int i = 0; i < gamePlayers.Count; i++)
+        {
+            GamePlayer selGamePlayer = gamePlayers[i];
+            if (selGamePlayer.HasPlayer)
+            {
+                selGamePlayer.onAddKill -= this.OnShipKilled;
+            }
+        }
+    }
+
+    public void ChangeToStartMatch()
+    {
+        endMenu.Close();
+        setupMenu.Close();
+        if (bots)
         {
             int filledWithBots = 0;
             for (int i = 0; i < gamePlayers.Count && filledWithBots < botsCount; i++)
@@ -306,6 +335,19 @@ public class BattleManager : MonoBehaviour
             }
         }
         this.gameState = GameState.Playing;
+    }
+
+    public void ChangeToEndMatch()
+    {
+        setupMenu.Close();
+        endMenu.Open();
+        for (int i = 0; i < gamePlayers.Count; i++)
+        {
+            gamePlayers[i].ChangeToEndOfBattle();
+        }
+
+        endMenu.Populate(CurrentKing, gamePlayers);
+        this.gameState = GameState.Finished;
     }
 
     public int GetNextColor(int index, int direction)

@@ -1,4 +1,5 @@
 ﻿using Rewired;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,6 +50,12 @@ public class PlayerUIManager : MonoBehaviour
     private Image king;
     [SerializeField]
     private GameObject kingGO;
+
+    // END OF BATTLE
+    [SerializeField]
+    GameObject endOfBattleGO;
+    [SerializeField]
+    Image endOfBattleFlag;
 
     // SELECTING SHIP
     [SerializeField]
@@ -118,6 +125,7 @@ public class PlayerUIManager : MonoBehaviour
         this.keyboardImage.color = colour;
         this.barFilledImage.SetColor(colour);
         this.king.color = colour;
+        this.endOfBattleFlag.color = colour;
     }
 
     private void OnKingStatusChanged(bool value)
@@ -133,6 +141,7 @@ public class PlayerUIManager : MonoBehaviour
         this.playingUIGroup.SetActive(false);
         this.selectingShipUIGroup.SetActive(false);
         this.unassignedUIGroup.SetActive(false);
+        this.endOfBattleGO.SetActive(false);
     }
 
     public void ChangeToAssigned(PlayerManager.PlayerArgs playerArgs)
@@ -176,5 +185,11 @@ public class PlayerUIManager : MonoBehaviour
         TurnAllOff();
         this.selectingShipUIGroup.SetActive(true);
         this.gameplayerInfoUIGroup.SetActive(true);
+    }
+
+    public void ChangeToEndOfBattle()
+    {
+        TurnAllOff();
+        this.endOfBattleGO.SetActive(true);
     }
 }

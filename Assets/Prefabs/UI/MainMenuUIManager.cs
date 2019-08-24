@@ -224,7 +224,16 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void StartMatch()
     {
+        this.battleManager.ChangeToStartMatch();
+    }
+
+    public void Open()
+    {
+        this.gameObject.SetActive(true);
+    }
+
+    public void Close()
+    {
         this.gameObject.SetActive(false);
-        this.battleManager.StartMatch();
     }
 }
