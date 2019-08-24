@@ -28,6 +28,10 @@ public class BattleManager : MonoBehaviour
         KillCount
     }
     private GameMode gameMode;
+    public GameMode CurrentGameMode
+    {
+        get { return gameMode; }
+    }
     public Action<GameMode> OnGameModeChanged;
     private int lives = 3;
     public Action<int> OnLivesChanged;
@@ -172,6 +176,7 @@ public class BattleManager : MonoBehaviour
     private void Start()
     {
         ChangeToSetup();
+        GameModeChanged();
     }
 
     public CastleShip SpawnShip(CastleShip.CastleShipType shipType, int playerId, Transform spawnTransform, bool ai = false)
@@ -188,6 +193,28 @@ public class BattleManager : MonoBehaviour
     public CastleShip GetShip(CastleShip.CastleShipType shipType)
     {
         return ShipDict[shipType].GetComponent<CastleShip>();
+    }
+
+    public void OnShipDeath(GamePlayer killed)
+    {
+        GamePlayer survivor = null;
+        for (int i = 0; i < gamePlayers.Count; i++)
+        {
+            if(!gamePlayers[i].IsDead)
+            {
+                if(survivor == null)
+                {
+                    survivor = gamePlayers[i];
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+
+        CurrentKing = survivor;
+        ChangeToEndMatch();
     }
 
     public void OnShipKilled(GamePlayer killer)
@@ -208,14 +235,39 @@ public class BattleManager : MonoBehaviour
     public void IncreaseGameMode()
     {
         gameMode = gameMode.Next();
+        GameModeChanged();
         OnGameModeChanged?.Invoke(gameMode);
     }
     public void DecreaseGameMode()
     {
         gameMode = gameMode.Previous();
+        GameModeChanged();
         OnGameModeChanged?.Invoke(gameMode);
     }
 
+    public void GameModeChanged()
+    {
+        for (int i = 0; i < gamePlayers.Count; i++)
+        {
+            GamePlayer selGamePlayer = gamePlayers[i];
+            if (gameMode == GameMode.Deathmatch)
+            {
+                selGamePlayer.SetUsingLives(true);
+            }
+            else
+            {
+                selGamePlayer.SetUsingLives(false);
+            }
+        }
+    }
+
+    public void SetGamePlayerLives()
+    {
+        for (int i = 0; i < gamePlayers.Count; i++)
+        {
+            gamePlayers[i].SetMaxLives(this.lives);
+        }
+    }
     public void IncreaseLives()
     {
         lives++;
@@ -223,6 +275,7 @@ public class BattleManager : MonoBehaviour
         {
             lives = 1;
         }
+        SetGamePlayerLives();
         OnLivesChanged?.Invoke(lives);
     }
     public void DecreaseLives()
@@ -232,6 +285,7 @@ public class BattleManager : MonoBehaviour
         {
             lives = 20;
         }
+        SetGamePlayerLives();
         OnLivesChanged?.Invoke(lives);
     }
 

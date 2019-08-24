@@ -32,10 +32,16 @@ public class GamePlayer : MonoBehaviour
         private set;
     }
 
+    public bool IsDead { get { return playerState == PlayerState.Dead; }}
+
+    private bool useLives = false;
+    private int maxLives = 3;
     private int lives = 3;
     public int Lives { get { return lives; } }
     public delegate void OnLivesChanged(int lives);
     public OnLivesChanged onLivesChanged;
+    public delegate void OnUseLivesChanged(bool useLives);
+    public OnUseLivesChanged onUseLivesChanged;
 
     private int gold = 0;
     public int Gold { get { return gold; } }
@@ -82,7 +88,7 @@ public class GamePlayer : MonoBehaviour
     [SerializeField]
     private PlayerUIManager playerUIManager;
 
-    enum PlayerState { Unassigned, Assigned, Waiting, SelectingShip, Playing, EndOfBattle }
+    enum PlayerState { Unassigned, Assigned, Waiting, SelectingShip, Playing, EndOfBattle, Dead }
     PlayerState playerState = PlayerState.Unassigned;
 
     private CastleShip.CastleShipType currentlySelectedShip = CastleShip.CastleShipType.Assaulter;
@@ -114,7 +120,7 @@ public class GamePlayer : MonoBehaviour
         get;
         private set;
     }
-    
+
     public void SetColour(int colour)
     {
         this.ColorID = colour;
@@ -194,6 +200,12 @@ public class GamePlayer : MonoBehaviour
         AddShip(currentlySelectedShip, ai);
         this.playerState = PlayerState.Playing;
         playerUIManager.ChangeToPlaying();
+    }
+
+    private void ChangeToDead()
+    {
+        this.playerState = PlayerState.Dead;
+        playerUIManager.ChangeToDead();
     }
 
     public void AddGold(int gold)
@@ -283,6 +295,23 @@ public class GamePlayer : MonoBehaviour
         }
     }
 
+    public void SetUsingLives(bool useLives)
+    {
+        this.useLives = useLives;
+        onUseLivesChanged?.Invoke(this.useLives);
+    }
+
+    public void SetMaxLives(int maxLives)
+    {
+        this.maxLives = maxLives;
+    }
+
+    public void SetLivesToMax()
+    {
+        this.lives = this.maxLives;
+        onLivesChanged?.Invoke(Lives);
+    }
+
     private void AddKill(int newKills)
     {
         this.kills += newKills;
@@ -356,7 +385,17 @@ public class GamePlayer : MonoBehaviour
 
         RemoveShip();
 
-        ChangeToShipSelection();
+        RemoveLife(1);
+        if (useLives && Lives < 0)
+        {
+            this.ChangeToDead();
+        }
+        else
+        {
+            ChangeToShipSelection();
+        }
+
+        battleManagerRef.OnShipDeath(this);
     }
 
     public void ResetValues()
@@ -365,6 +404,7 @@ public class GamePlayer : MonoBehaviour
         this.onKillsChanged(0);
         this.gold = 0;
         this.onGoldChanged(0);
+        SetLivesToMax();
     }
 
     public void BindAI()

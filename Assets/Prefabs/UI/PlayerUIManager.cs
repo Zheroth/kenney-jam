@@ -22,6 +22,20 @@ public class PlayerUIManager : MonoBehaviour
     // GAMEPLAYER INFO
     [SerializeField]
     private GameObject gameplayerInfoUIGroup;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI goldText;
+    [SerializeField]
+    private Animator coinAnimator;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI killCount;
+    [SerializeField]
+    private Image king;
+    [SerializeField]
+    private GameObject kingGO;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI livesText;
+    [SerializeField]
+    private GameObject livesGo;
 
     // UNASSIGNED
     [SerializeField]
@@ -39,17 +53,8 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI healthPercentage;
     [SerializeField]
-    private TMPro.TextMeshProUGUI goldText;
-    [SerializeField]
-    private Animator coinAnimator;
-    [SerializeField]
-    private TMPro.TextMeshProUGUI killCount;
-    [SerializeField]
     private UICombinedFilledImage barFilledImage;
-    [SerializeField]
-    private Image king;
-    [SerializeField]
-    private GameObject kingGO;
+
 
     // END OF BATTLE
     [SerializeField]
@@ -65,11 +70,16 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField]
     private UnityEngine.UI.Image shipImage;
 
+    // DEAD
+    [SerializeField]
+    private GameObject deadGO;
+
     private void Start()
     {
         SetHealthPer(1);
         OnGoldChanged(0);
         OnKillsChanged(0);
+        OnLivesChanged(3);
     }
 
     public void ConnectToGamePlayer(GamePlayer gamePlayer)
@@ -79,6 +89,8 @@ public class PlayerUIManager : MonoBehaviour
         gamePlayer.onKillsChanged += OnKillsChanged;
         gamePlayer.onColourChanged += OnColourChanged;
         gamePlayer.OnKingStatusChanged += OnKingStatusChanged;
+        gamePlayer.onLivesChanged += OnLivesChanged;
+        gamePlayer.onUseLivesChanged += OnUseLivesChanged;
     }
 
     public void ConnectToCastleShip(CastleShip castleShip)
@@ -105,6 +117,16 @@ public class PlayerUIManager : MonoBehaviour
     {
         goldText.text = gold.ToString();
         coinAnimator.SetTrigger("Get");
+    }
+
+    private void OnLivesChanged(int lives)
+    {
+        livesText.text = lives.ToString();
+    }
+
+    private void OnUseLivesChanged(bool useLives)
+    {
+        livesGo.SetActive(useLives);
     }
 
     private void OnShipSelectionChanged(CastleShip ship)
@@ -142,6 +164,7 @@ public class PlayerUIManager : MonoBehaviour
         this.selectingShipUIGroup.SetActive(false);
         this.unassignedUIGroup.SetActive(false);
         this.endOfBattleGO.SetActive(false);
+        this.deadGO.SetActive(false);
     }
 
     public void ChangeToAssigned(PlayerManager.PlayerArgs playerArgs)
@@ -191,5 +214,11 @@ public class PlayerUIManager : MonoBehaviour
     {
         TurnAllOff();
         this.endOfBattleGO.SetActive(true);
+    }
+
+    public void ChangeToDead()
+    {
+        TurnAllOff();
+        this.deadGO.SetActive(true);
     }
 }
