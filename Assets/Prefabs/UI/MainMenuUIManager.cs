@@ -14,7 +14,7 @@ public class MainMenuUIManager : MonoBehaviour
         {
             if (playerRef == null)
             {
-                playerRef = ReInput.players.GetPlayer(1);
+                playerRef = PlayerManager.Instance.MainPlayer;
             }
             return playerRef;
         }
