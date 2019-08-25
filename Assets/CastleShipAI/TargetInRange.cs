@@ -23,10 +23,12 @@ public class TargetInRange : Conditional
 
         float distance = Vector3.Distance(this.castleShip.Value.transform.position, this.target.Value.position);
 
-        if(distance < range.Value)
-        {
-            return TaskStatus.Success;
-        }
-        return TaskStatus.Failure;
+        return TaskStatus.Success;
+
+        //if (distance < range.Value)
+        //{
+        //    return TaskStatus.Success;
+        //}
+        //return TaskStatus.Failure;
     }
 }
