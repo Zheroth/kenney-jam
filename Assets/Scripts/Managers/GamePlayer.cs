@@ -276,11 +276,11 @@ public class GamePlayer : MonoBehaviour
         }
         else
         {
-            if (playerRef.GetButtonDown("Left"))
+            if (playerRef.GetButtonDown("ColourCycleLeft"))
             {
                 this.ColorID = battleManagerRef.GetNextColor(this.ColorID, -1);
             }
-            if (playerRef.GetButtonDown("Right"))
+            if (playerRef.GetButtonDown("ColourCycleRight"))
             {
                 this.ColorID = battleManagerRef.GetNextColor(this.ColorID, 1);
             }
