@@ -60,7 +60,12 @@ public class PlayerControlled : MonoBehaviour
         CastleShipRef.SetCurrentThrust(0.0f);
         if (moveVector.z > deadZone)
         {
-            CastleShipRef.SetCurrentThrust(moveVector.z * CastleShipRef.forwardAcceleration);
+            float sprintMultiplier = 1;
+            if (playerRef.GetButton("Sprint"))
+            {
+                sprintMultiplier = CastleShipRef.GetSprintMultiplier();
+            }
+            CastleShipRef.SetCurrentThrust(moveVector.z * sprintMultiplier * CastleShipRef.forwardAcceleration);
         }else if (moveVector.z < deadZone)
         {
             CastleShipRef.SetCurrentThrust(moveVector.z * CastleShipRef.backwardAcceleration);

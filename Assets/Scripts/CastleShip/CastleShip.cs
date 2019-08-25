@@ -35,8 +35,20 @@ public class CastleShip : MonoBehaviour
     private float currentTurn = 0.0f;
     private float currentSideThurst = 0.0f;
 
-    private float thrustModifier = 1.0f;
+    private float ThrustModifier
+    {
+        get
+        {
+            float modifier = 1;
+            for (int i = 0; i < speedModifiers.Count; i++)
+            {
+                modifier = speedModifiers[i].ModifySpeed(modifier);
+            }
+            return modifier;
+        }
+    }
 
+    private List<SpeedModifier> speedModifiers = new List<SpeedModifier>();
     private List<Modifier> modifierList = new List<Modifier>();
 
     private Rigidbody rigidbodyRef;
@@ -51,6 +63,15 @@ public class CastleShip : MonoBehaviour
 
             return rigidbodyRef;
         }
+    }
+
+    public void AddSpeedModifier(SpeedModifier speedModifier)
+    {
+        this.speedModifiers.Add(speedModifier);
+    }
+    public void RemoveSpeedModifier(SpeedModifier speedModifier)
+    {
+        this.speedModifiers.Remove(speedModifier);
     }
 
     public void AddKills(int kills)
@@ -70,6 +91,12 @@ public class CastleShip : MonoBehaviour
 
             return damageableRef;
         }
+    }
+
+    public float GetSprintMultiplier()
+    {
+        //TODO: Sprint bar
+        return 2;
     }
 
     [SerializeField]
@@ -116,7 +143,7 @@ public class CastleShip : MonoBehaviour
 
             if (Mathf.Abs(currentThrust) > 0)
             {
-                RigidbodyRef.AddForce(transform.forward * currentThrust * thrustModifier * Time.deltaTime);
+                RigidbodyRef.AddForce(transform.forward * currentThrust * ThrustModifier * Time.deltaTime);
             }
 
             if (Mathf.Abs(currentSideThurst) > 0)
@@ -165,7 +192,7 @@ public class CastleShip : MonoBehaviour
         SpeedPickup speedPickup;
         if (other.TryGetComponent<SpeedPickup>(out speedPickup))
         {
-            AddModifier(new SpeedModifier(), 8.0f);
+            AddModifier(new SpeedModifier(2, SpeedModifier.ModifierAddType.Multiply), 8.0f);
             GameObject.Destroy(speedPickup.gameObject);
             return;
         }
@@ -189,11 +216,6 @@ public class CastleShip : MonoBehaviour
     public void SetCurrentSideThrust(float newSideThrust)
     {
         currentSideThurst = newSideThrust;
-    }
-
-    public void SetCurrentThrustModifier(float newThrustModifier)
-    {
-        thrustModifier = newThrustModifier;
     }
 
     public void FireActionA()
