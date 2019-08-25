@@ -225,6 +225,7 @@ public class MainMenuUIManager : MonoBehaviour
     public void Open()
     {
         this.gameObject.SetActive(true);
+        Select(gameModeSelect);
     }
 
     public void Close()

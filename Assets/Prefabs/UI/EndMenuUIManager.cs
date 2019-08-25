@@ -13,11 +13,7 @@ public class EndMenuUIManager : MonoBehaviour
     {
         get
         {
-            if (playerRef == null)
-            {
-                playerRef = ReInput.players.GetPlayer(1);
-            }
-            return playerRef;
+            return PlayerManager.Instance.MainPlayer;
         }
     }
 

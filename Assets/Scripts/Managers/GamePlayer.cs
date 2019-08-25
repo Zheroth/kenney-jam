@@ -304,6 +304,7 @@ public class GamePlayer : MonoBehaviour
     public void SetMaxLives(int maxLives)
     {
         this.maxLives = maxLives;
+        SetLivesToMax();
     }
 
     public void SetLivesToMax()

@@ -200,7 +200,7 @@ public class BattleManager : MonoBehaviour
         GamePlayer survivor = null;
         for (int i = 0; i < gamePlayers.Count; i++)
         {
-            if(!gamePlayers[i].IsDead)
+            if(gamePlayers[i].HasPlayer && !gamePlayers[i].IsDead)
             {
                 if(survivor == null)
                 {
@@ -273,7 +273,7 @@ public class BattleManager : MonoBehaviour
         lives++;
         if (lives > 20)
         {
-            lives = 1;
+            lives = 0;
         }
         SetGamePlayerLives();
         OnLivesChanged?.Invoke(lives);
@@ -281,7 +281,7 @@ public class BattleManager : MonoBehaviour
     public void DecreaseLives()
     {
         lives--;
-        if(lives < 1)
+        if(lives < 0)
         {
             lives = 20;
         }
