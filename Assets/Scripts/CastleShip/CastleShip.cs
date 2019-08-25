@@ -273,8 +273,8 @@ public class CastleShip : MonoBehaviour
     public enum CastleShipType
     {
         Assaulter,
-        Tank,
-        Nimble
+        //Tank,
+        //Nimble
     }
 
     [System.Serializable]

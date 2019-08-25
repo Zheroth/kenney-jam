@@ -248,14 +248,14 @@ public class GamePlayer : MonoBehaviour
                 currentlySelectedShip--;
                 if ((int)currentlySelectedShip < 0)
                 {
-                    currentlySelectedShip = (CastleShip.CastleShipType)2;
+                    currentlySelectedShip = (CastleShip.CastleShipType)0;
                 }
                 onShipChanged(battleManagerRef.GetShip(currentlySelectedShip));
             }
             else if (playerRef.GetButtonDown("Right"))
             {
                 currentlySelectedShip++;
-                if ((int)currentlySelectedShip >= 3)
+                if ((int)currentlySelectedShip >= 1)
                 {
                     currentlySelectedShip = 0;
                 }
